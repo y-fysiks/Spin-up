@@ -62,6 +62,6 @@ bool skillsAuton = true;
 //------------------------------------------------------------------------------
 //debugging variables
 bool moveDrive = true;
-
+bool autonomousState = false;
 
 #endif // CONFIG_HPP
