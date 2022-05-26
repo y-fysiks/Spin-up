@@ -11,9 +11,11 @@
 #define lb_motor_port 2
 #define rb_motor_port 1
 #define conveyor_motor_port 5
-#define mogo_motor_port 20
+#define roller_flex_port 20
 #define lift_motor_port 6
 #define lift_motor_port_2 11
+//switch this if needed
+#define optical_port 19
 #define imu_port 10
 // ADI ports
 #define left_tracking_port_top 1
@@ -33,6 +35,9 @@ pros::Motor lf_motor(lf_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGRE
 pros::Motor rf_motor(rf_motor_port, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
 pros::Motor lb_motor(lb_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
 pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_18, true,MOTOR_ENCODER_DEGREES);
+pros::Optical color_sense(optical_port);
+//switch this to whatever cartridge we use in the end ok fam?
+pros::Motor spinner_motor(roller_flex_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 //Sensors
 pros::Imu imu(imu_port);
 //controller

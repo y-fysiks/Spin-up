@@ -69,8 +69,37 @@ void autonomous() {
 
 void opcontrol() {
 
+	//initialize controller, then set ground motor brakemode to coasting, meaning that it will inertially continue
+	pros::Controller master(pros::E_CONTROLLER_MASTER);
+	left_front_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	right_front_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	right_rear_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	left_rear_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	//I think this is the one that immidiatley stops the motor
+	spinner_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	while (true) {
-		
+		//get hue for color spinny thing
+		double hue = color_sense.get_hue();
+		double proximity = color_sense.get_proximity();
+		if(proximity >= 220){
+			//assuming team red for now, change later
+			//also for spinning, we need to place our optical sensor quite early to fight delay
+			if(isRed(hue)){
+				spinner_motor.move(0);
+			}
+			else{
+				spinner_motor.move(127);
+			}
+		}
+		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
+		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
+		int front_back = round(master.get_analog(ANALOG_RIGHT_Y));
+		int left_right = round(master.get_analog(ANALOG_RIGHT_X));
+		int turn = round(master.get_analog(ANALOG_LEFT_X));
+		left_front_mtr.move(front_back - left_right + turn);
+		left_rear_mtr.move(front_back + left_right  + turn);
+		right_front_mtr.move(front_back + left_right - turn);
+		right_rear_mtr.move(front_back - left_right - turn);
 		pros::delay(20);
 	}
 }
