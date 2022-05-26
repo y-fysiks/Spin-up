@@ -35,11 +35,10 @@ pros::Motor lf_motor(lf_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGRE
 pros::Motor rf_motor(rf_motor_port, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
 pros::Motor lb_motor(lb_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
 pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_18, true,MOTOR_ENCODER_DEGREES);
-pros::Optical color_sense(optical_port);
-//switch this to whatever cartridge we use in the end ok fam?
 pros::Motor spinner_motor(roller_flex_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 //Sensors
 pros::Imu imu(imu_port);
+pros::Optical color_sense(optical_port);
 //controller
 pros::Controller master(CONTROLLER_MASTER);
 //pneumatics
@@ -68,5 +67,6 @@ bool skillsAuton = true;
 //debugging variables
 bool moveDrive = true;
 bool autonomousState = false;
+bool red_team = true;
 
 #endif // CONFIG_HPP

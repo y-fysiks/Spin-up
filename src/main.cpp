@@ -82,13 +82,23 @@ void opcontrol() {
 		double hue = color_sense.get_hue();
 		double proximity = color_sense.get_proximity();
 		if(proximity >= 220){
-			//assuming team red for now, change later
 			//also for spinning, we need to place our optical sensor quite early to fight delay
-			if(isRed(hue)){
-				spinner_motor.move(0);
+			//conditionals for if robot is red team or not, check globals.hpp for this variable
+			if(red_team){
+				if(isRed(hue)){
+					spinner_motor.move(0);
+				}
+				else{
+					spinner_motor.move(127);
+				}
 			}
 			else{
-				spinner_motor.move(127);
+				if(isRed(hue)){
+					spinner_motor.move(127);
+				}
+				else{
+					spinner_motor.move(0);
+				}
 			}
 		}
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
