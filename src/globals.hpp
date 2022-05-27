@@ -64,7 +64,7 @@ double speedCap = 12000;
 bool skillsAuton = true;
 
 //------------------------------------------------------------------------------
-//debugging variables
+//other variables
 bool moveDrive = true;
 bool autonomousState = false;
 bool red_team = true;

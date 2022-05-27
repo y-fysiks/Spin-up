@@ -162,9 +162,3 @@ void translate(double x, double y, bool goHeading, bool reverseHeading, double d
     }
     return;
 }
-
-//is red method for color detection and rollers
-bool isRed(int hue) {
-    if (hue > 310 || hue < 120) return true;
-    return false;
-}
