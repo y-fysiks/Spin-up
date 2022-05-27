@@ -70,11 +70,10 @@ void autonomous() {
 void opcontrol() {
 
 	//initialize controller, then set ground motor brakemode to coasting, meaning that it will inertially continue
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	left_front_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	right_front_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	right_rear_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	left_rear_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	//I think this is the one that immidiatley stops the motor
 	spinner_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	while (true) {
@@ -106,10 +105,10 @@ void opcontrol() {
 		int front_back = round(master.get_analog(ANALOG_RIGHT_Y));
 		int left_right = round(master.get_analog(ANALOG_RIGHT_X));
 		int turn = round(master.get_analog(ANALOG_LEFT_X));
-		left_front_mtr.move(front_back - left_right + turn);
-		left_rear_mtr.move(front_back + left_right  + turn);
-		right_front_mtr.move(front_back + left_right - turn);
-		right_rear_mtr.move(front_back - left_right - turn);
+		lf_motor.move(front_back - left_right + turn);
+		lb_motor.move(front_back + left_right  + turn);
+		rf_motor.move(front_back + left_right - turn);
+		rb_motor.move(front_back - left_right - turn);
 		pros::delay(20);
 	}
 }
