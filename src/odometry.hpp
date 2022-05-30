@@ -61,8 +61,6 @@ void position_control() {
         greatapi::coord error(location, targetPos);
         pros::screen::print(TEXT_SMALL, 3, "X error: %.2f  Y error: %.2f", error.x, error.y);
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
-        pros::screen::print(TEXT_SMALL, 6, "Angle change: ", greatapi::SRAD(-1.0 * location.angle));
-        pros::screen::print(TEXT_SMALL, 7, "X error: %.2f  Y error: %.2f", error.x, error.y);
 
         double xMove = PIDX.update(error.x, 0);
         double yMove = PIDY.update(error.y, 0);
