@@ -51,6 +51,20 @@ namespace greatapi{
 
     };
 
+/* commented out because not implemented yet. 
+
+    //double inertial sensor system
+    struct DoubleIMU_odom_rotation : public odom_rotation{
+      pros::Imu Positive;
+      pros::Imu Negative;
+      DoubleIMU_odom_rotation(int pos, int neg):Positive(pos),Negative(neg),odom_rotation(){};
+
+      SRAD get_heading_raw(){
+        //put heading calcs here plz.
+      }
+    }; //To get angle, atan2 the raw X and Y values you get or something and add that to existing angle. Idk how u do this backwards for averaging tho.
+*/
+
     //ADI encoder(the big red ones) system
     struct TWheel_odom_rotation : public odom_rotation{
       TWheel* Left; //pointer for polymorphisism between ADI encoders and new V5 rotation sensor tracking wheels

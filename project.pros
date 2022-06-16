@@ -21,7 +21,7 @@
                 "version": "2.1.4"
             },
             "greatapi": {
-                "location": "C:\\Users\\yubo0\\AppData\\Roaming\\PROS\\templates\\greatapi@0.0.9",
+                "location": "C:\\Users\\yubo0\\AppData\\Roaming\\PROS\\templates\\greatapi@0.0.12",
                 "metadata": {
                     "origin": "local"
                 },
@@ -29,24 +29,24 @@
                 "py/object": "pros.conductor.templates.local_template.LocalTemplate",
                 "supported_kernels": "^3.5.4",
                 "system_files": [
+                    "include\\greatapi\\units\\coordinate\\position.hpp",
+                    "include\\greatapi\\units\\angle_units\\angle_diff.hpp",
+                    "include\\greatapi\\sensors\\twheel.hpp",
+                    "include\\greatapi\\units\\angle_units\\srad.hpp",
+                    "firmware\\greatapi.a",
+                    "include\\greatapi\\greatapi.hpp",
+                    "include\\greatapi\\odometry\\odometry.hpp",
+                    "include\\greatapi\\control_loops\\control_loops.hpp",
                     "include\\greatapi\\odometry\\rotation_odom.hpp",
                     "include\\greatapi\\units\\angle_units\\universal_angle.hpp",
                     "include\\greatapi\\basic_datatypes.hpp",
+                    "include\\greatapi\\units\\coordinate\\coord.hpp",
                     "include\\greatapi\\units\\universal_datatype.hpp",
-                    "include\\greatapi\\units\\angle_units\\angle_diff.hpp",
-                    "include\\greatapi\\units\\coordinate\\position.hpp",
-                    "include\\greatapi\\control_loops\\control_loops.hpp",
-                    "include\\greatapi\\sensors\\twheel.hpp",
-                    "include\\greatapi\\odometry\\odometry.hpp",
-                    "include\\greatapi\\greatapi.hpp",
-                    "include\\greatapi\\units\\angle_units\\srad.hpp",
-                    "include\\greatapi\\units\\distance_units\\universal_distance.hpp",
-                    "firmware\\greatapi.a",
-                    "include\\greatapi\\units\\coordinate\\coord.hpp"
+                    "include\\greatapi\\units\\distance_units\\universal_distance.hpp"
                 ],
                 "target": "v5",
                 "user_files": [],
-                "version": "0.0.9"
+                "version": "0.0.12"
             },
             "kernel": {
                 "location": "C:\\Users\\yubo0\\AppData\\Roaming\\PROS\\templates\\kernel@3.6.0",
