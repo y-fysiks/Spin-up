@@ -14,6 +14,8 @@
 #define roller_flex_port 20
 #define intake_port 6
 #define intake_port_2 11
+#define differential_1 7
+#define differential_2 8
 //switch this if needed
 #define optical_port 19
 #define imu_port 10
@@ -38,6 +40,8 @@ pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_18, true,MOTOR_ENCODER_DEGREES
 pros::Motor spinner_motor(roller_flex_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 pros::Motor intake_1(intake_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 pros::Motor intake_2(intake_port_2, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
+pros::Motor Differential_1(differential_1, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
+pros::Motor Differential_2(differential_2, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 //Sensors
 pros::Imu imu(imu_port);
 pros::Optical color_sense(optical_port);
