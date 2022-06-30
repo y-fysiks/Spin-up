@@ -14,8 +14,8 @@
 #define roller_flex_port 20
 #define intake_port 6
 #define intake_port_2 11
-#define differential_1 7
-#define differential_2 8
+#define differential_1 1
+#define differential_2 2
 //switch this if needed
 #define optical_port 19
 #define imu_port 10
