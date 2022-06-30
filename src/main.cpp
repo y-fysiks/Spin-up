@@ -81,6 +81,8 @@ void opcontrol() {
 	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	Differential_1.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	Differential_2.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	//I think this is the one that immidiatley stops the motor
 	spinner_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	//intake stuff
@@ -115,13 +117,20 @@ void opcontrol() {
 		}
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
 		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
-		int front_back = round(master.get_analog(ANALOG_RIGHT_Y));
+		/*int front_back = round(master.get_analog(ANALOG_RIGHT_Y));
 		int left_right = round(master.get_analog(ANALOG_RIGHT_X));
 		int turn = round(master.get_analog(ANALOG_LEFT_X));
 		lf_motor.move(front_back + left_right + turn);
 		rf_motor.move(front_back - left_right - turn);
 		lb_motor.move(front_back - left_right + turn);
-		rb_motor.move(front_back + left_right - turn);
+		rb_motor.move(front_back + left_right - turn);*/
+		//adding shit for flywheel n inshallah
+		int diff1 = round(master.get_analog(ANALOG_RIGHT_Y));
+		int diff2 = round(master.get_analog(ANALOG_LEFT_Y));
+		//tian, if they move in the opposite direction as intended, SWITCH 0.8 to -0.8,
+		//Also, motor speed is set to 80%, change it accordingly
+		Differential_1.move(diff1 * 0.8);
+		Differential_2.move(diff2 * 0.8);
 		pros::delay(20);
 	}
 }
