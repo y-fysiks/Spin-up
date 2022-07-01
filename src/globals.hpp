@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/motors.h"
 
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
@@ -40,8 +41,8 @@ pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_18, true,MOTOR_ENCODER_DEGREES
 pros::Motor spinner_motor(roller_flex_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 pros::Motor intake_1(intake_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 pros::Motor intake_2(intake_port_2, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
-pros::Motor Differential_1(differential_1, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
-pros::Motor Differential_2(differential_2, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
+pros::Motor Differential_1(differential_1, MOTOR_GEARSET_06, false, MOTOR_ENCODER_DEGREES);
+pros::Motor Differential_2(differential_2, MOTOR_GEARSET_06, false, MOTOR_ENCODER_DEGREES);
 //Sensors
 pros::Imu imu(imu_port);
 pros::Optical color_sense(optical_port);
