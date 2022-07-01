@@ -129,8 +129,8 @@ void opcontrol() {
 		int diff2 = round(master.get_analog(ANALOG_LEFT_Y));
 		//tian, if they move in the opposite direction as intended, SWITCH 0.8 to -0.8,
 		//Also, motor speed is set to 80%, change it accordingly
-		Differential_1.move(diff1 * 0.8);
-		Differential_2.move(diff2 * 0.8);
+		Differential_1.move_velocity(diff1 * 4);
+		Differential_2.move_velocity(diff2 * 4);
 		pros::delay(20);
 	}
 }
