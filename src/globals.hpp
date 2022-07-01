@@ -31,44 +31,44 @@
 //------------------------------------------------------------------------------
 //Global PROS objects and variables
 //Motors
-pros::Motor lf_motor(lf_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
-pros::Motor rf_motor(rf_motor_port, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
-pros::Motor lb_motor(lb_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
-pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_18, true,MOTOR_ENCODER_DEGREES);
-pros::Motor spinner_motor(roller_flex_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
-pros::Motor intake_1(intake_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
-pros::Motor intake_2(intake_port_2, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
+inline pros::Motor lf_motor(lf_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
+inline pros::Motor rf_motor(rf_motor_port, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
+inline pros::Motor lb_motor(lb_motor_port, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
+inline pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_18, true,MOTOR_ENCODER_DEGREES);
+inline pros::Motor spinner_motor(roller_flex_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
+inline pros::Motor intake_1(intake_port, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
+inline pros::Motor intake_2(intake_port_2, MOTOR_GEARSET_36, false, MOTOR_ENCODER_DEGREES);
 //Sensors
-pros::Imu imu(imu_port);
-pros::Optical color_sense(optical_port);
+inline pros::Imu imu(imu_port);
+inline pros::Optical color_sense(optical_port);
 //controller
-pros::Controller master(CONTROLLER_MASTER);
+inline pros::Controller master(CONTROLLER_MASTER);
 //pneumatics
 //autonomous state indicator
 
 //------------------------------------------------------------------------------
 //GREATAPI objects and variables
 //sensors
-greatapi::TWheel* right_encoder = new greatapi::TWheel_ADIEncoder(right_tracking_port_top, right_tracking_port_bottom, false, 2.75);
-greatapi::TWheel* left_encoder = new greatapi::TWheel_ADIEncoder(left_tracking_port_top, left_tracking_port_bottom, false, 2.75);
-greatapi::TWheel* rear_encoder = new greatapi::TWheel_ADIEncoder(rear_tracking_port_top, rear_tracking_port_bottom, false, 2.75);
+inline greatapi::TWheel* right_encoder = new greatapi::TWheel_ADIEncoder(right_tracking_port_top, right_tracking_port_bottom, false, 2.75);
+inline greatapi::TWheel* left_encoder = new greatapi::TWheel_ADIEncoder(left_tracking_port_top, left_tracking_port_bottom, false, 2.75);
+inline greatapi::TWheel* rear_encoder = new greatapi::TWheel_ADIEncoder(rear_tracking_port_top, rear_tracking_port_bottom, false, 2.75);
 //odometry object
-greatapi::odometry::TWheel_odom_rotation odomRotation = *new greatapi::odometry::TWheel_odom_rotation(left_encoder, right_encoder, WHEEL_DIST_LR);
-greatapi::odometry::odometry odom(rear_encoder, greatapi::inches(XWHEEL_DIST_CENTER), right_encoder, greatapi::inches(WHEEL_DIST_LR / 2.0), &odomRotation);
+inline greatapi::odometry::TWheel_odom_rotation odomRotation = *new greatapi::odometry::TWheel_odom_rotation(left_encoder, right_encoder, WHEEL_DIST_LR);
+inline greatapi::odometry::odometry odom(rear_encoder, greatapi::inches(XWHEEL_DIST_CENTER), right_encoder, greatapi::inches(WHEEL_DIST_LR / 2.0), &odomRotation);
 
 //global location object (VERY IMPORTANT!!!)
-greatapi::position location(greatapi::coord(0, 0), greatapi::SRAD());
+inline greatapi::position location(greatapi::coord(0, 0), greatapi::SRAD());
 //total position error
-double total_error = 0;
-double speedCap = 12000;
+inline double total_error = 0;
+inline double speedCap = 12000;
 
 //defines which auton to run
-bool skillsAuton = true;
+inline bool skillsAuton = true;
 
 //------------------------------------------------------------------------------
 //other variables
-bool moveDrive = true;
-bool autonomousState = false;
-bool red_team = true;
+inline bool moveDrive = true;
+inline bool autonomousState = false;
+inline bool red_team = true;
 
 #endif // CONFIG_HPP

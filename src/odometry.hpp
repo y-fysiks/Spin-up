@@ -2,13 +2,13 @@
 #include "globals.hpp"
 
 // this is the target position for the robot to try to reach
-greatapi::position targetPos(greatapi::coord(0, 0), greatapi::SRAD(0));
+inline greatapi::position targetPos(greatapi::coord(0, 0), greatapi::SRAD(0));
 
 /**
  * @brief odometry function
  * 
  */
-void odometryLooper() {
+inline void odometryLooper() {
     pros::screen::set_pen(COLOR_RED);
     right_encoder -> reset();
     left_encoder -> reset();
@@ -26,7 +26,7 @@ void odometryLooper() {
  * @brief function to be run in a task to move the robot the the target position
  * 
  */
-void position_control() {
+inline void position_control() {
     std::vector<greatapi::controlelement *> PIDXElements;
     //TODO TUNE PID FOR X
     greatapi::controlelement *PX = new greatapi::Proportional(2800, std::pair(__INT_MAX__, -__INT_MAX__));          PIDXElements.push_back(PX);
@@ -100,7 +100,7 @@ void position_control() {
  * 
  * @param angle the absolute heading to rotate to
  */
-void rotate(double angleDeg) {
+inline void rotate(double angleDeg) {
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
     targetPos.angle = angle;
     return;
@@ -112,7 +112,7 @@ void rotate(double angleDeg) {
  * @param angle the absolute heading to rotate to
  * @param errorStop DEGREES the function will stop the bot if the error is greater than the error threshold. IF 0, default is 2 degrees
  */
-void rotate(double angleDeg, double errorStop) {
+inline void rotate(double angleDeg, double errorStop) {
     rotate(angleDeg);
     errorStop = errorStop == 0 ? 5 : errorStop;
     while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop)) {
@@ -129,7 +129,7 @@ void rotate(double angleDeg, double errorStop) {
  * @param goHeading whether or not to point towards the target
  * @param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
-void translate(double x, double y, bool goHeading, bool reverseHeading) {
+inline void translate(double x, double y, bool goHeading, bool reverseHeading) {
     if (goHeading) {
         if (reverseHeading) {
             rotate(90 - (atan2(y - location.y, x - location.x) + PI) / PI * 180.0, 0);
@@ -152,7 +152,7 @@ void translate(double x, double y, bool goHeading, bool reverseHeading) {
  * @param reverseHeading whether or not to invert the heading when pointing towards the target
  * @param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
  */
-void translate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock) {
+inline void translate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(x, y, goHeading, reverseHeading);
     distToStopBlock = distToStopBlock == 0 ? 0.8 : distToStopBlock;
     while (total_error > distToStopBlock) {
