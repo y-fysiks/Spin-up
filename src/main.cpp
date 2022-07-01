@@ -130,7 +130,7 @@ void opcontrol() {
 		//tian, if they move in the opposite direction as intended, SWITCH 0.8 to -0.8,
 		//Also, motor speed is set to 80%, change it accordingly
 		Differential_1.move_velocity(diff1 * 4);
-		Differential_2.move_velocity(diff2 * 4);
+		Differential_2.move_velocity(diff2 * 3);
 		pros::delay(20);
 	}
 }
