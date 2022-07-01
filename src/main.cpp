@@ -79,10 +79,10 @@ void opcontrol() {
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	Differential_1.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	Differential_2.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	//rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	//lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	Differential_1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	Differential_2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	//I think this is the one that immidiatley stops the motor
 	spinner_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	//intake stuff
