@@ -1,19 +1,19 @@
-void redLeft() {
+inline void redLeft() {
     //red left
 }
 
-void redRight() {
+inline void redRight() {
     //red right
 }
 
-void blueLeft() {
+inline void blueLeft() {
     //blue left
 }
 
-void blueRight() {
+inline void blueRight() {
     //blue right
 }
 
-void skills() {
+inline void skills() {
     //skills
 }
