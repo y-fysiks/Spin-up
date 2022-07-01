@@ -86,12 +86,10 @@ void opcontrol() {
 	//I think this is the one that immidiatley stops the motor
 	spinner_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	//intake stuff
-	intake_1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	intake_2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	//set them to on unless 10 seconds
-	intake_1.move(127);
-	intake_2.move(127);
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	
 	while (true) {
+		/*
 		//get hue for color spinny thing
 		double hue = color_sense.get_hue();
 		double proximity = color_sense.get_proximity();
@@ -115,6 +113,7 @@ void opcontrol() {
 				}
 			}
 		}
+		*/
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
 		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
 		/*int front_back = round(master.get_analog(ANALOG_RIGHT_Y));
