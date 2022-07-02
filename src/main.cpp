@@ -112,8 +112,8 @@ void opcontrol() {
 		*/
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
 		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
-		int front_back = round(master.get_analog(ANALOG_RIGHT_Y));
-		int left_right = round(master.get_analog(ANALOG_RIGHT_X));
+		int front_back = master.get_analog(ANALOG_RIGHT_Y);
+		int left_right = master.get_analog(ANALOG_RIGHT_X);
 		int turn = round(master.get_analog(ANALOG_LEFT_X));
 		lf_motor.move(front_back + left_right + turn);
 		rf_motor.move(front_back - left_right - turn);
