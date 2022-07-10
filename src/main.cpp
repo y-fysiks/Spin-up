@@ -124,12 +124,12 @@ void opcontrol() {
 		lb_motor.move(front_back - left_right + turn);
 		rb_motor.move(front_back + left_right - turn);*/
 		//adding shit for flywheel n inshallah
-		int diff1 = round(master.get_analog(ANALOG_RIGHT_Y));
-		int diff2 = round(master.get_analog(ANALOG_LEFT_Y));
-		//tian, if they move in the opposite direction as intended, SWITCH 0.8 to -0.8,
-		//Also, motor speed is set to 80%, change it accordingly
-		Differential_1.move_velocity(diff1 * 4);
-		Differential_2.move_velocity(diff2 * 3);
+		int diff1 = master.get_analog(ANALOG_RIGHT_Y);
+		int diff2 = master.get_analog(ANALOG_LEFT_Y);
+		//tian, if they move in the opposite direction as intended, SWITCH 3.6 to -3.6,
+		//Also, motor speed is set to 75% (600/127*0.75), change it accordingly. peak power occurs at approx. 75% power
+		Differential_1.move_velocity(diff1 * 3.6);
+		Differential_2.move_velocity(diff2 * 3.6);
 		pros::delay(20);
 	}
 }
