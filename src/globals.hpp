@@ -5,7 +5,7 @@
 
 //------------------------------------------------------------------------------
 // Port configuration
-#define PI 3.14159265358979323
+#define PI 3.1415926535897932384626433832795
 #define lf_motor_port 4
 #define rf_motor_port 3
 #define lb_motor_port 2
