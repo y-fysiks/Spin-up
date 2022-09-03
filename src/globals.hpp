@@ -16,12 +16,9 @@
 #define optical_port 19
 #define imu_port 10
 // ADI ports
-#define left_tracking_port_top 1
-#define left_tracking_port_bottom 2
-#define right_tracking_port_top 3
-#define right_tracking_port_bottom 4
-#define rear_tracking_port_top 5
-#define rear_tracking_port_bottom 6
+#define left_tracking_port 11
+#define right_tracking_port 12
+#define rear_tracking_port 13
 // Odometry constants
 #define WHEEL_DIST_LR 13.35
 #define XWHEEL_DIST_CENTER -6.1
@@ -46,9 +43,9 @@ inline pros::Controller master(CONTROLLER_MASTER);
 //------------------------------------------------------------------------------
 //GREATAPI objects and variables
 //sensors
-inline greatapi::TWheel* right_encoder = new greatapi::TWheel_ADIEncoder(right_tracking_port_top, right_tracking_port_bottom, false, 2.75);
-inline greatapi::TWheel* left_encoder = new greatapi::TWheel_ADIEncoder(left_tracking_port_top, left_tracking_port_bottom, false, 2.75);
-inline greatapi::TWheel* rear_encoder = new greatapi::TWheel_ADIEncoder(rear_tracking_port_top, rear_tracking_port_bottom, false, 2.75);
+inline greatapi::TWheel* right_encoder = new greatapi::TWheel_RotationSensor(right_tracking_port, false, 2.75);
+inline greatapi::TWheel* left_encoder = new greatapi::TWheel_RotationSensor(left_tracking_port, false, 2.75);
+inline greatapi::TWheel* rear_encoder = new greatapi::TWheel_RotationSensor(rear_tracking_port, false, 2.75);
 //odometry object
 inline greatapi::odometry::TWheel_odom_rotation odomRotation = *new greatapi::odometry::TWheel_odom_rotation(left_encoder, right_encoder, WHEEL_DIST_LR);
 inline greatapi::odometry::odometry odom(rear_encoder, greatapi::inches(XWHEEL_DIST_CENTER), right_encoder, greatapi::inches(WHEEL_DIST_LR / 2.0), &odomRotation);
