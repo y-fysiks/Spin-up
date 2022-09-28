@@ -22,9 +22,9 @@ int cross(long double a, long double b, long double c, long double d){
     return sgn(a*d- c*b);
     // see if its clockwise or counterclockwise orientation
 }
-long double get_angle(long double botx, long double boty, long double targetx, long double targety){
+long double get_angle(long double targetx, long double targety){
     long double a, b, c, d;
-    c = targetx-botx; d = targety-boty;
+    c = targetx-location.x; d = targety-location.y;
     a=1; b=0;
     //need to find anticlockwise direction between 2 vectors
     // dot product gives angle from first vector to second vector
