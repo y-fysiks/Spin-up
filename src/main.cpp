@@ -1,8 +1,8 @@
 #include "main.h"
 #include "globals.hpp"
-#include "odometry.hpp"
-#include "autons.hpp"
-#include "helperFuncs.hpp"
+// #include "helperFuncs.cpp"
+// #include "autons.cpp"
+// #include "odometry.cpp"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
