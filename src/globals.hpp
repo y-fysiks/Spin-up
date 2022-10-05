@@ -61,27 +61,4 @@ inline bool moveDrive = true;
 inline bool autonomousState = false;
 inline bool red_team = true;
 
-//function prototypes
-//helperFuncs.cpp
-bool isRed(int hue);
-long double dot(long double a, long double b, long double c, long double d);
-int sgn(long double x);
-int cross(long double a, long double b, long double c, long double d);
-long double get_angle(long double targetx, long double targety);
-
-//odometry.cpp
-void odometryLooper();
-void position_control();
-void rotate(double angleDeg);
-void rotate(double angleDeg, double errorStop);
-void translate(double x, double y, bool goHeading, bool reverseHeading);
-void translate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock);
-
-//autons.cpp
-void redLeft();
-void redRight();
-void blueLeft();
-void blueRight();
-void skills();
-
 #endif // CONFIG_HPP
