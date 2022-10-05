@@ -12,10 +12,9 @@
 #define rb_motor_port 1
 #define roller_flex_port 20
 #define intake_port 6
-//switch this if needed
 #define optical_port 19
 #define imu_port 10
-// ADI ports
+// Tracking wheel ports
 #define left_tracking_port 11
 #define right_tracking_port 12
 #define rear_tracking_port 13
@@ -55,9 +54,6 @@ inline greatapi::position location(greatapi::coord(0, 0), greatapi::SRAD());
 //total position error
 inline double total_error = 0;
 inline double speedCap = 12000;
-
-//defines which auton to run
-inline bool skillsAuton = true;
 
 //------------------------------------------------------------------------------
 //other variables
