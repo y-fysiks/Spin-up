@@ -1,6 +1,7 @@
 // functions to get angle given current position and target position
+
 /**
- * @brief dot product of two vectors
+ * dot product of two vectors
  * 
  * @param a x component of first vector
  * @param b y component of first vector
@@ -11,7 +12,7 @@
 long double dot(long double a, long double b, long double c, long double d);
 
 /**
- * @brief sign function
+ * sign function
  * 
  * @param x number to get sign of
  * @return int sign of x
@@ -21,7 +22,7 @@ int sgn(long double x);
 // b 0 a b
 // d 0 c d
 /**
- * @brief cross product of two vectors
+ * cross product of two vectors
  * 
  * @param a x component of first vector
  * @param b y component of first vector
@@ -32,7 +33,7 @@ int sgn(long double x);
 int cross(long double a, long double b, long double c, long double d);
 
 /**
- * @brief Get the angle object
+ * Get the angle object
  * 
  * @param targetx x component of target vector
  * @param targety y component of target vector
