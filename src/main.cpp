@@ -3,6 +3,7 @@
 #include "helperFuncs.hpp"
 #include "autons.hpp"
 #include "odometry.hpp"
+#include "pros/misc.h"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -11,6 +12,9 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	pros::Task odometry(odometryLooper, "odometry");
+	pros::Task motion(position_control, "motion");
+
 	selector::init();
 }
 
@@ -44,8 +48,6 @@ void autonomous() {
 	selector::auton == 0 : Skills
 	DEFAULT IS 1
 	*/
-	pros::Task odometry(odometryLooper, "odometry");
-	pros::Task motion(position_control, "motion");
 
 	autonomousState = true;
 	moveDrive = true;
@@ -75,7 +77,7 @@ void autonomous() {
 
 
 void opcontrol() {
-
+	moveDrive = false;
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -110,11 +112,29 @@ void opcontrol() {
 			}
 		}
 		*/
+
+		//rotate to the correct goal when the button DIGITAL_A is pressed
+		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
+			translate(location.x, location.y, false, false);
+	  		total_error = sqrt(pow(targetPos.x - location.x, 2) + pow(targetPos.y - location.y, 2));
+			if (red_team) {
+				rotate(get_angle(redGoal.x, redGoal.y));
+			} else {
+				rotate(get_angle(blueGoal.x, blueGoal.y));
+			}
+			moveDrive = true;
+		}
+		
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
 		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
 		int front_back = master.get_analog(ANALOG_LEFT_Y);
 		int left_right = master.get_analog(ANALOG_LEFT_X);
-		int turn = round(master.get_analog(ANALOG_RIGHT_X));
+		int turn = master.get_analog(ANALOG_RIGHT_X);
+
+		if (abs(front_back) > 10 || abs(left_right) > 10 || abs(turn) > 10) {
+			moveDrive = false;
+		}
+
 		lf_motor.move(front_back + left_right + turn);
 		rf_motor.move(front_back - left_right - turn);
 		lb_motor.move(front_back - left_right + turn);

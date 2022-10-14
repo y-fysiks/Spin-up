@@ -1,9 +1,6 @@
 #include "main.h"
 #include "globals.hpp"
 
-// this is the target position for the robot to try to reach
-inline greatapi::position targetPos(greatapi::coord(0, 0), greatapi::SRAD(0));
-
 /**
  * @brief odometry function
  * 
