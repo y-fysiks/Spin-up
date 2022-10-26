@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 // Port configuration
 #define PI 3.1415926535897932384626433832795
-#define lf_motor_port 4
-#define rf_motor_port 3
-#define lb_motor_port 2
-#define rb_motor_port 1
+#define lf_motor_port 3
+#define rf_motor_port 1
+#define lb_motor_port 4
+#define rb_motor_port 2
 #define roller_port 20
 #define intake_port 6
 #define optical_port 19
