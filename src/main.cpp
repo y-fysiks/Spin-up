@@ -77,6 +77,7 @@ void autonomous() {
 
 
 void opcontrol() {
+	autonomousState = false;
 	moveDrive = false;
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
