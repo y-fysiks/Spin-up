@@ -1,15 +1,17 @@
 #include "main.h"
 #include "globals.hpp"
+#include "pros/colors.h"
 
 /**
  * @brief odometry function
  * 
  */
 void odometryLooper() {
-    pros::screen::set_pen(COLOR_RED);
+    pros::screen::set_pen(COLOR_GREEN);
     right_encoder -> reset();
     left_encoder -> reset();
     rear_encoder -> reset();
+    odomRotation.applyOffset(greatapi::SRAD(PI / 2));
     while (true) {
         location = odom.calculateposition(location);
         pros::screen::print(TEXT_SMALL, 1, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute

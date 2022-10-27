@@ -11,13 +11,15 @@
 #define lb_motor_port 4
 #define rb_motor_port 2
 #define roller_port 20
-#define intake_port 6
+#define intake_port 8
+#define flywheel_port_1 5
+#define flywheel_port_2 6
 #define optical_port 19
 #define imu_port 10
 // Tracking wheel ports
-#define left_tracking_port 11
-#define right_tracking_port 12
-#define rear_tracking_port 13
+#define left_tracking_port 10
+#define right_tracking_port 9
+#define rear_tracking_port 11
 // Odometry constants
 #define WHEEL_DIST_LR 13.35
 #define XWHEEL_DIST_CENTER -6.1
