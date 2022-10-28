@@ -1,6 +1,16 @@
 #include "main.h"
 #include "globals.hpp"
 
+/**
+ * @brief set flywheel speed (both motors)
+ * 
+ * @param speed speed in rpm (-100 - 600)
+ */
+void flywheel(int speed) {
+    flywheel_1.move_velocity(speed);
+    flywheel_2.move_velocity(speed);
+}
+
 // functions to get angle given current position and target position
 /**
  * @brief dot product of two vectors

@@ -39,6 +39,10 @@ inline pros::Motor spinner_motor(roller_port, MOTOR_GEARSET_36, false,
                                  MOTOR_ENCODER_DEGREES);
 inline pros::Motor intake(intake_port, MOTOR_GEARSET_36, false,
                           MOTOR_ENCODER_DEGREES);
+inline pros::Motor flywheel_1(flywheel_port_1, MOTOR_GEARSET_06, false,
+                              MOTOR_ENCODER_DEGREES);
+inline pros::Motor flywheel_2(flywheel_port_2, MOTOR_GEARSET_06, true,
+                                MOTOR_ENCODER_DEGREES);
 // Sensors
 inline pros::Imu imu(imu_port);
 inline pros::Optical color_sense(optical_port);

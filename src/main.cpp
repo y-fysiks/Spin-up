@@ -79,6 +79,9 @@ void autonomous() {
 void opcontrol() {
 	autonomousState = false;
 	moveDrive = false;
+	bool flywheelState = false;
+	bool intakeState = false;
+	bool intakeReverse = false;
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -124,6 +127,42 @@ void opcontrol() {
 				rotate(get_angle(blueGoal.x, blueGoal.y));
 			}
 			moveDrive = true;
+		}
+
+		if (master.get_digital_new_press(DIGITAL_B)) {
+			//toggle flywheel
+			flywheelState = !flywheelState;
+		}
+
+		if (flywheelState) {
+			if (master.get_digital(DIGITAL_L2)) {
+				flywheel(500);
+			} else {
+				flywheel(300);
+			}
+			if (master.get_digital(DIGITAL_R2)) {
+				//FIRE DISC
+			}
+
+		} else {
+			flywheel(0);
+		}
+
+		if (master.get_digital_new_press(DIGITAL_L1)) {
+			intakeState = !intakeState;
+			intakeReverse = false;
+		} else if (master.get_digital_new_press(DIGITAL_R1)) {
+			intakeState = !intakeState;
+			intakeReverse = true;
+		}
+		if (intakeState) {
+			if (intakeReverse) {
+				intake.move(-127);
+			} else {
+				intake.move(127);
+			}
+		} else {
+			intake.move(0);
 		}
 		
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below

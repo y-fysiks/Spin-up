@@ -1,3 +1,10 @@
+/**
+ * @brief set flywheel speed (both motors)
+ * 
+ * @param speed speed in rpm (-100 - 600)
+ */
+void flywheel(int speed);
+
 // functions to get angle given current position and target position
 
 /**
