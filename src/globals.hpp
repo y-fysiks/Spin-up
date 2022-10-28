@@ -10,7 +10,6 @@
 #define rf_motor_port 1
 #define lb_motor_port 4
 #define rb_motor_port 2
-#define roller_port 20
 #define intake_port 8
 #define flywheel_port_1 5
 #define flywheel_port_2 6
@@ -35,8 +34,6 @@ inline pros::Motor lb_motor(lb_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
 inline pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor spinner_motor(roller_port, MOTOR_GEARSET_36, false,
-                                 MOTOR_ENCODER_DEGREES);
 inline pros::Motor intake(intake_port, MOTOR_GEARSET_36, false,
                           MOTOR_ENCODER_DEGREES);
 inline pros::Motor flywheel_1(flywheel_port_1, MOTOR_GEARSET_06, false,
