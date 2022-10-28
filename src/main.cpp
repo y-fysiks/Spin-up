@@ -149,10 +149,12 @@ void opcontrol() {
 		}
 
 		if (master.get_digital_new_press(DIGITAL_L1)) {
-			intakeState = !intakeState;
+			if (!intakeState) intakeState = true;
+			if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
 		} else if (master.get_digital_new_press(DIGITAL_R1)) {
-			intakeState = !intakeState;
+			if (!intakeState) intakeState = true;
+			if (intakeState && intakeReverse) intakeState = false;
 			intakeReverse = true;
 		}
 		if (intakeState) {
