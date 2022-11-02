@@ -4,6 +4,7 @@
 #include "autons.hpp"
 #include "odometry.hpp"
 #include "pros/misc.h"
+#include <string>
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -82,6 +83,9 @@ void opcontrol() {
 	bool flywheelState = false;
 	bool intakeState = false;
 	bool intakeReverse = false;
+	int flywheelSpeed = 500;
+	int flywheelSpeedIncrement = 50;
+
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -91,6 +95,7 @@ void opcontrol() {
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	
 	while (true) {
+		puncher.set_value(puncherState);
 		/*
 		//get hue for color spinny thing
 		double hue = color_sense.get_hue();
@@ -136,16 +141,26 @@ void opcontrol() {
 
 		if (flywheelState) {
 			if (master.get_digital(DIGITAL_L2)) {
-				flywheel(500);
+				flywheel(flywheelSpeed);
 			} else {
-				flywheel(300);
+				flywheelVoltage(12000/2);
 			}
-			if (master.get_digital(DIGITAL_R2)) {
-				//FIRE DISC
-			}
-
 		} else {
-			flywheel(0);
+			flywheelVoltage(0);
+		}
+
+		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
+			puncherState = true;
+			puncherTimer = 10;
+			puncher.set_value(puncherState);
+		}
+		
+		if (puncherState) {
+			puncherTimer--;
+			if (puncherTimer == 0) {
+				puncherState = false;
+				puncher.set_value(puncherState);
+			}
 		}
 
 		if (master.get_digital_new_press(DIGITAL_L1)) {
@@ -166,6 +181,22 @@ void opcontrol() {
 		} else {
 			intake.move(0);
 		}
+
+		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed < 600 - flywheelSpeedIncrement) {
+			flywheelSpeed += flywheelSpeedIncrement;
+			std::string speed = std::to_string(flywheelSpeed);
+			master.set_text(0, 0, speed);
+		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed > 0 + flywheelSpeedIncrement) {
+			flywheelSpeed -= flywheelSpeedIncrement;
+			std::string speed = std::to_string(flywheelSpeed);
+			master.set_text(0, 0, speed);
+		}
+
+		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
+			|| (master.get_digital(DIGITAL_RIGHT) && master.get_digital_new_press(DIGITAL_Y))) {
+			//expansion
+		}
+		
 		
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
 		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
