@@ -82,6 +82,7 @@ void opcontrol() {
 	bool flywheelState = false;
 	bool intakeState = false;
 	bool intakeReverse = false;
+	int speed = 500;
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -136,9 +137,17 @@ void opcontrol() {
 
 		if (flywheelState) {
 			if (master.get_digital(DIGITAL_L2)) {
-				flywheel(500);
+				speed = 500;
+				flywheel(speed);
 			} else {
-				flywheel(300);
+				if(speed > 300){
+					speed = speed - 20;
+					flywheel(speed);
+				}
+				else{
+					speed = 300;
+					flywheel(speed);
+				}
 			}
 			if (master.get_digital(DIGITAL_R2)) {
 				//FIRE DISC
