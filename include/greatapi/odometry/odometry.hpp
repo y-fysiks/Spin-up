@@ -52,7 +52,7 @@ namespace greatapi{
         encoderangoffset = 0;
         globaloffset = 0;
         X_toCOR = X_to_ctr;
-        Y_toCOR = Y_to_ctr;
+        Y_toCOR = -Y_to_ctr;
       }
 
       position calculateposition(position initial){
