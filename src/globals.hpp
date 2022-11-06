@@ -19,7 +19,7 @@
 // Tracking wheel ports
 #define left_tracking_port 10
 #define right_tracking_port 11
-#define rear_tracking_port 9
+#define rear_tracking_port 12
 // Odometry constants
 #define WHEEL_DIST_LR 13.1
 #define XWHEEL_DIST_CENTER -0.5
