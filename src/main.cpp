@@ -13,10 +13,7 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::Task odometry(odometryLooper, "odometry");
-	pros::Task motion(position_control, "motion");
 
-	selector::init();
 }
 
 /**
@@ -35,10 +32,15 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+void competition_initialize() {
+	selector::init();
+
+}
 
 
 void autonomous() {
+	initSpinUp();
+
 	/*
 	selector::auton == 1 : Red left
 	selector::auton == 2 : Red right
@@ -54,30 +56,27 @@ void autonomous() {
 	moveDrive = true;
 
 	if (selector::auton == 1) {
-		red_team = true;
 		redLeft();
 	}
 	else if (selector::auton == 2) {
-		red_team = true;
 		redRight();
 	}
 	
 	else if (selector::auton == -1) {
-		red_team = false;
 		blueLeft();
 	}
 	else if (selector::auton == -2) {
-		red_team = false;
 		blueRight();
 	}
 	else if (selector::auton == 0) {
-		red_team = true; // SKILLS USES RED TEAM
 		skills();
 	}
 }
 
 
 void opcontrol() {
+	initSpinUp();
+
 	autonomousState = false;
 	moveDrive = false;
 	bool flywheelState = false;

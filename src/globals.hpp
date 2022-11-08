@@ -76,9 +76,13 @@ inline double total_error = 0;
 //voltage cap to reduce speed
 inline double voltageCap = 12000;
 
-//goal locations
-inline greatapi::position blueGoal(greatapi::coord(0, 0), greatapi::SRAD(0));
-inline greatapi::position redGoal(greatapi::coord(0, 0), greatapi::SRAD(0));
+//goal locations, Red Left corner is 0, 0
+inline greatapi::position blueGoal(greatapi::coord(123, 140 - 123), greatapi::SRAD(0));
+inline greatapi::position redGoal(greatapi::coord(140 - 123, 123), greatapi::SRAD(0));
+inline greatapi::position blueLStart(greatapi::coord(8.75 + 23, 9), greatapi::SRAD(0));
+inline greatapi::position blueRStart(greatapi::coord(0, 0), greatapi::SRAD(greatapi::degrees(90)));
+inline greatapi::position redLStart(greatapi::coord(140, 144 - 24), greatapi::SRAD(greatapi::degrees(180)));
+inline greatapi::position redRStart(greatapi::coord(140, 24), greatapi::SRAD(greatapi::degrees(270)));
 
 //------------------------------------------------------------------------------
 // other variables

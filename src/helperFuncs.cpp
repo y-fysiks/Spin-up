@@ -1,5 +1,8 @@
 #include "main.h"
 #include "globals.hpp"
+#include "odometry.hpp"
+#include "pros/colors.h"
+#include "pros/screen.hpp"
 
 /**
  * @brief set flywheel speed (both motors)
@@ -14,6 +17,34 @@ void flywheel(int speed) {
 void flywheelVoltage(int voltage) {
     flywheel_1.move_voltage(voltage);
     flywheel_2.move_voltage(voltage);
+}
+
+void initSpinUp() {
+    //erase screen, deletes all auton selector stuff
+    pros::screen::set_eraser(COLOR_BLACK);
+    pros::screen::erase();
+    
+	pros::Task odometry(odometryLooper, "odometry");
+	pros::Task motion(position_control, "motion");
+
+    if (selector::auton == 1) {
+		red_team = true;
+        location = redLStart;
+	} else if (selector::auton == 2) {
+		red_team = true;
+        location = redRStart;
+	} else if (selector::auton == -1) {
+		red_team = false;
+        location = blueLStart;
+	} else if (selector::auton == -2) {
+		red_team = false;
+        location = blueRStart;
+	} else if (selector::auton == 0) {
+		red_team = true; // SKILLS USES RED TEAM LEFT
+        location = redLStart;
+	}
+
+    targetPos = location;
 }
 
 // functions to get angle given current position and target position
