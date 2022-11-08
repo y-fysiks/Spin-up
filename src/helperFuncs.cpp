@@ -11,6 +11,11 @@ void flywheel(int speed) {
     flywheel_2.move_velocity(speed);
 }
 
+void flywheelVoltage(int voltage) {
+    flywheel_1.move_voltage(voltage);
+    flywheel_2.move_voltage(voltage);
+}
+
 // functions to get angle given current position and target position
 /**
  * @brief dot product of two vectors

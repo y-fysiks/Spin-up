@@ -11,7 +11,7 @@ void odometryLooper() {
     right_encoder -> reset();
     left_encoder -> reset();
     rear_encoder -> reset();
-    odomRotation.applyOffset(greatapi::SRAD(PI / 2));
+    //odomRotation.applyOffset(greatapi::SRAD(PI / 2));
     while (true) {
         location = odom.calculateposition(location);
         pros::screen::print(TEXT_SMALL, 1, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute
@@ -143,6 +143,21 @@ void translate(double x, double y, bool goHeading, bool reverseHeading) {
 }
 
 /**
+ * @brief translates the robot to absolute coordinates. DOES NOT BLOCK EXECUTION
+ * 
+ * @param x the x coordinate to translate to
+ * @param y the y coordinate to translate to
+ * @param maxVoltage the maximum voltage to send to the motors
+ * @param goHeading whether or not to point towards the target
+ * @param reverseHeading whether or not to invert the heading when pointing towards the target.
+ */
+void translate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading) {
+    voltageCap = maxVoltage;
+    translate(x, y, goHeading, reverseHeading);
+    return;
+}
+
+/**
  * @brief translates the robot to absolute coordinates. Blocks execution. 
  * 
  * @param x the x coordinate to translate to
@@ -157,5 +172,21 @@ void translate(double x, double y, bool goHeading, bool reverseHeading, double d
     while (total_error > distToStopBlock) {
         pros::delay(20);
     }
+    return;
+}
+
+/**
+ * @brief translates the robot to absolute coordinates. Blocks execution. 
+ * 
+ * @param x the x coordinate to translate to
+ * @param y the y coordinate to translate to
+ * @param maxVoltage the maximum voltage to send to the motors
+ * @param goHeading whether or not to point towards the target
+ * @param reverseHeading whether or not to invert the heading when pointing towards the target
+ * @param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
+ */
+void translate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
+    voltageCap = maxVoltage;
+    translate(x, y, goHeading, reverseHeading, distToStopBlock);
     return;
 }

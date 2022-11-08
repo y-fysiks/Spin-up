@@ -5,6 +5,9 @@
  */
 void flywheel(int speed);
 
+void flywheelVoltage(int voltage);
+
+
 // functions to get angle given current position and target position
 
 /**
