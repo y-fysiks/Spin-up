@@ -82,7 +82,7 @@ void opcontrol() {
 	bool flywheelState = false;
 	bool intakeState = false;
 	bool intakeReverse = false;
-
+	bool rotateDrive = true; // true means left intake is forward, false means shooter is forward. 
 
 	int flywheelSpeed = 350;
 	int flywheelSpeedIncrement = 50;
@@ -134,11 +134,13 @@ void opcontrol() {
 			moveDrive = true;
 		}
 
+		//flywheel warmup speed
 		if (master.get_digital_new_press(DIGITAL_B)) {
 			//toggle flywheel
 			flywheelState = !flywheelState;
 		}
 
+		//flywheel high-gear speed
 		if (flywheelState) {
 			if (master.get_digital(DIGITAL_L2)) {
 				flywheel(flywheelSpeed);
@@ -148,13 +150,25 @@ void opcontrol() {
 		} else {
 			flywheelVoltage(0);
 		}
+		//flywheel speed modulation
+		//TODO: automatic flywheel speed modulation
+		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
+			flywheelSpeed += flywheelSpeedIncrement;
+			
+		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 0 + flywheelSpeedIncrement) {
+			flywheelSpeed -= flywheelSpeedIncrement;
+		}
+		//display current set flywheel rpm on controller
+		std::string speed = std::to_string(flywheelSpeed);
+		master.set_text(0, 0, speed);
 
+
+		//puncher control for shooting
 		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
 			puncherState = true;
 			puncherTimer = 10;
 			puncherPiston.set_value(puncherState);
 		}
-		
 		if (puncherState) {
 			puncherTimer--;
 			if (puncherTimer == 0) {
@@ -163,6 +177,7 @@ void opcontrol() {
 			}
 		}
 
+		//intake control
 		if (master.get_digital_new_press(DIGITAL_L1)) {
 			if (!intakeState) intakeState = true;
 			else if (intakeState && !intakeReverse) intakeState = false;
@@ -182,15 +197,12 @@ void opcontrol() {
 			intake.move(0);
 		}
 
-		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
-			flywheelSpeed += flywheelSpeedIncrement;
-			
-		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 0 + flywheelSpeedIncrement) {
-			flywheelSpeed -= flywheelSpeedIncrement;
+		//drive rotation
+		if (master.get_digital_new_press(DIGITAL_X)) {
+			rotateDrive = !rotateDrive;
 		}
-		std::string speed = std::to_string(flywheelSpeed);
-		master.set_text(0, 0, speed);
 
+		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
 			|| (master.get_digital(DIGITAL_RIGHT) && master.get_digital_new_press(DIGITAL_Y))) {
 			expansionPiston.set_value(true);
@@ -206,6 +218,12 @@ void opcontrol() {
 		if (abs(front_back) > 10 || abs(left_right) > 10 || abs(turn) > 10) {
 			moveDrive = false;
 		}
+		if (rotateDrive) {
+			int temp = left_right;
+			left_right = -front_back;
+			front_back = temp;
+		}
+
 		if (!moveDrive) {
 			lf_motor.move(front_back + left_right + turn);
 			rf_motor.move(front_back - left_right - turn);
