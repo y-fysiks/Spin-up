@@ -76,7 +76,7 @@ int sgn(long double x){
 // b 0 a b
 // d 0 c d
 /**
- * @brief cross product of two vectors
+ * @brief sign of the cross product of two vectors
  * 
  * @param a x component of first vector
  * @param b y component of first vector

@@ -124,7 +124,6 @@ void opcontrol() {
 		//rotate to the correct goal when the button DIGITAL_A is pressed
 		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
 			translate(location.x, location.y, false, false);
-	  		total_error = sqrt(pow(targetPos.x - location.x, 2) + pow(targetPos.y - location.y, 2));
 			if (red_team) {
 				rotate(get_angle(redGoal.x, redGoal.y));
 			} else {
@@ -206,11 +205,13 @@ void opcontrol() {
 		if (abs(front_back) > 10 || abs(left_right) > 10 || abs(turn) > 10) {
 			moveDrive = false;
 		}
+		if (!moveDrive) {
+			lf_motor.move(front_back + left_right + turn);
+			rf_motor.move(front_back - left_right - turn);
+			lb_motor.move(front_back - left_right + turn);
+			rb_motor.move(front_back + left_right - turn);
+		}
 
-		lf_motor.move(front_back + left_right + turn);
-		rf_motor.move(front_back - left_right - turn);
-		lb_motor.move(front_back - left_right + turn);
-		rb_motor.move(front_back + left_right - turn);
 		pros::delay(20);
 	}
 }
