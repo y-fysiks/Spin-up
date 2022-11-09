@@ -5,9 +5,9 @@
 #include "pros/screen.hpp"
 
 /**
- * @brief set flywheel speed (both motors)
+ * Set flywheel speed (both motors)
  * 
- * @param speed speed in rpm (-100 - 600)
+ * \param speed speed in rpm (-100 - 600)
  */
 void flywheel(int speed) {
     flywheel_1.move_velocity(speed);
@@ -49,13 +49,13 @@ void initSpinUp() {
 
 // functions to get angle given current position and target position
 /**
- * @brief dot product of two vectors
+ *  dot product of two vectors
  * 
- * @param a x component of first vector
- * @param b y component of first vector
- * @param c x component of second vector
- * @param d y component of second vector
- * @return long double result of dot product
+ * \param a x component of first vector
+ * \param b y component of first vector
+ * \param c x component of second vector
+ * \param d y component of second vector
+ * \return result of dot product
  */
 long double dot(long double a, long double b, long double c, long double d){
     return (long double)(acos(((a*c) + (b*d))/ (sqrt(a*a+b*b)* sqrt(c*c+d*d))));
@@ -63,10 +63,10 @@ long double dot(long double a, long double b, long double c, long double d){
 }
 
 /**
- * @brief sign function
+ *  sign function
  * 
- * @param x number to get sign of
- * @return int sign of x
+ * \param x number to get sign of
+ * \return int sign of x
  */
 int sgn(long double x){
     if (x >= 0) return 1;
@@ -76,13 +76,13 @@ int sgn(long double x){
 // b 0 a b
 // d 0 c d
 /**
- * @brief sign of the cross product of two vectors
+ *  sign of the cross product of two vectors
  * 
- * @param a x component of first vector
- * @param b y component of first vector
- * @param c x component of second vector
- * @param d y component of second vector
- * @return int sign of cross product
+ * \param a x component of first vector
+ * \param b y component of first vector
+ * \param c x component of second vector
+ * \param d y component of second vector
+ * \return int sign of cross product
  */
 int cross(long double a, long double b, long double c, long double d){
     return sgn(a*d- c*b);
@@ -90,11 +90,11 @@ int cross(long double a, long double b, long double c, long double d){
 }
 
 /**
- * @brief Get the angle object
+ *  Get the angle object
  * 
- * @param targetx x component of target vector
- * @param targety y component of target vector
- * @return long double 
+ * \param targetx x component of target vector
+ * \param targety y component of target vector
+ * \return long double 
  */
 long double get_angle(long double targetx, long double targety){
     long double a, b, c, d;
