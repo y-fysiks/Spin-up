@@ -82,7 +82,7 @@ void opcontrol() {
 	bool flywheelState = false;
 	bool intakeState = false;
 	bool intakeReverse = false;
-	int flywheelSpeed = 500;
+	int flywheelSpeed = 350;
 	int flywheelSpeedIncrement = 50;
 
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
@@ -180,10 +180,10 @@ void opcontrol() {
 			intake.move(0);
 		}
 
-		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed < 600 - flywheelSpeedIncrement) {
+		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
 			flywheelSpeed += flywheelSpeedIncrement;
 			
-		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed > 0 + flywheelSpeedIncrement) {
+		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 0 + flywheelSpeedIncrement) {
 			flywheelSpeed -= flywheelSpeedIncrement;
 		}
 		std::string speed = std::to_string(flywheelSpeed);

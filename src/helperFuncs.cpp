@@ -27,6 +27,7 @@ void initSpinUp() {
 	pros::Task odometry(odometryLooper, "odometry");
 	pros::Task motion(position_control, "motion");
 
+    /*
     if (selector::auton == 1) {
 		red_team = true;
         location = redLStart;
@@ -42,7 +43,7 @@ void initSpinUp() {
 	} else if (selector::auton == 0) {
 		red_team = true; // SKILLS USES RED TEAM LEFT
         location = redLStart;
-	}
+	}*/
 
     targetPos = location;
 }
