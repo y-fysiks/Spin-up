@@ -82,6 +82,8 @@ void opcontrol() {
 	bool flywheelState = false;
 	bool intakeState = false;
 	bool intakeReverse = false;
+
+
 	int flywheelSpeed = 350;
 	int flywheelSpeedIncrement = 50;
 
@@ -163,11 +165,11 @@ void opcontrol() {
 
 		if (master.get_digital_new_press(DIGITAL_L1)) {
 			if (!intakeState) intakeState = true;
-			if (intakeState && !intakeReverse) intakeState = false;
+			else if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
 		} else if (master.get_digital_new_press(DIGITAL_R1)) {
 			if (!intakeState) intakeState = true;
-			if (intakeState && intakeReverse) intakeState = false;
+			else if (intakeState && intakeReverse) intakeState = false;
 			intakeReverse = true;
 		}
 		if (intakeState) {
