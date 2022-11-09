@@ -94,7 +94,7 @@ void opcontrol() {
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	
 	while (true) {
-		puncher.set_value(puncherState);
+		puncherPiston.set_value(puncherState);
 		/*
 		//get hue for color spinny thing
 		double hue = color_sense.get_hue();
@@ -150,14 +150,14 @@ void opcontrol() {
 		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
 			puncherState = true;
 			puncherTimer = 10;
-			puncher.set_value(puncherState);
+			puncherPiston.set_value(puncherState);
 		}
 		
 		if (puncherState) {
 			puncherTimer--;
 			if (puncherTimer == 0) {
 				puncherState = false;
-				puncher.set_value(puncherState);
+				puncherPiston.set_value(puncherState);
 			}
 		}
 
@@ -182,17 +182,16 @@ void opcontrol() {
 
 		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed < 600 - flywheelSpeedIncrement) {
 			flywheelSpeed += flywheelSpeedIncrement;
-			std::string speed = std::to_string(flywheelSpeed);
-			master.set_text(0, 0, speed);
+			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed > 0 + flywheelSpeedIncrement) {
 			flywheelSpeed -= flywheelSpeedIncrement;
-			std::string speed = std::to_string(flywheelSpeed);
-			master.set_text(0, 0, speed);
 		}
+		std::string speed = std::to_string(flywheelSpeed);
+		master.set_text(0, 0, speed);
 
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
 			|| (master.get_digital(DIGITAL_RIGHT) && master.get_digital_new_press(DIGITAL_Y))) {
-			//expansion
+			expansionPiston.set_value(true);
 		}
 		
 		

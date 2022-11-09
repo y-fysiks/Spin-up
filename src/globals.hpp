@@ -16,6 +16,7 @@
 #define optical_port 19
 #define imu_port 10
 #define puncher_port 'A'
+#define expansion_port 'B'
 // Tracking wheel ports
 #define left_tracking_port 10
 #define right_tracking_port 11
@@ -47,7 +48,8 @@ inline pros::Optical color_sense(optical_port);
 // controller
 inline pros::Controller master(CONTROLLER_MASTER);
 // pneumatics
-inline pros::ADIDigitalOut puncher(puncher_port);
+inline pros::ADIDigitalOut puncherPiston(puncher_port);
+inline pros::ADIDigitalOut expansionPiston(expansion_port);
 // autonomous state indicator
 
 //------------------------------------------------------------------------------
