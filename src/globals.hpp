@@ -23,7 +23,7 @@
 #define rear_tracking_port 12
 // Odometry constants
 #define WHEEL_DIST_LR 13.1
-#define XWHEEL_DIST_CENTER -0.5
+#define XWHEEL_DIST_CENTER -1.0
 
 //------------------------------------------------------------------------------
 // Global PROS objects and variables
