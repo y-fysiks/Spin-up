@@ -50,7 +50,6 @@ inline pros::Controller master(CONTROLLER_MASTER);
 // pneumatics
 inline pros::ADIDigitalOut puncherPiston(puncher_port);
 inline pros::ADIDigitalOut expansionPiston(expansion_port);
-// autonomous state indicator
 
 //------------------------------------------------------------------------------
 // GREATAPI objects and variables
