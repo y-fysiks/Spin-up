@@ -57,7 +57,7 @@ inline pros::ADIDigitalOut expansionPiston(expansion_port);
 inline greatapi::TWheel *right_encoder =
     new greatapi::TWheel_RotationSensor(right_tracking_port, false, 3.25);
 inline greatapi::TWheel *left_encoder =
-    new greatapi::TWheel_RotationSensor(left_tracking_port, false, 3.25);
+    new greatapi::TWheel_RotationSensor(left_tracking_port, true, 3.25);
 inline greatapi::TWheel *rear_encoder =
     new greatapi::TWheel_RotationSensor(rear_tracking_port, false, 3.25);
 // odometry object

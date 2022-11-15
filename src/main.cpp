@@ -94,7 +94,15 @@ void opcontrol() {
 	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	//intake stuff
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	
+
+	//display current set flywheel rpm on controller
+	std::string speed = std::to_string(flywheelSpeed);
+	master.set_text(0, 0, speed);
+	if (rotateDrive) {
+		master.set_text(0, 12, "R");
+	} else {
+		master.set_text(0, 12, "F");
+	}
 	while (true) {
 		puncherPiston.set_value(puncherState);
 		/*
@@ -154,13 +162,17 @@ void opcontrol() {
 		//TODO: automatic flywheel speed modulation
 		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
 			flywheelSpeed += flywheelSpeedIncrement;
+			//display current set flywheel rpm on controller
+			std::string speed = std::to_string(flywheelSpeed);
+			master.set_text(0, 0, speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 0 + flywheelSpeedIncrement) {
 			flywheelSpeed -= flywheelSpeedIncrement;
+			//display current set flywheel rpm on controller
+			std::string speed = std::to_string(flywheelSpeed);
+			master.set_text(0, 0, speed);
 		}
-		//display current set flywheel rpm on controller
-		std::string speed = std::to_string(flywheelSpeed);
-		master.set_text(0, 0, speed);
+		
 
 
 		//puncher control for shooting
@@ -200,7 +212,13 @@ void opcontrol() {
 		//drive rotation
 		if (master.get_digital_new_press(DIGITAL_X)) {
 			rotateDrive = !rotateDrive;
+			if (rotateDrive) {
+			master.set_text(0, 12, "R");
+			} else {
+				master.set_text(0, 12, "F");
+			}
 		}
+		
 
 		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
