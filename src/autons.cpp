@@ -1,7 +1,4 @@
-#include "main.h"
-#include "globals.hpp"
-#include "helperFuncs.hpp"
-#include "odometry.hpp"
+#include "autons.hpp"
 
 void redLeft() {
     //red left

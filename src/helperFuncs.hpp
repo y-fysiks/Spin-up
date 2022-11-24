@@ -1,3 +1,9 @@
+#include "main.h"
+#include "globals.hpp"
+#include "odometry.hpp"
+#include "pros/colors.h"
+#include "pros/screen.hpp"
+
 /**
  * Set flywheel speed (both motors)
  * 

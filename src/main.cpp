@@ -4,6 +4,7 @@
 #include "autons.hpp"
 #include "odometry.hpp"
 #include "pros/misc.h"
+#include "FlywheelImplementation.hpp"
 #include <string>
 
 /**
@@ -97,7 +98,7 @@ void opcontrol() {
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
-	master.set_text(0, 0, speed);
+	master.set_text(0, 0, "Speed: " + speed);
 	if (rotateDrive) {
 		master.set_text(0, 12, "R");
 	} else {
@@ -151,7 +152,7 @@ void opcontrol() {
 		//flywheel high-gear speed
 		if (flywheelState) {
 			if (master.get_digital(DIGITAL_L2)) {
-				flywheel(flywheelSpeed);
+				setFlywheelRPM(flywheelSpeed);
 			} else {
 				flywheelVoltage(12000/2);
 			}
@@ -163,14 +164,14 @@ void opcontrol() {
 		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
 			flywheelSpeed += flywheelSpeedIncrement;
 			//display current set flywheel rpm on controller
-			std::string speed = std::to_string(flywheelSpeed);
-			master.set_text(0, 0, speed);
+			speed = std::to_string(flywheelSpeed);
+			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 0 + flywheelSpeedIncrement) {
 			flywheelSpeed -= flywheelSpeedIncrement;
 			//display current set flywheel rpm on controller
-			std::string speed = std::to_string(flywheelSpeed);
-			master.set_text(0, 0, speed);
+			speed = std::to_string(flywheelSpeed);
+			master.set_text(0, 0, "Speed: " + speed);
 		}
 		
 
