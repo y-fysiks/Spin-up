@@ -97,6 +97,5 @@ inline bool autonomousState = false;
 inline bool red_team = true;
 inline bool puncherState = false;
 inline int puncherTimer = 0;
-inline bool disableFlywheel = false;
 
 #endif // CONFIG_HPP

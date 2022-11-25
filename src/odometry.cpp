@@ -1,6 +1,4 @@
-#include "main.h"
-#include "globals.hpp"
-#include "pros/colors.h"
+#include "odometry.hpp"
 
 /**
  * odometry function

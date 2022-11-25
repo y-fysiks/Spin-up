@@ -1,17 +1,20 @@
 #include "FlywheelImplementation.hpp"
 
 double flywheelRatio = 1;
-velPID pid(0.35, 0.05, 0.045, 0.9);
+velPID pid(35, 0, 20, 0.9);// kP, kD, kF, emaAlpha
 emaFilter rpmFilter(0.15);
-double motorSlew = 0.7;
+double motorSlew = 300;
 
 double targetRPM = 0;
 double currentRPM = 0;
 double lastPower = 0;
 double motorPower = 0;
+bool disableFlywheel = false;
 
 void setFlywheelRPM(double rpm) {
     targetRPM = rpm;
+    if (rpm == 0) disableFlywheel = true;
+    else disableFlywheel = false;
 }
 
 void flywheelControl() {
@@ -34,7 +37,8 @@ void flywheelControl() {
     if (disableFlywheel) motorPower = 0;
     flywheelVoltage(motorPower);
     
-    //std::cout << "RPM: " << currentRPM << " Power: "<< motorPower << " Error: "<< flywheelPID.getError() << "\n";
+    pros::screen::print(TEXT_SMALL, 4, "RPM: %.2f   Power: %.2f   Error: %.2f", currentRPM, motorPower, pid.getError()); //print X, Y and angle after each compute
+
     pros::delay(20);
   }
 }
