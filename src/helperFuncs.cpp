@@ -1,18 +1,5 @@
-#include "main.h"
-#include "globals.hpp"
-#include "odometry.hpp"
-#include "pros/colors.h"
-#include "pros/screen.hpp"
-
-/**
- * Set flywheel speed (both motors)
- * 
- * \param speed speed in rpm (-100 - 600)
- */
-void flywheel(int speed) {
-    flywheel_1.move_velocity(speed);
-    flywheel_2.move_velocity(speed);
-}
+#include "helperFuncs.hpp"
+#include "FlywheelImplementation.hpp"
 
 void flywheelVoltage(int voltage) {
     flywheel_1.move_voltage(voltage);
@@ -26,6 +13,7 @@ void initSpinUp() {
     
 	pros::Task odometry(odometryLooper, "odometry");
 	pros::Task motion(position_control, "motion");
+    pros::Task flywheelTask(flywheelControl, "flywheel");
 
     /*
     if (selector::auton == 1) {
