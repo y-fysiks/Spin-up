@@ -154,10 +154,10 @@ void opcontrol() {
 			if (master.get_digital(DIGITAL_L2)) {
 				setFlywheelRPM(flywheelSpeed);
 			} else {
-				flywheel(300);
+				setFlywheelRPM(300);
 			}
 		} else {
-			flywheel(0);
+			setFlywheelRPM(0);
 		}
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
