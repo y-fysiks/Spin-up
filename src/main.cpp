@@ -86,7 +86,7 @@ void opcontrol() {
 	bool rotateDrive = true; // true means left intake is forward, false means shooter is forward. 
 
 	int flywheelSpeed = 350;
-	int flywheelSpeedIncrement = 50;
+	int flywheelSpeedIncrement = 100;
 
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -154,7 +154,7 @@ void opcontrol() {
 			if (master.get_digital(DIGITAL_L2)) {
 				setFlywheelRPM(flywheelSpeed);
 			} else {
-				setFlywheelRPM(300);
+				setFlywheelRPM(200);
 			}
 		} else {
 			setFlywheelRPM(0);
@@ -167,7 +167,7 @@ void opcontrol() {
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
-		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 0 + flywheelSpeedIncrement) {
+		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 200 + flywheelSpeedIncrement) {
 			flywheelSpeed -= flywheelSpeedIncrement;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
@@ -224,7 +224,15 @@ void opcontrol() {
 		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
 			|| (master.get_digital(DIGITAL_RIGHT) && master.get_digital_new_press(DIGITAL_Y))) {
-			expansionPiston.set_value(true);
+			expansionPiston.set_value(false);
+		}
+
+		//roller mechanism control
+		if (master.get_digital_new_press(DIGITAL_LEFT)) {
+			roller.move(-127);
+		}
+		else {
+			roller.move(0);
 		}
 		
 		
