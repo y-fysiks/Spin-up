@@ -153,10 +153,10 @@ void opcontrol() {
 			if (master.get_digital(DIGITAL_L2)) {
 				flywheel(flywheelSpeed);
 			} else {
-				flywheelVoltage(12000/2);
+				flywheel(300);
 			}
 		} else {
-			flywheelVoltage(0);
+			flywheel(0);
 		}
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
