@@ -186,7 +186,7 @@ void opcontrol() {
 			puncherTimer--;
 			if (puncherTimer == 0) {
 				puncherState = false;
-				puncherPiston.set_value(puncherState);
+				puncherPiston.set_value(!puncherState);
 			}
 		}
 
