@@ -224,9 +224,9 @@ void opcontrol() {
 		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
 			|| (master.get_digital(DIGITAL_RIGHT) && master.get_digital_new_press(DIGITAL_Y))) {
-			expansionPiston.set_value(false);
-		} else {
 			expansionPiston.set_value(true);
+		} else {
+			expansionPiston.set_value(false);
 		}
 
 		//roller mechanism control

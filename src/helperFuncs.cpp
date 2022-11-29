@@ -7,7 +7,7 @@ void flywheelVoltage(int voltage) {
 }
 
 void initSpinUp() {
-    expansionPiston.set_value(true);
+    expansionPiston.set_value(false);
     //erase screen, deletes all auton selector stuff
     pros::screen::set_eraser(COLOR_BLACK);
     pros::screen::erase();
