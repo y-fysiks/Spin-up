@@ -186,7 +186,7 @@ void opcontrol() {
 			puncherTimer--;
 			if (puncherTimer == 0) {
 				puncherState = false;
-				puncherPiston.set_value(!puncherState);
+				puncherPiston.set_value(puncherState);
 			}
 		}
 
@@ -224,7 +224,7 @@ void opcontrol() {
 		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
 			|| (master.get_digital(DIGITAL_RIGHT) && master.get_digital_new_press(DIGITAL_Y))) {
-			expansionPiston.set_value(false);
+			expansionPiston.set_value(true);
 		}
 
 		//roller mechanism control
