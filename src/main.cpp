@@ -85,7 +85,7 @@ void opcontrol() {
 	bool intakeReverse = false;
 	bool rotateDrive = true; // true means left intake is forward, false means shooter is forward. 
 
-	int flywheelSpeed = 350;
+	int flywheelSpeed = 300;
 	int flywheelSpeedIncrement = 100;
 
 	//set ground motor brakemode to coasting, meaning that it will inertially continue
