@@ -17,7 +17,7 @@ double velPID::calculate(double wantedRPM, double currentRPM) {
 
   double finalPower = (m_Error * m_Kp) + (m_derivative * m_Kd) + (wantedRPM * m_Kf);
 
-  if(std::abs(finalPower) > 127) { finalPower = sgn(finalPower) * 127; }
+  if(std::abs(finalPower) > 12000) { finalPower = sgn(finalPower) * 12000; }
 
   return finalPower;
 }
