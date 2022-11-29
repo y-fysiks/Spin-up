@@ -14,7 +14,6 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	expansionPiston.set_value(true);
 
 }
 
@@ -36,13 +35,11 @@ void disabled() {}
  */
 void competition_initialize() {
 	selector::init();
-	expansionPiston.set_value(true);
 
 }
 
 
 void autonomous() {
-	expansionPiston.set_value(true);
 	initSpinUp();
 
 	/*
@@ -147,7 +144,7 @@ void opcontrol() {
 		}
 
 		//flywheel warmup speed
-		if (master.get_digital(DIGITAL_B)) {
+		if (master.get_digital_new_press(DIGITAL_B)) {
 			//toggle flywheel
 			flywheelState = !flywheelState;
 		}
