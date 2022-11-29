@@ -27,7 +27,7 @@ void flywheelControl() {
     if(motorPower <= 0) motorPower = 0; //Prevent motor from spinning backward
     
     //Give the motor a bit of a starting boost
-    if(motorPower > lastPower && lastPower < 10 && motorPower > 10) lastPower = 10;
+    if(motorPower > lastPower && lastPower < 1000 && motorPower > 1000) lastPower = 1000;
     
     //This slews the motor by limiting the rate of change of the motor speed
     double increment = motorPower - lastPower;
