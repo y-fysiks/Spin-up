@@ -230,7 +230,7 @@ void opcontrol() {
 		}
 
 		//roller mechanism control
-		if (master.get_digital_new_press(DIGITAL_LEFT)) {
+		if (master.get_digital(DIGITAL_LEFT)) {
 			roller.move(-127);
 		}
 		else {
