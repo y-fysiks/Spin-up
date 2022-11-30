@@ -1,7 +1,7 @@
 #include "FlywheelImplementation.hpp"
 
 double flywheelRatio = 1;
-velPID pid(30, 0, 20, 0.9);// kP, kD, kF, emaAlpha
+velPID pid(0, 0, 20, 0.9);// kP, kD, kF, emaAlpha
 //original values 30, 0, 20, 0.9
 emaFilter rpmFilter(0.15);
 double motorSlew = 300;
@@ -28,11 +28,11 @@ void flywheelControl() {
     if(motorPower <= 0) motorPower = 0; //Prevent motor from spinning backward
     
     //Give the motor a bit of a starting boost
-    if(motorPower > lastPower && lastPower < 1000 && motorPower > 1000) lastPower = 1000;
+    //if(motorPower > lastPower && lastPower < 1000 && motorPower > 1000) lastPower = 1000;
     
     //This slews the motor by limiting the rate of change of the motor speed
     double increment = motorPower - lastPower;
-    if(std::abs(increment) > motorSlew) motorPower = lastPower + (motorSlew * sgn(increment));
+    //if(std::abs(increment) > motorSlew) motorPower = lastPower + (motorSlew * sgn(increment));
     lastPower = motorPower;
     
     if (disableFlywheel) motorPower = 0;
