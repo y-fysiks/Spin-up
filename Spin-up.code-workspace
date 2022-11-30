@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"pros.showInstallOnStartup": false
+		"pros.showInstallOnStartup": false,
+		"C_Cpp.intelliSenseEngine": "Disabled"
 	}
 }
