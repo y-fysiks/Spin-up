@@ -4,13 +4,6 @@
 #include "pros/colors.h"
 #include "pros/screen.hpp"
 
-/**
- * Set flywheel speed (both motors)
- * 
- * \param speed speed in rpm (-100 - 600)
- */
-void flywheel(int speed);
-
 void flywheelVoltage(int voltage);
 
 void initSpinUp();
