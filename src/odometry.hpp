@@ -72,3 +72,7 @@ void translate(double x, double y, bool goHeading, bool reverseHeading, double d
  * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
  */
 void translate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
+
+void rtranslate(double x, double y, bool goHeading, bool reverseHeading);
+void rtranslate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock);
+void rtranslate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);

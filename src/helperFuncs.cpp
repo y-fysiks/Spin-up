@@ -10,6 +10,15 @@ void initSpinUp() {
     //erase screen, deletes all auton selector stuff
     pros::screen::set_eraser(COLOR_BLACK);
     pros::screen::erase();
+
+    //set ground motor brakemode to coasting, meaning that it will inertially continue
+	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	//intake stuff
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     
 	pros::Task odometry(odometryLooper, "odometry");
 	pros::Task motion(position_control, "motion");
@@ -34,6 +43,15 @@ void initSpinUp() {
 	}*/
 
     targetPos = location;
+}
+
+void shoot(int num) {
+    for (int i = 0; i < num; i++) {
+        puncherState = true;
+        pros::delay(150);
+        puncherState = false;
+        pros::delay(600);
+    }
 }
 
 // functions to get angle given current position and target position

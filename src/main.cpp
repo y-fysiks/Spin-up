@@ -88,14 +88,6 @@ void opcontrol() {
 	int flywheelSpeed = 300;
 	int flywheelSpeedIncrement = 100;
 
-	//set ground motor brakemode to coasting, meaning that it will inertially continue
-	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	//intake stuff
-	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
 	master.set_text(0, 0, "Speed: " + speed);
@@ -161,7 +153,7 @@ void opcontrol() {
 		}
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
-		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 400 - flywheelSpeedIncrement) {
+		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
 			flywheelSpeed += flywheelSpeedIncrement;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
@@ -179,7 +171,7 @@ void opcontrol() {
 		//puncher control for shooting
 		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
 			puncherState = true;
-			puncherTimer = 10;
+			puncherTimer = 7;
 			puncherPiston.set_value(puncherState);
 		}
 		if (puncherState) {

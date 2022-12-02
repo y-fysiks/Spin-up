@@ -8,6 +8,8 @@ void flywheelVoltage(int voltage);
 
 void initSpinUp();
 
+void shoot(int num);
+
 
 // functions to get angle given current position and target position
 

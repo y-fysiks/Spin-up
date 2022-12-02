@@ -2,6 +2,7 @@
 #include "globals.hpp"
 #include "helperFuncs.hpp"
 #include "odometry.hpp"
+#include "FlywheelImplementation.hpp"
 
 void redLeft();
 void redRight();

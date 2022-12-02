@@ -28,7 +28,7 @@ void position_control() {
     //TODO TUNE PID FOR X
     greatapi::controlelement *PX = new greatapi::Proportional(2800, std::pair(__INT_MAX__, -__INT_MAX__));          PIDXElements.push_back(PX);
     greatapi::controlelement *IX = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));                 PIDXElements.push_back(IX);
-    greatapi::controlelement *DX = new greatapi::Derivative(800, std::pair(__INT_MAX__, -__INT_MAX__));             PIDXElements.push_back(DX);
+    greatapi::controlelement *DX = new greatapi::Derivative(700, std::pair(__INT_MAX__, -__INT_MAX__));             PIDXElements.push_back(DX);
 
     greatapi::control_loop PIDX(PIDXElements, std::pair(12000, -12000));
 
@@ -37,7 +37,7 @@ void position_control() {
     //TODO TUNE PID FOR Y
     greatapi::controlelement *PY = new greatapi::Proportional(2800, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
     greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));                 PIDYElements.push_back(IY);
-    greatapi::controlelement *DY = new greatapi::Derivative(1000, std::pair(__INT_MAX__, -__INT_MAX__));            PIDYElements.push_back(DY);
+    greatapi::controlelement *DY = new greatapi::Derivative(700, std::pair(__INT_MAX__, -__INT_MAX__));            PIDYElements.push_back(DY);
 
     greatapi::control_loop PIDY(PIDYElements, std::pair(12000, -12000));
 
@@ -48,7 +48,7 @@ void position_control() {
     greatapi::controlelement *IAngle = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));             PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(10000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
-    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(12000, -12000));
+    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(8000, -8000));
     
     while (true) {
         //current position is location variable
@@ -187,4 +187,14 @@ void translate(double x, double y, double maxVoltage, bool goHeading, bool rever
     voltageCap = maxVoltage;
     translate(x, y, goHeading, reverseHeading, distToStopBlock);
     return;
+}
+
+void rtranslate(double x, double y, bool goHeading, bool reverseHeading) {
+    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, goHeading, reverseHeading);
+}
+void rtranslate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock) {
+    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, goHeading, reverseHeading, distToStopBlock);
+}
+void rtranslate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
+    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, maxVoltage, goHeading, reverseHeading, distToStopBlock);
 }
