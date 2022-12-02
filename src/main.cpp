@@ -14,7 +14,7 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	expansionPiston.set_value(false);
+	expansionPiston.set_value(true);
 }
 
 /**
@@ -161,7 +161,7 @@ void opcontrol() {
 		}
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
-		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
+		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 400 - flywheelSpeedIncrement) {
 			flywheelSpeed += flywheelSpeedIncrement;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
