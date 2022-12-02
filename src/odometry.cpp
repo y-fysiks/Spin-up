@@ -9,7 +9,8 @@ void odometryLooper() {
     right_encoder -> reset();
     left_encoder -> reset();
     rear_encoder -> reset();
-    //
+    
+    odom.globaloffset = PI / -2;
     while (true) {
         location = odom.calculateposition(location);
         pros::screen::print(TEXT_SMALL, 1, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute
