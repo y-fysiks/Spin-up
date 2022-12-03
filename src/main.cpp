@@ -14,7 +14,7 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	expansionPiston.set_value(true);
+	expansionPiston.set_value(false);
 }
 
 /**
@@ -86,7 +86,7 @@ void opcontrol() {
 	bool rotateDrive = true; // true means left intake is forward, false means shooter is forward. 
 
 	int flywheelSpeed = 300;
-	int flywheelSpeedIncrement = 100;
+	int flywheelSpeedIncrement = 50;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
@@ -153,13 +153,13 @@ void opcontrol() {
 		}
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
-		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 500 - flywheelSpeedIncrement) {
+		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 350 - flywheelSpeedIncrement) {
 			flywheelSpeed += flywheelSpeedIncrement;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
-		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 200 + flywheelSpeedIncrement) {
+		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 250 + flywheelSpeedIncrement) {
 			flywheelSpeed -= flywheelSpeedIncrement;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);

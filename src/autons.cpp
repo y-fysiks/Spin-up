@@ -10,8 +10,8 @@ void redLeft() {
     roller.move_relative(90, 100);
     pros::delay(1000);
     setFlywheelRPM(400);
-    translate(3, 6, false, false, 0);
-    rotate(15, 0);
+    translate(4, 12, false, false, 0);
+    rotate(13, 0);
     shoot(2);
 }
 
