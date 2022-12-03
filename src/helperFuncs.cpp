@@ -46,10 +46,11 @@ void initSpinUp() {
 }
 
 void shoot(int num) {
+    puncherPiston.set_value(0);
     for (int i = 0; i < num; i++) {
-        puncherState = true;
+        puncherPiston.set_value(1);
         pros::delay(150);
-        puncherState = false;
+        puncherPiston.set_value(0);
         pros::delay(600);
     }
 }

@@ -27,7 +27,7 @@ void odometryLooper() {
 void position_control() {
     std::vector<greatapi::controlelement *> PIDXElements;
     //TODO TUNE PID FOR X
-    greatapi::controlelement *PX = new greatapi::Proportional(2800, std::pair(__INT_MAX__, -__INT_MAX__));          PIDXElements.push_back(PX);
+    greatapi::controlelement *PX = new greatapi::Proportional(3000, std::pair(__INT_MAX__, -__INT_MAX__));          PIDXElements.push_back(PX);
     greatapi::controlelement *IX = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));                 PIDXElements.push_back(IX);
     greatapi::controlelement *DX = new greatapi::Derivative(700, std::pair(__INT_MAX__, -__INT_MAX__));             PIDXElements.push_back(DX);
 
@@ -36,7 +36,7 @@ void position_control() {
 
     std::vector<greatapi::controlelement *> PIDYElements;
     //TODO TUNE PID FOR Y
-    greatapi::controlelement *PY = new greatapi::Proportional(2800, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
+    greatapi::controlelement *PY = new greatapi::Proportional(3000, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
     greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));                 PIDYElements.push_back(IY);
     greatapi::controlelement *DY = new greatapi::Derivative(700, std::pair(__INT_MAX__, -__INT_MAX__));            PIDYElements.push_back(DY);
 

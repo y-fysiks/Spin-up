@@ -9,9 +9,10 @@ void redLeft() {
     pros::delay(500);
     roller.move_relative(90, 100);
     pros::delay(1000);
-    setFlywheelRPM(400);
+    setFlywheelRPM(340);
     translate(4, 12, false, false, 0);
-    rotate(13, 0);
+    rotate(-13, 0);
+    pros::delay(500);
     shoot(2);
 }
 
@@ -29,7 +30,8 @@ void blueLeft() {
     pros::delay(1000);
     setFlywheelRPM(400);
     rtranslate(-3, -6, false, false, 0);
-    rotate(15 + 180, 0);
+    rotate(-13 + 180, 0);
+    pros::delay(500);
     shoot(2);
 }
 
@@ -48,14 +50,15 @@ void skills() {
     pros::delay(500);
     roller.move_relative(90, 100);
     pros::delay(1000);
-    setFlywheelRPM(400);
-    rtranslate(3, 6, false, false, 0);
-    rotate(15, 0);
+    setFlywheelRPM(340);
+    translate(4, 12, false, false, 0);
+    rotate(-13, 0);
+    pros::delay(500);
     shoot(2);
 
     //get into pos for expansion
     translate(20, 20, false, false, 0);
-    rotate(135);
+    rotate(-135);
     expansionPiston.set_value(1);
 
 }
