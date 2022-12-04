@@ -15,6 +15,8 @@
  */
 void initialize() {
 	expansionPiston.set_value(false);
+	location.x = 0; location.y = 0; location.angle = greatapi::SRAD(0);
+	//selector::init();
 }
 
 /**
@@ -22,7 +24,8 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -34,7 +37,6 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-	selector::init();
 
 }
 
@@ -53,8 +55,14 @@ void autonomous() {
 	DEFAULT IS 1
 	*/
 
-	autonomousState = true;
-	moveDrive = true;
+	autonomousState = false;
+	moveDrive = false;
+
+	// redLeft();
+	//redRight();
+	//blueLeft();
+	//blueRight();
+	//skills();
 
 	if (selector::auton == 1) {
 		redLeft();
@@ -62,7 +70,6 @@ void autonomous() {
 	else if (selector::auton == 2) {
 		redRight();
 	}
-	
 	else if (selector::auton == -1) {
 		blueLeft();
 	}
@@ -171,7 +178,7 @@ void opcontrol() {
 		//puncher control for shooting
 		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
 			puncherState = true;
-			puncherTimer = 7;
+			puncherTimer = 10;
 			puncherPiston.set_value(puncherState);
 		}
 		if (puncherState) {

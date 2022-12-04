@@ -8,6 +8,7 @@ void flywheelVoltage(int voltage) {
 
 void initSpinUp() {
     //erase screen, deletes all auton selector stuff
+
     pros::screen::set_eraser(COLOR_BLACK);
     pros::screen::erase();
 
@@ -20,11 +21,11 @@ void initSpinUp() {
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     
-	pros::Task odometry(odometryLooper, "odometry");
-	pros::Task motion(position_control, "motion");
-    pros::Task flywheelTask(flywheelControl, "flywheel");
+	pros::Task odometry(odometryLooper, "odometryTask");
+	pros::Task motion(position_control, "motionTask");
+    pros::Task flywheel(flywheelControl, "flywheelTask");
 
-    /*
+    
     if (selector::auton == 1) {
 		red_team = true;
         location = redLStart;
@@ -40,7 +41,7 @@ void initSpinUp() {
 	} else if (selector::auton == 0) {
 		red_team = true; // SKILLS USES RED TEAM LEFT
         location = redLStart;
-	}*/
+	}
 
     targetPos = location;
 }
@@ -49,9 +50,9 @@ void shoot(int num) {
     puncherPiston.set_value(0);
     for (int i = 0; i < num; i++) {
         puncherPiston.set_value(1);
-        pros::delay(150);
+        pros::delay(200);
         puncherPiston.set_value(0);
-        pros::delay(600);
+        pros::delay(900);
     }
 }
 

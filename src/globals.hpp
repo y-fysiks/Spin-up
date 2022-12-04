@@ -24,7 +24,7 @@
 #define right_tracking_port 11
 #define rear_tracking_port 12
 // Odometry constants
-#define WHEEL_DIST_LR 13.1
+#define WHEEL_DIST_LR 13.88
 #define XWHEEL_DIST_CENTER -1.0
 
 //------------------------------------------------------------------------------
@@ -53,8 +53,8 @@ inline pros::Optical color_sense(optical_port);
 // controller
 inline pros::Controller master(CONTROLLER_MASTER);
 // pneumatics
-inline pros::ADIDigitalOut puncherPiston(puncher_port);
-inline pros::ADIDigitalOut expansionPiston(expansion_port);
+inline pros::ADIDigitalOut puncherPiston(puncher_port, 0);
+inline pros::ADIDigitalOut expansionPiston(expansion_port, 0);
 
 //------------------------------------------------------------------------------
 // GREATAPI objects and variables
@@ -88,10 +88,10 @@ inline double voltageCap = 12000;
 //goal locations, Red Left corner is 0, 0
 inline greatapi::position blueGoal(greatapi::coord(123, 140 - 123), greatapi::SRAD(0));
 inline greatapi::position redGoal(greatapi::coord(140 - 123, 123), greatapi::SRAD(0));
-inline greatapi::position blueLStart(greatapi::coord(8.75 + 23.4, StartY), greatapi::SRAD(0));
-inline greatapi::position blueRStart(greatapi::coord(140 - StartY, 140 - 2 * 23.4 - 8.75), greatapi::SRAD(greatapi::degrees(90)));
-inline greatapi::position redLStart(greatapi::coord(140 - 23.4 - 8.75, 140 - StartY), greatapi::SRAD(greatapi::degrees(180)));
-inline greatapi::position redRStart(greatapi::coord(StartY, 2 * 23.4 + 8.75), greatapi::SRAD(greatapi::degrees(270)));
+inline greatapi::position redLStart(greatapi::coord(8.75 + 23.4, StartY), greatapi::SRAD(0));
+inline greatapi::position redRStart(greatapi::coord(140 - StartY, 140 - 2 * 23.4 - 8.75), greatapi::SRAD(greatapi::degrees(90)));
+inline greatapi::position blueLStart(greatapi::coord(140 - 23.4 - 8.75, 140 - StartY), greatapi::SRAD(greatapi::degrees(180)));
+inline greatapi::position blueRStart(greatapi::coord(StartY, 2 * 23.4 + 8.75), greatapi::SRAD(greatapi::degrees(270)));
 
 //------------------------------------------------------------------------------
 // other variables
