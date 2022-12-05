@@ -1,7 +1,7 @@
 #include "FlywheelImplementation.hpp"
 
 double flywheelRatio = 1;
-velPID pid(35, 0, 20, 0.9);// kP, kD, kF, emaAlpha
+velPID pid(35, 5, 20, 0.9);// kP, kD, kF, emaAlpha
 //original values 30, 0, 20, 0.9
 emaFilter rpmFilter(0.15);
 double motorSlew = 300;

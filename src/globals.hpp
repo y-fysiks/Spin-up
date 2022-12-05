@@ -27,6 +27,8 @@
 #define WHEEL_DIST_LR 13.88
 #define XWHEEL_DIST_CENTER -1.0
 
+#define powerFactor 1.5
+
 //------------------------------------------------------------------------------
 // Global PROS objects and variables
 // Motors

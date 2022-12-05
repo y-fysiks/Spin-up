@@ -91,7 +91,7 @@ void opcontrol() {
 	bool flywheelState = true;
 	bool intakeState = false;
 	bool intakeReverse = false;
-	bool rotateDrive = true; // true means left intake is forward, false means shooter is forward. 
+	bool rotateDrive = false; // DEFAULT TO FLYWHEEL IS FORWARD
 	int puncherCount = 0;
 
 	int flywheelSpeed = 300;
@@ -99,50 +99,24 @@ void opcontrol() {
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
-	master.set_text(0, 0, "Speed: " + speed);
 	if (rotateDrive) {
-		master.set_text(0, 12, "R");
+		master.set_text(0, 0, "Speed:   " + speed + "R");
 	} else {
-		master.set_text(0, 12, "F");
+		master.set_text(0, 0, "Speed:   " + speed + "R");
 	}
 	while (true) {
 		puncherPiston.set_value(puncherState);
-		/*
-		//get hue for color spinny thing
-		double hue = color_sense.get_hue();
-		double proximity = color_sense.get_proximity();
-		if(proximity >= 220){
-			//also for spinning, we need to place our optical sensor quite early to fight delay
-			//conditionals for if robot is red team or not, check globals.hpp for this variable
-			if(red_team){
-				if(isRed(hue)) {
-					spinner_motor.move(0);
-				}
-				else{
-					spinner_motor.move(127);
-				}
-			}
-			else {
-				if(isRed(hue)) {
-					spinner_motor.move(127);
-				}
-				else {
-					spinner_motor.move(0);
-				}
-			}
-		}
-		*/
 
-		//rotate to the correct goal when the button DIGITAL_A is pressed
-		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
-			translate(location.x, location.y, false, false);
-			if (red_team) {
-				rotate(get_angle(redGoal.x, redGoal.y));
-			} else {
-				rotate(get_angle(blueGoal.x, blueGoal.y));
-			}
-			moveDrive = true;
-		}
+		// //rotate to the correct goal when the button DIGITAL_A is pressed
+		// if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
+		// 	translate(location.x, location.y, false, false);
+		// 	if (red_team) {
+		// 		rotate(get_angle(redGoal.x, redGoal.y));
+		// 	} else {
+		// 		rotate(get_angle(blueGoal.x, blueGoal.y));
+		// 	}
+		// 	moveDrive = true;
+		// }
 
 		// //flywheel warmup speed
 		// if (master.get_digital_new_press(DIGITAL_B)) {
@@ -234,7 +208,7 @@ void opcontrol() {
 		}
 
 		//roller mechanism control
-		if (master.get_digital(DIGITAL_LEFT)) {
+		if (master.get_digital(DIGITAL_B)) {
 			roller.move(-127);
 		}
 		else {
@@ -247,6 +221,10 @@ void opcontrol() {
 		int front_back = master.get_analog(ANALOG_LEFT_Y);
 		int left_right = master.get_analog(ANALOG_LEFT_X);
 		int turn = master.get_analog(ANALOG_RIGHT_X);
+
+		front_back = (pow(abs(front_back), powerFactor) / pow(127, powerFactor - 1) * sgn(front_back));
+		left_right = (pow(abs(left_right), powerFactor) / pow(127, powerFactor - 1) * sgn(left_right));
+		turn = (pow(abs(turn), powerFactor) / (pow(127, powerFactor - 1)) * sgn(turn)) * 0.7;
 
 		if (abs(front_back) > 10 || abs(left_right) > 10 || abs(turn) > 10) {
 			moveDrive = false;
