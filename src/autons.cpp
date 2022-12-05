@@ -105,20 +105,21 @@ void skills() {
     shoot(3);
     setFlywheelRPM(315);
     translate(106, 106, 700, false, false, 36);
-    shoot(1);
+    fastShoot(1);
     setFlywheelRPM(330);
     translate(106, 106, 700, false, false, 18);
-    shoot(1);
+    fastShoot(1);
     setFlywheelRPM(350);
     translate(106, 106, 700, false, false, 0);
-    shoot(1);
+    fastShoot(1);
     setFlywheelRPM(270);
     translate(120, 120, false, false, 0);
     rtranslate(0, -80, false, false, 0);
-    fastShoot(2);
+    shoot(2);
 
     //get into pos for expansion
     setFlywheelRPM(0);
+    rotate(180);
     translate(120, 120, true, false, 0);
     rotate(-45, 0);
     expansionPiston.set_value(1);
