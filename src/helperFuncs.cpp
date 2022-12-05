@@ -48,7 +48,7 @@ void initSpinUp() {
 
 void tripleshot() {
     puncherPiston.set_value(0);
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
         puncherPiston.set_value(1);
         pros::delay(150);
         puncherPiston.set_value(0);

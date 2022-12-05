@@ -92,6 +92,7 @@ void opcontrol() {
 	bool intakeState = false;
 	bool intakeReverse = false;
 	bool rotateDrive = true; // true means left intake is forward, false means shooter is forward. 
+	int puncherCount = 0;
 
 	int flywheelSpeed = 300;
 	int flywheelSpeedIncrement = 50;
@@ -152,11 +153,6 @@ void opcontrol() {
 		//flywheel high-gear speed
 		if (flywheelState) {
 			setFlywheelRPM(flywheelSpeed);
-			// if (master.get_digital(DIGITAL_L2)) {
-			// 	setFlywheelRPM(flywheelSpeed);
-			// } else {
-			// 	setFlywheelRPM(200);
-			// }
 		} else {
 			setFlywheelRPM(0);
 		}
@@ -179,6 +175,13 @@ void opcontrol() {
 
 		//puncher control for shooting
 		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
+			puncherCount = 1;
+		}
+		if (master.get_digital(DIGITAL_L2)) {
+			puncherCount = 4;
+		}
+		if (puncherCount > 0) {
+			puncherCount --;
 			puncherState = true;
 			puncherTimer = 10;
 			puncherPiston.set_value(puncherState);
