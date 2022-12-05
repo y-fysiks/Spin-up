@@ -46,13 +46,23 @@ void initSpinUp() {
     targetPos = location;
 }
 
+void tripleshot() {
+    puncherPiston.set_value(0);
+    for (int i = 0; i < 3; i++) {
+        puncherPiston.set_value(1);
+        pros::delay(150);
+        puncherPiston.set_value(0);
+        pros::delay(500);
+    }
+}
+
 void shoot(int num) {
     puncherPiston.set_value(0);
     for (int i = 0; i < num; i++) {
         puncherPiston.set_value(1);
         pros::delay(200);
         puncherPiston.set_value(0);
-        pros::delay(900);
+        pros::delay(1500);
     }
 }
 

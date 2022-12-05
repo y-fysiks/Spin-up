@@ -63,6 +63,7 @@ void autonomous() {
 	//blueLeft();
 	//blueRight();
 	//skills();
+	selector::auton = 1;
 
 	if (selector::auton == 1) {
 		redLeft();
@@ -87,7 +88,7 @@ void opcontrol() {
 
 	autonomousState = false;
 	moveDrive = false;
-	bool flywheelState = false;
+	bool flywheelState = true;
 	bool intakeState = false;
 	bool intakeReverse = false;
 	bool rotateDrive = true; // true means left intake is forward, false means shooter is forward. 
@@ -142,19 +143,20 @@ void opcontrol() {
 			moveDrive = true;
 		}
 
-		//flywheel warmup speed
-		if (master.get_digital_new_press(DIGITAL_B)) {
-			//toggle flywheel
-			flywheelState = !flywheelState;
-		}
+		// //flywheel warmup speed
+		// if (master.get_digital_new_press(DIGITAL_B)) {
+		// 	//toggle flywheel
+		// 	flywheelState = !flywheelState;
+		// }
 
 		//flywheel high-gear speed
 		if (flywheelState) {
-			if (master.get_digital(DIGITAL_L2)) {
-				setFlywheelRPM(flywheelSpeed);
-			} else {
-				setFlywheelRPM(200);
-			}
+			setFlywheelRPM(flywheelSpeed);
+			// if (master.get_digital(DIGITAL_L2)) {
+			// 	setFlywheelRPM(flywheelSpeed);
+			// } else {
+			// 	setFlywheelRPM(200);
+			// }
 		} else {
 			setFlywheelRPM(0);
 		}
