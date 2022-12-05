@@ -46,9 +46,9 @@ void initSpinUp() {
     targetPos = location;
 }
 
-void tripleshot() {
+void fastShoot(int num) {
     puncherPiston.set_value(0);
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < num; i++) {
         puncherPiston.set_value(1);
         pros::delay(150);
         puncherPiston.set_value(0);
@@ -62,7 +62,7 @@ void shoot(int num) {
         puncherPiston.set_value(1);
         pros::delay(200);
         puncherPiston.set_value(0);
-        pros::delay(1500);
+        pros::delay(1000);
     }
 }
 
@@ -126,5 +126,16 @@ long double get_angle(long double targetx, long double targety){
         return 2*pi-dot(a, b, c, d);
     }else{// anticlockwise
         return dot(a, b, c, d);
+    }
+}
+
+void rotation_control() {
+    while (true) {
+        if (alignGoal == 1) {
+            rotate(2 * PI - get_angle(redGoal.x, redGoal.y));
+        } else if (alignGoal == 2) {
+            rotate(2 * PI - get_angle(blueGoal.x, blueGoal.y));
+        }
+        pros::delay(100);
     }
 }

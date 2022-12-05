@@ -1,4 +1,5 @@
 #include "odometry.hpp"
+#include "pros/rtos.hpp"
 
 /**
  * odometry function
@@ -95,6 +96,7 @@ void position_control() {
     }
     return;
 }
+
 
 /**
  * rotates the bot to the specified absolute heading. DOES NOT BLOCK EXECUTION

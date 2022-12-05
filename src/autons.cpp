@@ -78,15 +78,15 @@ void skills() {
     //31.75, 9
     rtranslate(0, -2, false, false);
     pros::delay(500);
-    roller.move_relative(-90, 100);
-    setFlywheelRPM(357);
-    pros::delay(1500);
+    roller.move_relative(-190, 100);
+    // setFlywheelRPM(357);
+    pros::delay(1000);
     rtranslate(4, 12, false, false, 0);
-    rotate(-18, 0);
-    pros::delay(500);
-    shoot(1);
-    pros::delay(500);
-    shoot(2);
+    // rotate(-18, 0);
+    // pros::delay(500);
+    // shoot(1);
+    // pros::delay(500);
+    // shoot(2);
     setFlywheelRPM(200);
     intake.move(-127);
     translate(20, 28, false, false, 0);
@@ -95,13 +95,32 @@ void skills() {
     rtranslate(-2, 0, false, false);
     pros::delay(500);
     roller.move_relative(-190, 100);
-    pros::delay(1500);
-    rtranslate(10, 0, false, false, 0);
+    pros::delay(1000);
+    translate(25, 25, false, false, 0);
 
+    rotate(135, 0);
+    setFlywheelRPM(300);
+    translate(70.2, 70.2, 10000, false, false, 110);//134.35 total distance
+    alignGoal = 2;
+    shoot(3);
+    setFlywheelRPM(315);
+    translate(106, 106, 700, false, false, 36);
+    shoot(1);
+    setFlywheelRPM(330);
+    translate(106, 106, 700, false, false, 18);
+    shoot(1);
+    setFlywheelRPM(350);
+    translate(106, 106, 700, false, false, 0);
+    shoot(1);
+    setFlywheelRPM(270);
+    translate(120, 120, false, false, 0);
+    rtranslate(0, -80, false, false, 0);
+    fastShoot(2);
 
     //get into pos for expansion
-    translate(20, 20, true, false, 0);
-    rotate(-135, 0);
+    setFlywheelRPM(0);
+    translate(120, 120, true, false, 0);
+    rotate(-45, 0);
     expansionPiston.set_value(1);
 
 }
