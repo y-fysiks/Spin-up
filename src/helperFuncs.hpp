@@ -10,6 +10,8 @@ void initSpinUp();
 
 void shoot(int num);
 
+void fastShoot(int num);
+
 
 // functions to get angle given current position and target position
 
@@ -54,3 +56,6 @@ int cross(long double a, long double b, long double c, long double d);
  * \return long double 
  */
 long double get_angle(long double targetx, long double targety);
+
+
+void rotation_control();

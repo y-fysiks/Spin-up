@@ -107,16 +107,16 @@ void opcontrol() {
 	while (true) {
 		puncherPiston.set_value(puncherState);
 
-		// //rotate to the correct goal when the button DIGITAL_A is pressed
-		// if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
-		// 	translate(location.x, location.y, false, false);
-		// 	if (red_team) {
-		// 		rotate(get_angle(redGoal.x, redGoal.y));
-		// 	} else {
-		// 		rotate(get_angle(blueGoal.x, blueGoal.y));
-		// 	}
-		// 	moveDrive = true;
-		// }
+		//rotate to the correct goal when the button DIGITAL_A is pressed
+		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
+			translate(location.x, location.y, false, false);
+			if (red_team) {
+				rotate(2 * PI - get_angle(redGoal.x, redGoal.y));
+			} else {
+				rotate(2 * PI - get_angle(blueGoal.x, blueGoal.y));
+			}
+			moveDrive = true;
+		}
 
 		// //flywheel warmup speed
 		// if (master.get_digital_new_press(DIGITAL_B)) {
