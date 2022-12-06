@@ -104,6 +104,7 @@ void position_control() {
  * \param angle the absolute heading to rotate to
  */
 void rotate(double angleDeg) {
+    voltageCap = 12000;
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
     targetPos.angle = angle;
     return;
@@ -133,6 +134,7 @@ void rotate(double angleDeg, double errorStop) {
  * \param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
 void translate(double x, double y, bool goHeading, bool reverseHeading) {
+    voltageCap = 12000;
     if (goHeading) {
         if (reverseHeading) {
             rotate(90 - (atan2(y - location.y, x - location.x) + PI) / PI * 180.0, 0);

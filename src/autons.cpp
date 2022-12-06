@@ -99,23 +99,38 @@ void skills() {
     translate(25, 25, false, false, 0);
 
     rotate(135, 0);
-    setFlywheelRPM(300);
-    translate(70.2, 70.2, 10000, false, false, 110);//134.35 total distance
+
+    setFlywheelRPM(315);
+    translate(70.2, 70.2, 7000, false, false, 47);//134.35 total distance
     alignGoal = 2;
     shoot(3);
+
+    setFlywheelRPM(310);
+    translate(70.2, 70.2, 10000, false, false, 47);
+    fastShoot(1);
+
+    setFlywheelRPM(300);
+    translate(70.2, 70.2, 10000, false, false, 10);
+    fastShoot(1);
+
     setFlywheelRPM(315);
-    translate(106, 106, 700, false, false, 36);
+    translate(106, 106, 10000, false, false, 32);
     fastShoot(1);
+
     setFlywheelRPM(330);
-    translate(106, 106, 700, false, false, 18);
+    translate(106, 106, 10000, false, false, 18);
     fastShoot(1);
+
     setFlywheelRPM(350);
-    translate(106, 106, 700, false, false, 0);
-    fastShoot(1);
-    setFlywheelRPM(270);
-    translate(120, 120, false, false, 0);
-    rtranslate(0, -80, false, false, 0);
-    shoot(2);
+    translate(106, 106, 7000, false, false, 0);
+    shoot(3);
+
+    translate(120, 120, 10000, false, false, 0);
+    alignGoal = 0;
+
+    translate(110, 126, false, false, 0);
+    rotate(180, 0);
+
 
     //get into pos for expansion
     setFlywheelRPM(0);
