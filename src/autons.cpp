@@ -23,27 +23,6 @@ void redLeft() {
     pros::delay(500);
     shoot(1);
     setFlywheelRPM(200);
-    // setFlywheelRPM(374);
-    // pros::delay(3000);
-    // shoot(2);
-    // lf_motor.move_relative(150, 300);
-    // rf_motor.move_relative(-150, 300);
-    // rb_motor.move_relative(-150, 300);
-    // lb_motor.move_relative(150, 300);
-    // pros::delay(1000);
-    // lf_motor.move_relative(-100, 300);
-    // rf_motor.move_relative(100, 300);
-    // rb_motor.move_relative(-100, 300);
-    // lb_motor.move_relative(100, 300);
-    // pros::delay(1000);
-    // lf_motor.move(-127);
-    // rf_motor.move(-127);
-    // lb_motor.move(-127);
-    // rb_motor.move(-127);
-    // pros::delay(1000);
-    // roller.move_relative(-90, 100);
-
-
 }
 
 void redRight() {
@@ -79,14 +58,10 @@ void skills() {
     rtranslate(0, -2, false, false);
     pros::delay(500);
     roller.move_relative(-190, 100);
-    // setFlywheelRPM(357);
-    pros::delay(1000);
+    pros::delay(700);
     rtranslate(4, 12, false, false, 0);
-    // rotate(-18, 0);
-    // pros::delay(500);
-    // shoot(1);
-    // pros::delay(500);
-    // shoot(2);
+
+
     setFlywheelRPM(200);
     intake.move(-127);
     translate(20, 28, false, false, 0);
@@ -95,7 +70,7 @@ void skills() {
     rtranslate(-2, 0, false, false);
     pros::delay(500);
     roller.move_relative(-190, 100);
-    pros::delay(1000);
+    pros::delay(700);
     translate(25, 25, false, false, 0);
 
     rotate(135, 0);
@@ -128,15 +103,51 @@ void skills() {
     translate(120, 120, 10000, false, false, 0);
     alignGoal = 0;
 
-    translate(110, 126, false, false, 0);
     rotate(180, 0);
+    translate(110, 126, false, false, 0);
 
+    rtranslate(0, 2, false, false);
+    pros::delay(500);
+    roller.move_relative(-190, 100);
+    pros::delay(700);
+    rtranslate(0, -2, false, false, 0);
+    rotate(270);
+
+    setFlywheelRPM(340);
+    translate(126, 110, false, false, 0);
+    rtranslate(2, 0, false, false);
+    pros::delay(500);
+    roller.move_relative(-190, 100);
+    pros::delay(700);
+    rtranslate(-4, 0, false, false, 0);
+    alignGoal = 2;
+    fastShoot(1);
+    alignGoal = 0;
+
+    setFlywheelRPM(290);
+    rotate(-45);
+    translate(89, 58, false, false, 0);
+    rotate(130, 0);
+    fastShoot(3);
+    rotate(45);
+    translate(58, 90, false, false, 0);
+    rotate(-45, 0);
+    fastShoot(1);
+
+    setFlywheelRPM(300);
+    alignGoal = 1;
+    translate(34, 58, 10000, false, false, 15);
+    fastShoot(1);
+
+    setFlywheelRPM(310);
+    translate(34, 58, 10000, false, false, 0);
+    fastShoot(1);
 
     //get into pos for expansion
     setFlywheelRPM(0);
-    rotate(180);
-    translate(120, 120, true, false, 0);
-    rotate(-45, 0);
+    intake.move(0);
+    alignGoal = 0;
+    rotate(-135);
+    translate(20, 26, false, false, 0);
     expansionPiston.set_value(1);
-
 }
