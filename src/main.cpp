@@ -100,9 +100,9 @@ void opcontrol() {
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
 	if (rotateDrive) {
-		master.set_text(0, 0, "Speed:   " + speed + "R");
+		master.set_text(0, 0, "Speed: " + speed + "  R");
 	} else {
-		master.set_text(0, 0, "Speed:   " + speed + "R");
+		master.set_text(0, 0, "Speed: " + speed + "  R");
 	}
 	while (true) {
 		puncherPiston.set_value(puncherState);
@@ -124,7 +124,7 @@ void opcontrol() {
 		// 	flywheelState = !flywheelState;
 		// }
 
-		//flywheel high-gear speed
+		//flywheel speed
 		if (flywheelState) {
 			setFlywheelRPM(flywheelSpeed);
 		} else {
@@ -208,7 +208,7 @@ void opcontrol() {
 		}
 
 		//roller mechanism control
-		if (master.get_digital(DIGITAL_B)) {
+		if (master.get_digital(DIGITAL_LEFT)) {
 			roller.move(-127);
 		}
 		else {
