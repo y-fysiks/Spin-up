@@ -55,14 +55,15 @@ void autonomous() {
 	DEFAULT IS 1
 	*/
 
-	autonomousState = false;
-	moveDrive = false;
+	autonomousState = true;
+	moveDrive = true;
 
 	// redLeft();
-	//redRight();
-	//blueLeft();
-	//blueRight();
-	//skills();
+	// redRight();
+	// blueLeft();
+	// blueRight();
+	// skills();
+
 	selector::auton = 1;
 
 	if (selector::auton == 1) {

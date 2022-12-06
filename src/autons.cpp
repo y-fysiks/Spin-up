@@ -7,10 +7,6 @@ void redLeft() {
     //location = redLStart;
     red_team = true;
     //31.75, 9
-
-    // pros::delay(10000);
-    moveDrive = true;
-    //31.75, 9
     rtranslate(0, -2, false, false);
     pros::delay(500);
     roller.move_relative(-90, 100);
@@ -53,7 +49,6 @@ void skills() {
     //skills RED TEAM
     red_team = true;
     //red left
-    moveDrive = true;
     //31.75, 9
     rtranslate(0, -2, false, false);
     pros::delay(500);
