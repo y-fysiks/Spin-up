@@ -74,30 +74,30 @@ void skills() {
 
     pros::delay(5000);
 
-    translate(70.2, 70.2, 7000, false, false, 47);//134.35 total distance
+    translate(70.2, 70.2, 5000, false, false, 47);//134.35 total distance
     shoot(3);
 
     setFlywheelRPM(310);// prep for disc 4
-    translate(70.2, 70.2, 10000, false, false, 47);
+    translate(70.2, 70.2, 7000, false, false, 47);
     fastShoot(1);
 
     setFlywheelRPM(300);// prep for disc 5
-    translate(70.2, 70.2, 10000, false, false, 10);
+    translate(70.2, 70.2, 7000, false, false, 10);
     fastShoot(1);
 
     setFlywheelRPM(315);// prep for disc 6
-    translate(106, 106, 10000, false, false, 32);
+    translate(106, 106, 7000, false, false, 32);
     fastShoot(1);
 
     setFlywheelRPM(330);// prep for disc 7
-    translate(106, 106, 10000, false, false, 18);
+    translate(106, 106, 7000, false, false, 18);
     fastShoot(1);
 
     setFlywheelRPM(350);// prep for disc 8-10
-    translate(106, 106, 7000, false, false, 0);
+    translate(106, 106, 5000, false, false, 0);
     shoot(3);
 
-    translate(120, 120, 10000, false, false, 0);
+    translate(120, 120, 7000, false, false, 0);
     alignGoal = 0;
 
     rotate(180, 0);
