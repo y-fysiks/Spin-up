@@ -6,45 +6,6 @@ void flywheelVoltage(int voltage) {
     flywheel_2.move_voltage(voltage);
 }
 
-void initSpinUp() {
-    //erase screen, deletes all auton selector stuff
-
-    pros::screen::set_eraser(COLOR_BLACK);
-    pros::screen::erase();
-
-    //set ground motor brakemode to coasting, meaning that it will inertially continue
-	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	//intake stuff
-	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    
-	pros::Task odometry(odometryLooper, "odometryTask");
-	pros::Task motion(position_control, "motionTask");
-    pros::Task flywheel(flywheelControl, "flywheelTask");
-
-    
-    if (selector::auton == 1) {
-		red_team = true;
-        location = redLStart;
-	} else if (selector::auton == 2) {
-		red_team = true;
-        location = redRStart;
-	} else if (selector::auton == -1) {
-		red_team = false;
-        location = blueLStart;
-	} else if (selector::auton == -2) {
-		red_team = false;
-        location = blueRStart;
-	} else if (selector::auton == 0) {
-		red_team = true; // SKILLS USES RED TEAM LEFT
-        location = redLStart;
-	}
-
-    targetPos = location;
-}
 
 void fastShoot(int num) {
     puncherPiston.set_value(0);
@@ -138,4 +99,45 @@ void rotation_control() {
         }
         pros::delay(100);
     }
+}
+
+void initSpinUp() {
+    //erase screen, deletes all auton selector stuff
+
+    pros::screen::set_eraser(COLOR_BLACK);
+    pros::screen::erase();
+
+    //set ground motor brakemode to coasting, meaning that it will inertially continue
+	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	//intake stuff
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    
+	pros::Task odometry(odometryLooper, "odometryTask");
+	pros::Task motion(position_control, "motionTask");
+    pros::Task flywheel(flywheelControl, "flywheelTask");
+    pros::Task rotation(rotation_control, "rotationTask");
+
+    
+    if (selector::auton == 1) {
+		red_team = true;
+        location = redLStart;
+	} else if (selector::auton == 2) {
+		red_team = true;
+        location = redRStart;
+	} else if (selector::auton == -1) {
+		red_team = false;
+        location = blueLStart;
+	} else if (selector::auton == -2) {
+		red_team = false;
+        location = blueRStart;
+	} else if (selector::auton == 0) {
+		red_team = true; // SKILLS USES RED TEAM LEFT
+        location = redLStart;
+	}
+
+    targetPos = location;
 }

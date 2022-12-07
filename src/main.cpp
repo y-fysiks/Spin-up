@@ -64,7 +64,7 @@ void autonomous() {
 	// blueRight();
 	// skills();
 
-	selector::auton = 1;
+	selector::auton = 0;
 
 	if (selector::auton == 1) {
 		redLeft();

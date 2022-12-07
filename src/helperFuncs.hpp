@@ -6,7 +6,6 @@
 
 void flywheelVoltage(int voltage);
 
-void initSpinUp();
 
 void shoot(int num);
 
@@ -59,3 +58,5 @@ long double get_angle(long double targetx, long double targety);
 
 
 void rotation_control();
+
+void initSpinUp();

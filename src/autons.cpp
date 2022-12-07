@@ -56,7 +56,6 @@ void skills() {
     pros::delay(700);
     rtranslate(4, 12, false, false, 0);
 
-
     setFlywheelRPM(200);
     intake.move(-127);
     translate(20, 28, false, false, 0);
@@ -70,28 +69,31 @@ void skills() {
 
     rotate(135, 0);
 
-    setFlywheelRPM(315);
-    translate(70.2, 70.2, 7000, false, false, 47);//134.35 total distance
+    setFlywheelRPM(315);//prep for discs 1-3
     alignGoal = 2;
+
+    pros::delay(5000);
+
+    translate(70.2, 70.2, 7000, false, false, 47);//134.35 total distance
     shoot(3);
 
-    setFlywheelRPM(310);
+    setFlywheelRPM(310);// prep for disc 4
     translate(70.2, 70.2, 10000, false, false, 47);
     fastShoot(1);
 
-    setFlywheelRPM(300);
+    setFlywheelRPM(300);// prep for disc 5
     translate(70.2, 70.2, 10000, false, false, 10);
     fastShoot(1);
 
-    setFlywheelRPM(315);
+    setFlywheelRPM(315);// prep for disc 6
     translate(106, 106, 10000, false, false, 32);
     fastShoot(1);
 
-    setFlywheelRPM(330);
+    setFlywheelRPM(330);// prep for disc 7
     translate(106, 106, 10000, false, false, 18);
     fastShoot(1);
 
-    setFlywheelRPM(350);
+    setFlywheelRPM(350);// prep for disc 8-10
     translate(106, 106, 7000, false, false, 0);
     shoot(3);
 
@@ -99,8 +101,9 @@ void skills() {
     alignGoal = 0;
 
     rotate(180, 0);
-    translate(110, 126, false, false, 0);
+    translate(110, 130, false, false, 0);
 
+    //rollers
     rtranslate(0, 2, false, false);
     pros::delay(500);
     roller.move_relative(-190, 100);
@@ -108,18 +111,19 @@ void skills() {
     rtranslate(0, -2, false, false, 0);
     rotate(270);
 
-    setFlywheelRPM(340);
+    setFlywheelRPM(340);// prep for disc 11
     translate(126, 110, false, false, 0);
     rtranslate(2, 0, false, false);
     pros::delay(500);
     roller.move_relative(-190, 100);
     pros::delay(700);
+    //move out from roller and rotate to shoot disc
     rtranslate(-4, 0, false, false, 0);
     alignGoal = 2;
     fastShoot(1);
     alignGoal = 0;
 
-    setFlywheelRPM(290);
+    setFlywheelRPM(290);// prep for disc 12-14
     rotate(-45);
     translate(89, 58, false, false, 0);
     rotate(130, 0);
@@ -127,14 +131,14 @@ void skills() {
     rotate(45);
     translate(58, 90, false, false, 0);
     rotate(-45, 0);
-    fastShoot(1);
+    fastShoot(1);// shoot disc 15
 
-    setFlywheelRPM(300);
+    setFlywheelRPM(300);// prep for disc 16
     alignGoal = 1;
     translate(34, 58, 10000, false, false, 15);
     fastShoot(1);
 
-    setFlywheelRPM(310);
+    setFlywheelRPM(310);// prep for disc 17
     translate(34, 58, 10000, false, false, 0);
     fastShoot(1);
 
