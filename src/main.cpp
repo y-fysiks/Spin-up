@@ -96,7 +96,7 @@ void opcontrol() {
 	int puncherCount = 0;
 
 	int flywheelSpeed = 300;
-	int flywheelSpeedIncrement = 50;
+	//int flywheelSpeedIncrement = 50;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
@@ -133,14 +133,18 @@ void opcontrol() {
 		}
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
-		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 350 - flywheelSpeedIncrement) {
-			flywheelSpeed += flywheelSpeedIncrement;
+		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 300) {
+			if (flywheelSpeed == 300) flywheelSpeed = 350;
+			else if (flywheelSpeed == 275) flywheelSpeed = 300;
+			else if (flywheelSpeed == 250) flywheelSpeed = 275;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
-		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 250 + flywheelSpeedIncrement) {
-			flywheelSpeed -= flywheelSpeedIncrement;
+		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 275) {
+			if (flywheelSpeed == 350) flywheelSpeed = 300;
+			else if (flywheelSpeed == 300) flywheelSpeed = 275;
+			else if (flywheelSpeed == 275) flywheelSpeed = 250;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
