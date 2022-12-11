@@ -93,9 +93,9 @@ long double get_angle(long double targetx, long double targety){
 void rotation_control() {
     while (true) {
         if (alignGoal == 1) {
-            rotate(2 * PI - get_angle(redGoal.x, redGoal.y));
+            rotate(-180 / PI * get_angle(redGoal.x, redGoal.y));
         } else if (alignGoal == 2) {
-            rotate(2 * PI - get_angle(blueGoal.x, blueGoal.y));
+            rotate(-180 / PI * get_angle(blueGoal.x, blueGoal.y));
         }
         pros::delay(100);
     }
