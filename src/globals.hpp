@@ -91,7 +91,7 @@ inline double voltageCap = 12000;
 inline greatapi::position blueGoal(greatapi::coord(124, 140 - 123), greatapi::SRAD(0));
 inline greatapi::position redGoal(greatapi::coord(140 - 124, 123), greatapi::SRAD(0));
 inline greatapi::position redLStart(greatapi::coord(9.75 + 23.4, StartY), greatapi::SRAD(0));
-inline greatapi::position redRStart(greatapi::coord(140 - StartY, 140 - 2 * 23.4 - 9.75), greatapi::SRAD(greatapi::degrees(90)));
+inline greatapi::position redRStart(greatapi::coord(140 - 8, 140 - 2 * 23.4 - 9.75), greatapi::SRAD(greatapi::degrees(90)));
 inline greatapi::position blueLStart(greatapi::coord(140 - 23.4 - 9.75, 140 - StartY), greatapi::SRAD(greatapi::degrees(180)));
 inline greatapi::position blueRStart(greatapi::coord(StartY, 2 * 23.4 + 9.75), greatapi::SRAD(greatapi::degrees(270)));
 

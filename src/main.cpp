@@ -15,8 +15,7 @@
  */
 void initialize() {
 	expansionPiston.set_value(false);
-	location.x = 0; location.y = 0; location.angle = greatapi::SRAD(0);
-	//selector::init();
+	selector::init();
 }
 
 /**
