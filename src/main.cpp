@@ -62,7 +62,10 @@ void autonomous() {
 	// blueLeft();
 	// blueRight();
 	// skills();
+	
+	// reminders
 	// use either redLeft or blueLeft
+	// pros mu to upload
 	selector::auton = 0;
 
 	if (selector::auton == 1) {
