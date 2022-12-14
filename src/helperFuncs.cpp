@@ -82,11 +82,10 @@ long double get_angle(long double targetx, long double targety){
     a=1; b=0;
     //need to find anticlockwise direction between 2 vectors
     // dot product gives angle from first vector to second vector
-    long double pi = acos(-1);
     if(cross(a, b, c, d)<0){// clockwise
-        return -180 / PI * (2*pi-dot(a, b, c, d));
+        return 90 - (180 / PI * (2*PI-dot(a, b, c, d)));
     }else{// anticlockwise
-        return -180 / PI * (dot(a, b, c, d));
+        return 90 - (180 / PI * (dot(a, b, c, d)));
     }
 }
 
