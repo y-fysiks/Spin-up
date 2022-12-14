@@ -24,15 +24,15 @@ void redLeft() {
 void redRight() {
     //red right
     red_team = true;
-    rtranslate(2, 0, false, false, 0);
-    rtranslate(0, 23.4, false, false, 0);
     rtranslate(-2, 0, false, false, 0);
+    rtranslate(0, 23.4, false, false, 0);
+    rtranslate(2, 0, false, false);
     pros::delay(500);
     roller.move_relative(-90, 100);
     setFlywheelRPM(362);
     pros::delay(2000);
     rtranslate(-12, -4, false, false, 0);
-    rotate(270 - 18, 0);
+    rotate(270 + 18, 0);
     pros::delay(500);
     shoot(1);
     pros::delay(500);
@@ -50,7 +50,7 @@ void blueLeft() {
     setFlywheelRPM(362);
     pros::delay(2000);
     rtranslate(-4, -12, false, false, 0);
-    rotate(180 + 18, 0);
+    rotate(180 - 18, 0);
     pros::delay(500);
     shoot(1);
     pros::delay(500);
@@ -61,6 +61,20 @@ void blueLeft() {
 void blueRight() {
     //blue right
     red_team = false;
+    rtranslate(2, 0, false, false, 0);
+    rtranslate(0, -23.4, false, false, 0);
+    rtranslate(-2, 0, false, false);
+    pros::delay(500);
+    roller.move_relative(-90, 100);
+    setFlywheelRPM(362);
+    pros::delay(2000);
+    rtranslate(12, 4, false, false, 0);
+    rotate(90 + 18, 0);
+    pros::delay(500);
+    shoot(1);
+    pros::delay(500);
+    shoot(1);
+    setFlywheelRPM(200);
 }
 
 void skills() {
