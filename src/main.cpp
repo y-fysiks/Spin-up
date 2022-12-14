@@ -112,9 +112,9 @@ void opcontrol() {
 		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
 			translate(location.x, location.y, false, false);
 			if (red_team) {
-				rotate( -180 / PI * get_angle(redGoal.x, redGoal.y));
+				rotate( get_angle(redGoal.x, redGoal.y));
 			} else {
-				rotate(-180 / PI * get_angle(blueGoal.x, blueGoal.y));
+				rotate(get_angle(blueGoal.x, blueGoal.y));
 			}
 			moveDrive = true;
 		}

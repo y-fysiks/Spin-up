@@ -84,18 +84,18 @@ long double get_angle(long double targetx, long double targety){
     // dot product gives angle from first vector to second vector
     long double pi = acos(-1);
     if(cross(a, b, c, d)<0){// clockwise
-        return 2*pi-dot(a, b, c, d);
+        return -180 / PI * (2*pi-dot(a, b, c, d));
     }else{// anticlockwise
-        return dot(a, b, c, d);
+        return -180 / PI * (dot(a, b, c, d));
     }
 }
 
 void rotation_control() {
     while (true) {
         if (alignGoal == 1) {
-            rotate(-180 / PI * get_angle(redGoal.x, redGoal.y));
+            rotate(get_angle(redGoal.x, redGoal.y));
         } else if (alignGoal == 2) {
-            rotate(-180 / PI * get_angle(blueGoal.x, blueGoal.y));
+            rotate(get_angle(blueGoal.x, blueGoal.y));
         }
         pros::delay(100);
     }
