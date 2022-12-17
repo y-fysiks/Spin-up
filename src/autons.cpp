@@ -92,48 +92,47 @@ void skills() {
     intake.move(-127);
     translate(20, 28, false, false, 0);
     rotate(90, 0);
-    translate(10, 28, false, false, 0.5);
+    translate(12, 28, false, false, 0.5);
     rtranslate(-2, 0, false, false);
     pros::delay(500);
     roller.move_relative(-190, 100);
     pros::delay(700);
+    setFlywheelRPM(400);//prep for discs 1-3
+
     translate(25, 25, false, false, 0);
 
-    rotate(135, 0);
-
-    setFlywheelRPM(315);//prep for discs 1-3
-    alignGoal = 2;
-
-    pros::delay(5000);
-
-    translate(70.2, 70.2, 5000, false, false, 47);//134.35 total distance
+    rotate(92, 0);
     shoot(3);
-
+    rotate(180 - 45);
+    translate(70.2, 74.2, 5000, false, false, 47);//134.35 total distance
+    
     setFlywheelRPM(310);// prep for disc 4
-    translate(70.2, 70.2, 7000, false, false, 47);
+    translate(70.2, 74.2, 6000, false, false, 20);
+    alignGoal = 2;
+    pros::delay(500);
     fastShoot(1);
 
     setFlywheelRPM(300);// prep for disc 5
-    translate(70.2, 70.2, 7000, false, false, 10);
+    translate(70.2, 74.2, 6000, false, false, 0);
     fastShoot(1);
 
     setFlywheelRPM(315);// prep for disc 6
-    translate(106, 106, 7000, false, false, 32);
+    translate(106, 112, 6000, false, false, 32);
     fastShoot(1);
 
     setFlywheelRPM(330);// prep for disc 7
-    translate(106, 106, 7000, false, false, 18);
+    translate(106, 112, 6000, false, false, 18);
     fastShoot(1);
 
     setFlywheelRPM(350);// prep for disc 8-10
-    translate(106, 106, 5000, false, false, 0);
+    translate(106, 112, 5000, false, false, 0);
     shoot(3);
 
-    translate(120, 120, 7000, false, false, 0);
+    translate(120, 124, 6000, false, false, 0);
     alignGoal = 0;
 
     rotate(180, 0);
-    translate(110, 130, false, false, 0);
+    translate(112, 126, false, false, 0);
 
     //rollers
     rtranslate(0, 2, false, false);
@@ -144,7 +143,7 @@ void skills() {
     rotate(270);
 
     setFlywheelRPM(340);// prep for disc 11
-    translate(126, 110, false, false, 0);
+    translate(122, 110, false, false, 0);
     rtranslate(2, 0, false, false);
     pros::delay(500);
     roller.move_relative(-190, 100);
