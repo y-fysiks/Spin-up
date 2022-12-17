@@ -96,6 +96,7 @@ void opcontrol() {
 	bool intakeReverse = false;
 	bool rotateDrive = false; // DEFAULT TO FLYWHEEL IS FORWARD
 	int puncherCount = 0;
+	int puncherDelay = 0;
 
 	int flywheelSpeed = 300;
 	//int flywheelSpeedIncrement = 50;
@@ -161,17 +162,22 @@ void opcontrol() {
 		if (master.get_digital(DIGITAL_L2)) {
 			puncherCount = 4;
 		}
-		if (puncherCount > 0) {
-			puncherCount --;
-			puncherState = true;
-			puncherTimer = 10;
-			puncherPiston.set_value(puncherState);
+		if (!puncherState && puncherCount > 0) {
+			if (puncherDelay > 0) {
+				puncherDelay--;
+			} else {
+				puncherCount --;
+				puncherState = true;
+				puncherTimer = 10;
+				puncherPiston.set_value(puncherState);
+			}
 		}
 		if (puncherState) {
 			puncherTimer--;
 			if (puncherTimer == 0) {
 				puncherState = false;
 				puncherPiston.set_value(puncherState);
+				puncherDelay = 30;
 			}
 		}
 
