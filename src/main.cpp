@@ -158,9 +158,11 @@ void opcontrol() {
 		//puncher control for shooting
 		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
 			puncherCount = 1;
+			puncherDelay = 0;
 		}
 		if (master.get_digital(DIGITAL_L2)) {
 			puncherCount = 4;
+			puncherDelay = 0;
 		}
 		if (!puncherState && puncherCount > 0) {
 			if (puncherDelay > 0) {
