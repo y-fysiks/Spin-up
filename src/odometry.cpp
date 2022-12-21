@@ -27,15 +27,6 @@ void odometryLooper() {
  * 
  */
 void position_control() {
-    std::vector<greatapi::controlelement *> PIDXElements;
-    //TODO TUNE PID FOR X
-    greatapi::controlelement *PX = new greatapi::Proportional(2900, std::pair(__INT_MAX__, -__INT_MAX__));          PIDXElements.push_back(PX);
-    greatapi::controlelement *IX = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));                 PIDXElements.push_back(IX);
-    greatapi::controlelement *DX = new greatapi::Derivative(1150, std::pair(__INT_MAX__, -__INT_MAX__));             PIDXElements.push_back(DX);
-
-    greatapi::control_loop PIDX(PIDXElements, std::pair(12000, -12000));
-
-
     std::vector<greatapi::controlelement *> PIDYElements;
     //TODO TUNE PID FOR Y
     greatapi::controlelement *PY = new greatapi::Proportional(2900, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
@@ -62,35 +53,50 @@ void position_control() {
         pros::screen::print(TEXT_SMALL, 3, "X error: %.2f  Y error: %.2f", error.x, error.y);
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
 
-        double xMove = PIDX.update(error.x, 0);
-        double yMove = PIDY.update(error.y, 0);
-        double anglePow = PIDAngle.update(greatapi::findDiff(location.angle, targetPos.angle), 0);
+        if (translating) {
+            if (total_error < 0.8) {
+                translating = false;
+                voltageCap = 12000;
+                printf("Done translating");
+            }
 
-        if (yMove > voltageCap) {
-            yMove = voltageCap;
-        } else if (yMove < -voltageCap) {
-            yMove = -voltageCap;
-        }
-        
+            targetPos.angle = greatapi::SRAD(atan2(location.y - targetPos.y, location.x - targetPos.x));
 
-        double lfPower = yMove + xMove - anglePow;
-        double rfPower = yMove - xMove + anglePow;
-        double lbPower = yMove - xMove - anglePow;
-        double rbPower = yMove + xMove + anglePow;
+            double yMove = PIDY.update(error.y, 0);
+            double anglePow = PIDAngle.update(greatapi::findDiff(location.angle, targetPos.angle), 0);
 
-        if (moveDrive) {
-            lf_motor.move_voltage(lfPower);
-            rf_motor.move_voltage(rfPower);
-            lb_motor.move_voltage(lbPower);
-            rb_motor.move_voltage(rbPower);
-        } else {
+            if (yMove > voltageCap) {
+                yMove = voltageCap;
+            } else if (yMove < -voltageCap) {
+                yMove = -voltageCap;
+            }
+
+            if (anglePow > voltageCap) {
+                anglePow = voltageCap;
+            } else if (anglePow < -voltageCap) {
+                anglePow = -voltageCap;
+            }
             
+
+            double lPower = yMove + anglePow;
+            double rPower = yMove - anglePow;
+
+            if (moveDrive) {
+                lf_motor.move_voltage(lPower);
+                lm_motor.move_voltage(lPower);
+                lb_motor.move_voltage(lPower);
+                rf_motor.move_voltage(rPower);
+                rm_motor.move_voltage(rPower);
+                rb_motor.move_voltage(rPower);
+            } else {
+                
+            }
+            
+            pros::screen::print(TEXT_SMALL, 4, "Angle power: %.2f\n", anglePow);
+            pros::screen::print(TEXT_SMALL, 5, "Total error: %.2f\n", total_error);
+            printf("Angle power: %.2f", anglePow);
+            printf("Total error: %.2f", total_error);
         }
-        
-        pros::screen::print(TEXT_SMALL, 4, "Angle power: %.2f\n", anglePow);
-        pros::screen::print(TEXT_SMALL, 5, "Total error: %.2f\n", total_error);
-        printf("Angle power: %.2f", anglePow);
-        printf("Total error: %.2f", total_error);
 
         pros::delay(5);
     }
@@ -104,6 +110,7 @@ void position_control() {
  * \param angle the absolute heading to rotate to
  */
 void rotate(double angleDeg) {
+    translating = false;
     voltageCap = 12000;
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
     targetPos.angle = angle;
@@ -117,6 +124,7 @@ void rotate(double angleDeg) {
  * \param errorStop DEGREES the function will stop the bot if the error is greater than the error threshold. IF 0, default is 2 degrees
  */
 void rotate(double angleDeg, double errorStop) {
+    translating = false;
     rotate(angleDeg);
     errorStop = errorStop == 0 ? 5 : errorStop;
     while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop)) {
@@ -145,6 +153,8 @@ void translate(double x, double y, bool goHeading, bool reverseHeading) {
     targetPos.x = x;
     targetPos.y = y;
     total_error = sqrt(pow(targetPos.x - location.x, 2) + pow(targetPos.y - location.y, 2));
+
+    translating = true;
     return;
 }
 
@@ -170,7 +180,7 @@ void translate(double x, double y, double maxVoltage, bool goHeading, bool rever
  * \param y the y coordinate to translate to
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target
- * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
+ * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
  */
 void translate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(x, y, goHeading, reverseHeading);
@@ -189,7 +199,7 @@ void translate(double x, double y, bool goHeading, bool reverseHeading, double d
  * \param maxVoltage the maximum voltage to send to the motors
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target
- * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
+ * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
  */
 void translate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     voltageCap = maxVoltage;

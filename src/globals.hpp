@@ -8,12 +8,14 @@
 // Port configuration
 #define PI 3.1415926535897932384626433832795
 #define lf_motor_port 3
-#define rf_motor_port 1
-#define lb_motor_port 4
-#define rb_motor_port 2
+#define lm_motor_port 2
+#define lb_motor_port 1
+#define rf_motor_port 4
+#define rm_motor_port 5
+#define rb_motor_port 6
+
 #define intake_port 8
-#define flywheel_port_1 5
-#define flywheel_port_2 6
+#define flywheel_port_1 9
 #define roller_port 13
 #define optical_port 19
 #define imu_port 10
@@ -34,20 +36,20 @@
 // Motors
 inline pros::Motor lf_motor(lf_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor rf_motor(rf_motor_port, MOTOR_GEARSET_06, false,
+inline pros::Motor lm_motor(lm_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
 inline pros::Motor lb_motor(lb_motor_port, MOTOR_GEARSET_06, true,
+                            MOTOR_ENCODER_DEGREES);
+inline pros::Motor rf_motor(rf_motor_port, MOTOR_GEARSET_06, false,
+                            MOTOR_ENCODER_DEGREES);
+inline pros::Motor rm_motor(rm_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
 inline pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
 inline pros::Motor intake(intake_port, MOTOR_GEARSET_36, false,
                           MOTOR_ENCODER_DEGREES);
-inline pros::Motor flywheel_1(flywheel_port_1, MOTOR_GEARSET_06, false,
+inline pros::Motor flywheel(flywheel_port_1, MOTOR_GEARSET_06, false,
                               MOTOR_ENCODER_DEGREES);
-inline pros::Motor flywheel_2(flywheel_port_2, MOTOR_GEARSET_06, true,
-                                MOTOR_ENCODER_DEGREES);
-inline pros::Motor roller(roller_port, MOTOR_GEARSET_36, true,
-                                MOTOR_ENCODER_DEGREES);
 
 // Sensors
 inline pros::Imu imu(imu_port);
@@ -98,6 +100,7 @@ inline greatapi::position blueRStart(greatapi::coord(StartY, 2 * 23.4 + 9.75), g
 //------------------------------------------------------------------------------
 // other variables
 inline bool moveDrive = true;
+inline bool translating = false;
 inline bool autonomousState = false;
 inline bool red_team = true;
 inline bool puncherState = false;

@@ -21,7 +21,7 @@ void setFlywheelRPM(int rpm) {
 void flywheelControl() {
   while(true) {
     
-    currentRPM = rpmFilter.filter(flywheel_1.get_actual_velocity() * flywheelRatio);
+    currentRPM = rpmFilter.filter(flywheel.get_actual_velocity() * flywheelRatio);
     
     motorPower = pid.calculate(targetRPM, currentRPM);
     
@@ -36,11 +36,11 @@ void flywheelControl() {
     lastPower = motorPower;
     
     if (disableFlywheel) motorPower = 0;
-    flywheel_1.move_voltage((int) motorPower);
-    flywheel_2.move_voltage((int) motorPower);
+    flywheel.move_voltage((int) motorPower);
     //flywheelVoltage((int) motorPower);
     
     pros::screen::print(TEXT_SMALL, 6, "RPM: %.2f   Power: %.2f   Error: %.2f", currentRPM, motorPower, pid.getError()); //print X, Y and angle after each compute
+    printf("RPM: %.2f   Power: %.2f   Error: %.2f", currentRPM, motorPower, pid.getError()); //print X, Y and angle after each compute)
 
     pros::delay(20);
   }

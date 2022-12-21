@@ -1,11 +1,6 @@
 #include "helperFuncs.hpp"
 #include "FlywheelImplementation.hpp"
 
-void flywheelVoltage(int voltage) {
-    flywheel_1.move_voltage(voltage);
-    flywheel_2.move_voltage(voltage);
-}
-
 
 void fastShoot(int num) {
     puncherPiston.set_value(0);
@@ -108,12 +103,13 @@ void initSpinUp() {
 
     //set ground motor brakemode to coasting, meaning that it will inertially continue
 	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    lm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    rm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	//intake stuff
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     
 	pros::Task odometry(odometryLooper, "odometryTask");
 	pros::Task motion(position_control, "motionTask");

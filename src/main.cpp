@@ -221,15 +221,6 @@ void opcontrol() {
 		} else {
 			expansionPiston.set_value(false);
 		}
-//
-		//roller mechanism control
-		if (master.get_digital(DIGITAL_LEFT)) {
-			roller.move(-127);
-		}
-		else {
-			roller.move(0);
-		}
-		
 		
 		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
 		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
