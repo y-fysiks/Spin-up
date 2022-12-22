@@ -235,11 +235,6 @@ void opcontrol() {
 		if (abs(front_back) > 10 || abs(left_right) > 10 || abs(turn) > 10) {
 			moveDrive = false;
 		}
-		if (rotateDrive) {
-			int temp = left_right;
-			left_right = -front_back;
-			front_back = temp;
-		}
 
 		if (!moveDrive) {
 			lf_motor.move(front_back + left_right + turn);
