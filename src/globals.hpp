@@ -14,7 +14,7 @@
 #define intake_port 8
 #define flywheel_port_1 5
 #define flywheel_port_2 6
-#define roller_port 13
+#define roller_port 14
 #define optical_port 19
 #define imu_port 10
 #define puncher_port 'A'

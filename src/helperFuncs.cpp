@@ -21,7 +21,7 @@ void shoot(int num) {
     puncherPiston.set_value(0);
     for (int i = 0; i < num; i++) {
         puncherPiston.set_value(1);
-        pros::delay(200);
+        pros::delay(400);
         puncherPiston.set_value(0);
         pros::delay(1000);
     }

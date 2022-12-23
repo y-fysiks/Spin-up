@@ -66,7 +66,7 @@ void autonomous() {
 	// reminders
 	// use either redLeft or blueLeft
 	// pros mu to upload
-	selector::auton = 0;
+	selector::auton = 1;
 
 	if (selector::auton == 1) {
 		redLeft();
@@ -160,7 +160,7 @@ void opcontrol() {
 			puncherCount = 1;
 			puncherDelay = 0;
 		}
-		if (master.get_digital(DIGITAL_L2)) {
+		if (master.get_digital(DIGITAL_LEFT)) {
 			puncherCount = 4;
 			puncherDelay = 0;
 		}
@@ -223,7 +223,7 @@ void opcontrol() {
 		}
 //
 		//roller mechanism control
-		if (master.get_digital(DIGITAL_LEFT)) {
+		if (master.get_digital(DIGITAL_L2)) {
 			roller.move(-127);
 		}
 		else {
