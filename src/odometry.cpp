@@ -42,7 +42,7 @@ void position_control() {
     greatapi::controlelement *IAngle = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));             PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(12000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
-    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(8000, -8000));
+    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(9000, -9000));
     
     while (true) {
         //current position is location variable

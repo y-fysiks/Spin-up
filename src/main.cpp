@@ -94,19 +94,21 @@ void opcontrol() {
 	bool flywheelState = true;
 	bool intakeState = false;
 	bool intakeReverse = false;
-	bool rotateDrive = false; // DEFAULT TO FLYWHEEL IS FORWARD
+	bool revDrive = false; // DEFAULT IS FORWARD, intake pointing forward
 	int puncherCount = 0;
 	int puncherDelay = 0;
+
+	int fbPower, turnPower;
 
 	int flywheelSpeed = 300;
 	//int flywheelSpeedIncrement = 50;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
-	if (rotateDrive) {
+	if (revDrive) {
 		master.set_text(0, 0, "Speed: " + speed + "  R");
 	} else {
-		master.set_text(0, 0, "Speed: " + speed + "  R");
+		master.set_text(0, 0, "Speed: " + speed + "  F");
 	}
 	while (true) {
 		puncherPiston.set_value(puncherState);
@@ -205,8 +207,8 @@ void opcontrol() {
 
 		//drive rotation
 		if (master.get_digital_new_press(DIGITAL_X)) {
-			rotateDrive = !rotateDrive;
-			if (rotateDrive) {
+			revDrive = !revDrive;
+			if (revDrive) {
 			master.set_text(0, 12, "R");
 			} else {
 				master.set_text(0, 12, "F");
@@ -221,26 +223,28 @@ void opcontrol() {
 		} else {
 			expansionPiston.set_value(false);
 		}
-		
-		//get turn, left right, front back values for movement in x drive, then move motors accordingly using diagram below
-		//http://fabacademy.org/2019/labs/kannai/students/kota-tomaru/images/final/wheelpatterns.jpg
-		int front_back = master.get_analog(ANALOG_LEFT_Y);
-		int left_right = master.get_analog(ANALOG_LEFT_X);
-		int turn = master.get_analog(ANALOG_RIGHT_X);
 
-		front_back = (pow(abs(front_back), powerFactor) / pow(127, powerFactor - 1) * sgn(front_back));
-		left_right = (pow(abs(left_right), powerFactor) / pow(127, powerFactor - 1) * sgn(left_right));
-		turn = (pow(abs(turn), powerFactor) / (pow(127, powerFactor - 1)) * sgn(turn)) * 0.7;
+		fbPower = master.get_analog(ANALOG_LEFT_Y);
+		turnPower = master.get_analog(ANALOG_RIGHT_X);
 
-		if (abs(front_back) > 10 || abs(left_right) > 10 || abs(turn) > 10) {
+		fbPower = (pow(abs(fbPower), powerFactor) / pow(127, powerFactor - 1) * sgn(fbPower));
+		turnPower = (pow(abs(turnPower), powerFactor) / pow(127, powerFactor - 1) * sgn(turnPower));
+
+		if (abs(fbPower) > 10 || abs(turnPower) > 10) {
 			moveDrive = false;
 		}
 
+		if (revDrive) {
+			fbPower = -fbPower;
+		}
+
 		if (!moveDrive) {
-			lf_motor.move(front_back + left_right + turn);
-			rf_motor.move(front_back - left_right - turn);
-			lb_motor.move(front_back - left_right + turn);
-			rb_motor.move(front_back + left_right - turn);
+			lf_motor.move(fbPower + turnPower);
+			lm_motor.move(fbPower + turnPower);
+			lb_motor.move(fbPower + turnPower);
+			rf_motor.move(fbPower - turnPower);
+			rm_motor.move(fbPower - turnPower);
+			rb_motor.move(fbPower - turnPower);
 		}
 
 		pros::delay(20);
