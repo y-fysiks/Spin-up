@@ -98,6 +98,8 @@ void opcontrol() {
 	int puncherCount = 0;
 	int puncherDelay = 0;
 
+	angler1Piston.set_value(false);
+
 	int fbPower, turnPower;
 
 	int flywheelSpeed = 300;
@@ -111,7 +113,6 @@ void opcontrol() {
 		master.set_text(0, 0, "Speed: " + speed + "  F");
 	}
 	while (true) {
-		angler1Piston.set_value(false);
 
 		//rotate to the correct goal when the button DIGITAL_A is pressed
 		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
@@ -185,6 +186,8 @@ void opcontrol() {
 		if (master.get_digital(DIGITAL_L1)) {
 			angler1Piston.set_value(1);
 		} else if (master.get_digital(DIGITAL_L2)) {
+			//low position
+		} else {
 			angler1Piston.set_value(0);
 		}
 
