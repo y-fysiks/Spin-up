@@ -42,7 +42,7 @@ void position_control() {
     greatapi::controlelement *IAngle = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));             PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(12000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
-    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(9000, -9000));
+    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(9000, -9000));  
     
     while (true) {
         //current position is location variable
@@ -82,12 +82,12 @@ void position_control() {
             double rPower = yMove - anglePow;
 
             if (moveDrive) {
-                lf_motor.move_voltage(lPower);
-                lm_motor.move_voltage(lPower);
-                lb_motor.move_voltage(lPower);
-                rf_motor.move_voltage(rPower);
-                rm_motor.move_voltage(rPower);
-                rb_motor.move_voltage(rPower);
+                l1_motor.move_voltage(lPower);
+                l2_motor.move_voltage(lPower);
+                l3_motor.move_voltage(lPower);
+                r1_motor.move_voltage(rPower);
+                r2_motor.move_voltage(rPower);
+                r3_motor.move_voltage(rPower);
             } else {
                 
             }

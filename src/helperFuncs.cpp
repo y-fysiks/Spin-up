@@ -3,21 +3,21 @@
 
 
 void fastShoot(int num) {
-    puncherPiston.set_value(0);
+    angler1Piston.set_value(0);
     for (int i = 0; i < num; i++) {
-        puncherPiston.set_value(1);
+        angler1Piston.set_value(1);
         pros::delay(150);
-        puncherPiston.set_value(0);
+        angler1Piston.set_value(0);
         pros::delay(500);
     }
 }
 
 void shoot(int num) {
-    puncherPiston.set_value(0);
+    angler1Piston.set_value(0);
     for (int i = 0; i < num; i++) {
-        puncherPiston.set_value(1);
+        angler1Piston.set_value(1);
         pros::delay(200);
-        puncherPiston.set_value(0);
+        angler1Piston.set_value(0);
         pros::delay(1000);
     }
 }
@@ -102,14 +102,14 @@ void initSpinUp() {
     pros::screen::erase();
 
     //set ground motor brakemode to coasting, meaning that it will inertially continue
-	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    lm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    rm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	//intake stuff
-	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     
 	pros::Task odometry(odometryLooper, "odometryTask");
 	pros::Task motion(position_control, "motionTask");

@@ -7,19 +7,18 @@
 //------------------------------------------------------------------------------
 // Port configuration
 #define PI 3.1415926535897932384626433832795
-#define lf_motor_port 3
-#define lm_motor_port 2
-#define lb_motor_port 1
-#define rf_motor_port 4
-#define rm_motor_port 5
-#define rb_motor_port 6
+#define l1_motor_port 1 //1 is top, 3 is bottom
+#define l2_motor_port 2
+#define l3_motor_port 3
+#define r1_motor_port 4
+#define r2_motor_port 5
+#define r3_motor_port 6
 
-#define intake_port 8
-#define flywheel_port_1 9
+#define intake_port 10
+#define flywheel_port_1 8
 #define roller_port 13
 #define optical_port 19
-#define imu_port 10
-#define puncher_port 'A'
+#define angler1_port 'A'
 #define expansion_port 'B'
 // Tracking wheel ports
 #define left_tracking_port 10
@@ -34,30 +33,29 @@
 //------------------------------------------------------------------------------
 // Global PROS objects and variables
 // Motors
-inline pros::Motor lf_motor(lf_motor_port, MOTOR_GEARSET_06, true,
+inline pros::Motor l1_motor(l1_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor lm_motor(lm_motor_port, MOTOR_GEARSET_06, true,
+inline pros::Motor l2_motor(l2_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor lb_motor(lb_motor_port, MOTOR_GEARSET_06, true,
+inline pros::Motor l3_motor(l3_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor rf_motor(rf_motor_port, MOTOR_GEARSET_06, false,
+inline pros::Motor r1_motor(r1_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor rm_motor(rm_motor_port, MOTOR_GEARSET_06, false,
+inline pros::Motor r2_motor(r2_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor rb_motor(rb_motor_port, MOTOR_GEARSET_06, false,
+inline pros::Motor r3_motor(r3_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor intake(intake_port, MOTOR_GEARSET_36, false,
+inline pros::Motor intake(intake_port, MOTOR_GEARSET_36, true,
                           MOTOR_ENCODER_DEGREES);
 inline pros::Motor flywheel(flywheel_port_1, MOTOR_GEARSET_06, false,
                               MOTOR_ENCODER_DEGREES);
 
 // Sensors
-inline pros::Imu imu(imu_port);
 inline pros::Optical color_sense(optical_port);
 // controller
 inline pros::Controller master(CONTROLLER_MASTER);
 // pneumatics
-inline pros::ADIDigitalOut puncherPiston(puncher_port, 0);
+inline pros::ADIDigitalOut angler1Piston(angler1_port, 0);
 inline pros::ADIDigitalOut expansionPiston(expansion_port, 0);
 
 //------------------------------------------------------------------------------
@@ -103,7 +101,7 @@ inline bool moveDrive = true;
 inline bool translating = false;
 inline bool autonomousState = false;
 inline bool red_team = true;
-inline bool puncherState = false;
+inline bool angler1State = false;
 inline int puncherTimer = 0;
 inline int alignGoal = 0; //0 = disable, 1 = red, 2 = blue
 

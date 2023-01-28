@@ -111,7 +111,7 @@ void opcontrol() {
 		master.set_text(0, 0, "Speed: " + speed + "  F");
 	}
 	while (true) {
-		puncherPiston.set_value(puncherState);
+		angler1Piston.set_value(false);
 
 		//rotate to the correct goal when the button DIGITAL_A is pressed
 		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
@@ -156,46 +156,23 @@ void opcontrol() {
 		}
 		
 
-
-		//puncher control for shooting
-		if (master.get_digital_new_press(DIGITAL_R2) && !puncherState) {
-			puncherCount = 1;
-			puncherDelay = 0;
-		}
-		if (master.get_digital(DIGITAL_L2)) {
-			puncherCount = 4;
-			puncherDelay = 0;
-		}
-		if (!puncherState && puncherCount > 0) {
-			if (puncherDelay > 0) {
-				puncherDelay--;
-			} else {
-				puncherCount --;
-				puncherState = true;
-				puncherTimer = 10;
-				puncherPiston.set_value(puncherState);
-			}
-		}
-		if (puncherState) {
-			puncherTimer--;
-			if (puncherTimer == 0) {
-				puncherState = false;
-				puncherPiston.set_value(puncherState);
-				puncherDelay = 30;
-			}
-		}
-
 		//intake control
-		if (master.get_digital_new_press(DIGITAL_L1)) {
+		if (master.get_digital_new_press(DIGITAL_R1)) {
 			if (!intakeState) intakeState = true;
 			else if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
-		} else if (master.get_digital_new_press(DIGITAL_R1)) {
-			if (!intakeState) intakeState = true;
-			else if (intakeState && intakeReverse) intakeState = false;
-			intakeReverse = true;
 		}
-		if (intakeState) {
+		// else if (master.get_digital_new_press(DIGITAL_R1)) {
+		// 	if (!intakeState) intakeState = true;
+		// 	else if (intakeState && intakeReverse) intakeState = false;
+		// 	intakeReverse = true;
+		// }
+		
+
+		//puncher control for shooting
+		if (master.get_digital(DIGITAL_R2)) {
+			intake.move_velocity(-127);
+		} else if (intakeState) {
 			if (intakeReverse) {
 				intake.move(-127);
 			} else {
@@ -203,6 +180,12 @@ void opcontrol() {
 			}
 		} else {
 			intake.move(0);
+		}
+
+		if (master.get_digital(DIGITAL_L1)) {
+			angler1Piston.set_value(1);
+		} else if (master.get_digital(DIGITAL_L2)) {
+			angler1Piston.set_value(0);
 		}
 
 		//drive rotation
@@ -227,6 +210,13 @@ void opcontrol() {
 		fbPower = master.get_analog(ANALOG_LEFT_Y);
 		turnPower = master.get_analog(ANALOG_RIGHT_X);
 
+		if (abs(fbPower) < 10) {
+			fbPower = 0;
+		}
+		if (abs(turnPower) < 10) {
+			turnPower = 0;
+		}
+
 		fbPower = (pow(abs(fbPower), powerFactor) / pow(127, powerFactor - 1) * sgn(fbPower));
 		turnPower = (pow(abs(turnPower), powerFactor) / pow(127, powerFactor - 1) * sgn(turnPower));
 
@@ -239,12 +229,12 @@ void opcontrol() {
 		}
 
 		if (!moveDrive) {
-			lf_motor.move(fbPower + turnPower);
-			lm_motor.move(fbPower + turnPower);
-			lb_motor.move(fbPower + turnPower);
-			rf_motor.move(fbPower - turnPower);
-			rm_motor.move(fbPower - turnPower);
-			rb_motor.move(fbPower - turnPower);
+			l1_motor.move(fbPower + turnPower);
+			l2_motor.move(fbPower + turnPower);
+			l3_motor.move(fbPower + turnPower);
+			r1_motor.move(fbPower - turnPower);
+			r2_motor.move(fbPower - turnPower);
+			r3_motor.move(fbPower - turnPower);
 		}
 
 		pros::delay(20);
