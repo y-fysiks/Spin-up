@@ -43,6 +43,13 @@ void competition_initialize() {
 void autonomous() {
 	initSpinUp();
 
+	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+
 	/*
 	selector::auton == 1 : Red left
 	selector::auton == 2 : Red right
@@ -66,7 +73,7 @@ void autonomous() {
 	// reminders
 	// use either redLeft or blueLeft
 	// pros mu to upload
-	selector::auton = 0;
+	
 
 	if (selector::auton == 1) {
 		redLeft();
@@ -94,15 +101,13 @@ void opcontrol() {
 	bool flywheelState = true;
 	bool intakeState = false;
 	bool intakeReverse = false;
-	bool revDrive = false; // DEFAULT IS FORWARD, intake pointing forward
+	bool revDrive = true; // DEFAULT IS FORWARD, intake pointing forward
 	int puncherCount = 0;
 	int puncherDelay = 0;
 
-	angler1Piston.set_value(false);
-
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 300;
+	int flywheelSpeed = 390;
 	//int flywheelSpeedIncrement = 50;
 
 	//display current set flywheel rpm on controller
@@ -113,17 +118,18 @@ void opcontrol() {
 		master.set_text(0, 0, "Speed: " + speed + "  F");
 	}
 	while (true) {
-
+		translating = true;
+		targetPos.y = 10;
 		//rotate to the correct goal when the button DIGITAL_A is pressed
-		if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
-			translate(location.x, location.y, false, false);
-			if (red_team) {
-				rotate( get_angle(redGoal.x, redGoal.y));
-			} else {
-				rotate(get_angle(blueGoal.x, blueGoal.y));
-			}
-			moveDrive = true;
-		}
+		// if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
+		// 	//translate(location.x, location.y, false, false);
+		// 	if (red_team) {
+		// 		//rotate( get_angle(redGoal.x, redGoal.y));
+		// 	} else {
+		// 		//rotate(get_angle(blueGoal.x, blueGoal.y));
+		// 	}
+		// 	moveDrive = true;
+		// }
 
 		// //flywheel warmup speed
 		// if (master.get_digital_new_press(DIGITAL_B)) {
@@ -139,21 +145,23 @@ void opcontrol() {
 		}
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
-		if (master.get_digital_new_press(DIGITAL_UP) && flywheelSpeed <= 300) {
-			if (flywheelSpeed == 300) flywheelSpeed = 350;
-			else if (flywheelSpeed == 275) flywheelSpeed = 300;
-			else if (flywheelSpeed == 250) flywheelSpeed = 275;
+		if (master.get_digital_new_press(DIGITAL_UP)) {
+			if (flywheelSpeed == 425) flywheelSpeed = 500;
+			else if (flywheelSpeed == 390) flywheelSpeed = 425;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
-		} else if (master.get_digital_new_press(DIGITAL_DOWN) && flywheelSpeed >= 275) {
-			if (flywheelSpeed == 350) flywheelSpeed = 300;
-			else if (flywheelSpeed == 300) flywheelSpeed = 275;
-			else if (flywheelSpeed == 275) flywheelSpeed = 250;
+		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
+			if (flywheelSpeed == 500) flywheelSpeed = 425;
+			else if (flywheelSpeed == 425) flywheelSpeed = 390;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
+		}
+
+		if (master.get_digital_new_press(DIGITAL_LEFT)) {
+			flywheelState = !flywheelState;
 		}
 		
 
@@ -172,7 +180,7 @@ void opcontrol() {
 
 		//puncher control for shooting
 		if (master.get_digital(DIGITAL_R2)) {
-			intake.move_velocity(-127);
+			intake.move(-127);
 		} else if (intakeState) {
 			if (intakeReverse) {
 				intake.move(-127);
@@ -184,11 +192,11 @@ void opcontrol() {
 		}
 
 		if (master.get_digital(DIGITAL_L1)) {
-			angler1Piston.set_value(1);
 		} else if (master.get_digital(DIGITAL_L2)) {
 			//low position
-		} else {
 			angler1Piston.set_value(0);
+		} else {
+			angler1Piston.set_value(1);
 		}
 
 		//drive rotation
@@ -203,8 +211,7 @@ void opcontrol() {
 		
 
 		//expansion control
-		if ((master.get_digital(DIGITAL_Y) && master.get_digital_new_press(DIGITAL_RIGHT))
-			|| (master.get_digital(DIGITAL_RIGHT) && master.get_digital_new_press(DIGITAL_Y))) {
+		if ((master.get_digital(DIGITAL_Y) && master.get_digital(DIGITAL_RIGHT))) {
 			expansionPiston.set_value(true);
 		} else {
 			expansionPiston.set_value(false);

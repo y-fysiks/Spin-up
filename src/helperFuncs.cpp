@@ -3,22 +3,16 @@
 
 
 void fastShoot(int num) {
-    angler1Piston.set_value(0);
-    for (int i = 0; i < num; i++) {
-        angler1Piston.set_value(1);
-        pros::delay(150);
-        angler1Piston.set_value(0);
-        pros::delay(500);
-    }
+    intake.move_relative(-3000, 400);
 }
 
 void shoot(int num) {
-    angler1Piston.set_value(0);
     for (int i = 0; i < num; i++) {
-        angler1Piston.set_value(1);
-        pros::delay(200);
-        angler1Piston.set_value(0);
-        pros::delay(1000);
+        intake.move(-127);
+        pros::delay(150);
+        if (i == num - 1) pros::delay(200);
+        intake.move(0);
+        pros::delay(800);
     }
 }
 
@@ -87,9 +81,9 @@ long double get_angle(long double targetx, long double targety){
 void rotation_control() {
     while (true) {
         if (alignGoal == 1) {
-            rotate(get_angle(redGoal.x, redGoal.y));
+            //rotate(get_angle(redGoal.x, redGoal.y));
         } else if (alignGoal == 2) {
-            rotate(get_angle(blueGoal.x, blueGoal.y));
+            //rotate(get_angle(blueGoal.x, blueGoal.y));
         }
         pros::delay(100);
     }
@@ -119,19 +113,19 @@ void initSpinUp() {
     
     if (selector::auton == 1) {
 		red_team = true;
-        location = redLStart;
+        // location = redLStart;
 	} else if (selector::auton == 2) {
 		red_team = true;
-        location = redRStart;
+        // location = redRStart;
 	} else if (selector::auton == -1) {
 		red_team = false;
-        location = blueLStart;
+        // location = blueLStart;
 	} else if (selector::auton == -2) {
 		red_team = false;
-        location = blueRStart;
+        // location = blueRStart;
 	} else if (selector::auton == 0) {
 		red_team = true; // SKILLS USES RED TEAM LEFT
-        location = redLStart;
+        // location = redLStart;
 	}
 
     targetPos = location;

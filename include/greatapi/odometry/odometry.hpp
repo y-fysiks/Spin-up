@@ -63,10 +63,12 @@ namespace greatapi{
           //local coordinate object to be used for transforms
           coord localcoordinate = std::pair<distance,distance>{0,0};
 
-          distance Xtravel = Xaxis -> get_distance() - Xlast; //the distance sensors return sum values. We need net change from previous iteration.
+          //distance Xtravel = Xaxis -> get_distance() - Xlast; //the distance sensors return sum values. We need net change from previous iteration.
+          distance Xtravel = 0;
           distance Ytravel = Yaxis -> get_distance() - Ylast;
 
-          Xlast = Xaxis -> get_distance();
+          // Xlast = Xaxis -> get_distance();
+          Xlast = 0;
           Ylast = Yaxis -> get_distance();
 
           //if no angle change, just add coords
@@ -80,8 +82,8 @@ namespace greatapi{
             localcoordinate.y = double(2.0*sin(relAngleChange/2) *
             (((double)Ytravel/relAngleChange) + Y_toCOR));
 
-            localcoordinate.x = double(2.0*sin(relAngleChange/2) *
-            (((double)Xtravel/relAngleChange) + X_toCOR));
+            // localcoordinate.x = double(2.0*sin(relAngleChange/2) *
+            // (((double)Xtravel/relAngleChange) + X_toCOR));
 
             
           }

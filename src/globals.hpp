@@ -21,12 +21,12 @@
 #define angler1_port 'A'
 #define expansion_port 'B'
 // Tracking wheel ports
-#define left_tracking_port 10
-#define right_tracking_port 11
-#define rear_tracking_port 12
+#define left_tracking_port 11
+#define right_tracking_port 12
+#define rear_tracking_port 13
 // Odometry constants
-#define WHEEL_DIST_LR 13.45
-#define XWHEEL_DIST_CENTER -1.0
+#define WHEEL_DIST_LR 5.6875
+#define XWHEEL_DIST_CENTER -4.0
 
 #define powerFactor 1.5
 
@@ -45,7 +45,7 @@ inline pros::Motor r2_motor(r2_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
 inline pros::Motor r3_motor(r3_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor intake(intake_port, MOTOR_GEARSET_36, true,
+inline pros::Motor intake(intake_port, MOTOR_GEARSET_06, true,
                           MOTOR_ENCODER_DEGREES);
 inline pros::Motor flywheel(flywheel_port_1, MOTOR_GEARSET_06, false,
                               MOTOR_ENCODER_DEGREES);
@@ -90,7 +90,7 @@ inline double voltageCap = 12000;
 //goal locations, Red Left corner is 0, 0
 inline greatapi::position blueGoal(greatapi::coord(124, 140 - 123), greatapi::SRAD(0));
 inline greatapi::position redGoal(greatapi::coord(140 - 124, 123), greatapi::SRAD(0));
-inline greatapi::position redLStart(greatapi::coord(9.75 + 23.4, StartY), greatapi::SRAD(0));
+inline greatapi::position redLStart(greatapi::coord(9.75 + 23.4, StartY), greatapi::SRAD(PI));
 inline greatapi::position redRStart(greatapi::coord(140 - 8, 140 - 2 * 23.4 - 9.75), greatapi::SRAD(greatapi::degrees(90)));
 inline greatapi::position blueLStart(greatapi::coord(140 - 23.4 - 9.75, 140 - StartY), greatapi::SRAD(greatapi::degrees(180)));
 inline greatapi::position blueRStart(greatapi::coord(StartY, 2 * 23.4 + 9.75), greatapi::SRAD(greatapi::degrees(270)));
@@ -99,6 +99,7 @@ inline greatapi::position blueRStart(greatapi::coord(StartY, 2 * 23.4 + 9.75), g
 // other variables
 inline bool moveDrive = true;
 inline bool translating = false;
+inline bool reverseDrive = false;
 inline bool autonomousState = false;
 inline bool red_team = true;
 inline bool angler1State = false;
