@@ -95,6 +95,9 @@ void autonomous() {
 
 void opcontrol() {
 	initSpinUp();
+	
+    pros::screen::set_eraser(COLOR_BLACK);
+    pros::screen::erase();
 
 	autonomousState = false;
 	moveDrive = false;
@@ -118,8 +121,6 @@ void opcontrol() {
 		master.set_text(0, 0, "Speed: " + speed + "  F");
 	}
 	while (true) {
-		translating = true;
-		targetPos.y = 10;
 		//rotate to the correct goal when the button DIGITAL_A is pressed
 		// if (master.get_digital_new_press(DIGITAL_A) && !moveDrive) {
 		// 	//translate(location.x, location.y, false, false);

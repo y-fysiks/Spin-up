@@ -3,7 +3,9 @@
 
 
 void fastShoot(int num) {
-    intake.move_relative(-3000, 400);
+    intake.move(-127);
+    pros::delay(600);
+    intake.move(0);
 }
 
 void shoot(int num) {

@@ -84,8 +84,7 @@ namespace greatapi{
 
             // localcoordinate.x = double(2.0*sin(relAngleChange/2) *
             // (((double)Xtravel/relAngleChange) + X_toCOR));
-
-            
+            localcoordinate.x = 0;
           }
           localcoordinate = localcoordinate.transform_matrix(angle(((double)initial.angle+(relAngleChange/2) - globaloffset + encoderangoffset)));
 

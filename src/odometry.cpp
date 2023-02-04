@@ -40,8 +40,8 @@ void position_control() {
 
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
-    greatapi::controlelement *PAngle = new greatapi::Proportional(9000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
-    greatapi::controlelement *IAngle = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));             PIDAngleElements.push_back(IAngle);
+    greatapi::controlelement *PAngle = new greatapi::Proportional(9000, std::pair(__INT_MAX__, -__INT_MAX__));      PIDAngleElements.push_back(PAngle);
+    greatapi::controlelement *IAngle = new greatapi::Integral(500, std::pair(__INT_MAX__, -__INT_MAX__));             PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(14000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
     greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(9000, -9000));  
@@ -55,10 +55,10 @@ void position_control() {
         pros::screen::print(TEXT_SMALL, 3, "X error: %.2f  Y error: %.2f", error.x, error.y);
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
 
-        if (translating && fabs((double) error.x) > 0.75) {
+        if (translating) {
             if (reverseDrive) targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) + PI / 2);
             else targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) - PI / 2);
-            if (((double) error.y) < 15) {
+            if (((double) error.y) < 10 || fabs((double) error.x) < 0.5) {
                 translating = false;
             }
         }

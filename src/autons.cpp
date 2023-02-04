@@ -5,14 +5,11 @@ void redLeft() {
     //red left
     //targetPos = redLStart;
     //location = redLStart;
-    red_team = true;
-    //31.75, 9
     odomRotation.applyOffset(greatapi::SRAD(PI));
-
     setFlywheelRPM(500);
     intake.move(127);
     rtranslate(0, -30, false, true, false);
-    pros::delay(700);
+    pros::delay(650);
     intake.move(0);
     rtranslate(0, 34, true, false, false, 0);
     pros::delay(300);
@@ -29,26 +26,29 @@ void redLeft() {
     rotate(180 - 30, 0);
     pros::delay(1000);
     shoot(3);
-
-
-    // rtranslate(0, -2, false, false);
-    // pros::delay(500);
-
-
-    // setFlywheelRPM(362);
-    // pros::delay(2000);
-    // rtranslate(4, 12, false, false, 0);
-    // rotate(-18, 0);
-    // pros::delay(500);
-    // shoot(1);
-    // pros::delay(500);
-    // shoot(1);
-    // setFlywheelRPM(200);
 }
 
 void redRight() {
     //red right
-    red_team = true;
+    odomRotation.applyOffset(greatapi::SRAD(PI));
+
+    setFlywheelRPM(490);
+
+    rtranslate(0, 5, true, false, false, 0);
+    rotate(180 + 12, 0);
+    pros::delay(3600);
+    shoot(2);
+    intake.move(127);
+    rtranslate(-38, 38, false, true, false, 0);
+    intake.move(0);
+    rotate(180 + 42, 0);
+    shoot(3);
+    translate(7, 5, false, true, false, 0);
+    rtranslate(0, -30, false, true, false);
+    intake.move_relative(-1080, 600);
+    pros::delay(2000);
+    moveDrive = false;
+
 
 
     // rtranslate(-2, 0, false, false, false, 0);
@@ -70,48 +70,50 @@ void redRight() {
 
 void blueLeft() {
     //blue left
-    // red_team = false;
-    // rtranslate(0, 2, false, false);
-    // pros::delay(500);
-    // intake.move_relative(-90, 100);
-    // setFlywheelRPM(362);
-    // pros::delay(2000);
-    // rtranslate(-4, -12, false, false, 0);
-    // rotate(180 - 18, 0);
-    // pros::delay(500);
-    // shoot(1);
-    // pros::delay(500);
-    // shoot(1);
-    // setFlywheelRPM(200);
+    redLeft();
 }
 
 void blueRight() {
     //blue right
     red_team = false;
-//     rtranslate(2, 0, false, false, 0);
-//     rtranslate(0, -23.4, false, false, 0);
-//     rtranslate(-2, 0, false, false);
-//     pros::delay(500);
-//     intake.move_relative(-90, 100);
-//     setFlywheelRPM(362);
-//     pros::delay(2000);
-//     rtranslate(12, 4, false, false, 0);
-//     rotate(90 + 18, 0);
-//     pros::delay(500);
-//     shoot(1);
-//     pros::delay(500);
-//     shoot(1);
-//     setFlywheelRPM(200);
+    redRight();
 }
 
 void skills() {
-
-
-
-    // //skills RED TEAM
-    // red_team = true;
+    //skills RED TEAM
+    red_team = true;
     // //red left
     // //31.75, 9
+
+    odomRotation.applyOffset(greatapi::SRAD(PI));
+    setFlywheelRPM(385);
+    intake.move(127);
+    rtranslate(0, -2, false, true, false);
+    pros::delay(300);
+    intake.move(0);
+    translate(5, 10, true, false, false, 0);
+    intake.move(127);
+    rtranslate(-25, 7, false, false, false, 0);
+    pros::delay(300);
+    angler1Piston.set_value(true);
+    intake.move(0);
+    rtranslate(5, 40, true, false, false, 0);
+    fastShoot(3);
+    //intake disks for second volley near blue low goal
+    intake.move(127);
+    rtranslate(20, 0, false, false, false, 0);
+    rotate(180 - 55, 0);
+    fastShoot(3);
+    intake.move(127);
+    rtranslate(-2, 25, false, false, false, 0);
+    rotate(84, 0);
+    fastShoot(3);
+
+
+
+
+
+
     // rtranslate(0, -2, false, false);
     // pros::delay(500);
     // roller.move_relative(-190, 100);
