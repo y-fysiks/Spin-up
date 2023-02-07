@@ -16,7 +16,7 @@ void odometryLooper() {
         location = odom.calculateposition(location);
         pros::screen::print(TEXT_SMALL, 1, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute
         pros::screen::print(TEXT_SMALL, 2, "Angle: %.2f", location.angle / PI * 180);
-        printf("X: %.2f   Y: %.2f   Angle: %.2f\n", (double) location.x, (double) location.y, (double) (location.angle / PI * 180));
+        //printf("X %.2f   Y %.2f   Angle %.2f\n", (double) location.x, (double) location.y, (double) (location.angle / PI * 180));
         pros::screen::print(TEXT_SMALL, 7, "leftTW: %.2f  rightTW: %.2f  backTW: %.2f", left_encoder->get_distance(), right_encoder->get_distance(), rear_encoder->get_distance());
 
         pros::delay(5);
@@ -31,7 +31,7 @@ void odometryLooper() {
 void position_control() {
     std::vector<greatapi::controlelement *> PIDYElements;
     //TODO TUNE PID FOR Y
-    greatapi::controlelement *PY = new greatapi::Proportional(1000, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
+    greatapi::controlelement *PY = new greatapi::Proportional(1700, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
     greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));                 PIDYElements.push_back(IY);
     greatapi::controlelement *DY = new greatapi::Derivative(1500, std::pair(__INT_MAX__, -__INT_MAX__));            PIDYElements.push_back(DY);
 
@@ -40,7 +40,7 @@ void position_control() {
 
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
-    greatapi::controlelement *PAngle = new greatapi::Proportional(9000, std::pair(__INT_MAX__, -__INT_MAX__));      PIDAngleElements.push_back(PAngle);
+    greatapi::controlelement *PAngle = new greatapi::Proportional(10000, std::pair(__INT_MAX__, -__INT_MAX__));      PIDAngleElements.push_back(PAngle);
     greatapi::controlelement *IAngle = new greatapi::Integral(500, std::pair(__INT_MAX__, -__INT_MAX__));             PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(14000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
@@ -55,12 +55,13 @@ void position_control() {
         pros::screen::print(TEXT_SMALL, 3, "X error: %.2f  Y error: %.2f", error.x, error.y);
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
 
-        if (translating) {
+        if ((total_error) < 0.8) {
+            translating = false;
+        }
+        if (translating && fabs((double) error.x) > 0.5) {
             if (reverseDrive) targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) + PI / 2);
             else targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) - PI / 2);
-            if (((double) error.y) < 10 || fabs((double) error.x) < 0.5) {
-                translating = false;
-            }
+            
         }
         double yMove = PIDY.update(error.y, 0);
         double anglePow = -PIDAngle.update(greatapi::findDiff(location.angle, targetPos.angle), 0);
@@ -94,9 +95,6 @@ void position_control() {
         
         pros::screen::print(TEXT_SMALL, 4, "Angle target: %.2f\n", targetPos.angle / PI * 180);
         pros::screen::print(TEXT_SMALL, 5, "Total error: %.2f\n", total_error);
-        printf("Angle power: %.2f", anglePow);
-        printf("Total error: %.2f", total_error);
-
         pros::delay(5);
     }
     return;
@@ -113,7 +111,7 @@ void rotate(double angleDeg, double errorStop) {
     voltageCap = 12000;
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
     targetPos.angle = angle;
-    errorStop = errorStop == 0 ? 5 : errorStop;
+    errorStop = errorStop == 0 ? 3 : errorStop;
     while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop)) {
         pros::delay(50);
     }

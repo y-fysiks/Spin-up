@@ -8,7 +8,7 @@
 // Port configuration
 #define PI 3.1415926535897932384626433832795
 #define l1_motor_port 1 //1 is top, 3 is bottom
-#define l2_motor_port 2
+#define l2_motor_port 14
 #define l3_motor_port 3
 #define r1_motor_port 4
 #define r2_motor_port 5
@@ -102,8 +102,5 @@ inline bool translating = false;
 inline bool reverseDrive = false;
 inline bool autonomousState = false;
 inline bool red_team = true;
-inline bool angler1State = false;
-inline int puncherTimer = 0;
-inline int alignGoal = 0; //0 = disable, 1 = red, 2 = blue
 
 #endif // CONFIG_HPP

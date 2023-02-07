@@ -74,6 +74,7 @@ void autonomous() {
 	// use either redLeft or blueLeft
 	// pros mu to upload
 	
+	selector::auton = 1;
 
 	if (selector::auton == 1) {
 		redLeft();
@@ -105,13 +106,12 @@ void opcontrol() {
 	bool intakeState = false;
 	bool intakeReverse = false;
 	bool revDrive = true; // DEFAULT IS FORWARD, intake pointing forward
-	int puncherCount = 0;
-	int puncherDelay = 0;
+	bool precMode = false;
+	bool rollerSlow = false;
 
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 390;
-	//int flywheelSpeedIncrement = 50;
+	int flywheelSpeed = 360;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
@@ -138,6 +138,8 @@ void opcontrol() {
 		// 	flywheelState = !flywheelState;
 		// }
 
+		angler1Piston.set_value(true);
+
 		//flywheel speed
 		if (flywheelState) {
 			setFlywheelRPM(flywheelSpeed);
@@ -148,14 +150,14 @@ void opcontrol() {
 		//TODO: automatic flywheel speed modulation
 		if (master.get_digital_new_press(DIGITAL_UP)) {
 			if (flywheelSpeed == 425) flywheelSpeed = 500;
-			else if (flywheelSpeed == 390) flywheelSpeed = 425;
+			else if (flywheelSpeed == 360) flywheelSpeed = 425;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
 			if (flywheelSpeed == 500) flywheelSpeed = 425;
-			else if (flywheelSpeed == 425) flywheelSpeed = 390;
+			else if (flywheelSpeed == 425) flywheelSpeed = 360;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
@@ -182,6 +184,8 @@ void opcontrol() {
 		//puncher control for shooting
 		if (master.get_digital(DIGITAL_R2)) {
 			intake.move(-127);
+		} else if (rollerSlow) {
+			intake.move_velocity(350);
 		} else if (intakeState) {
 			if (intakeReverse) {
 				intake.move(-127);
@@ -193,11 +197,27 @@ void opcontrol() {
 		}
 
 		if (master.get_digital(DIGITAL_L1)) {
-		} else if (master.get_digital(DIGITAL_L2)) {
-			//low position
-			angler1Piston.set_value(0);
+			rollerSlow = true;
 		} else {
-			angler1Piston.set_value(1);
+			rollerSlow = false;
+		}
+		if (master.get_digital(DIGITAL_L2)) {
+			//shooting precision mode
+			precMode = true;
+			l1_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+			l2_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+			l3_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+			r1_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+			r2_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+			r3_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+		} else {
+			precMode = false;
+			l1_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+			l2_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+			l3_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+			r1_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+			r2_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+			r3_motor.set_brake_mode(MOTOR_BRAKE_COAST);
 		}
 
 		//drive rotation
@@ -231,13 +251,15 @@ void opcontrol() {
 		fbPower = (pow(abs(fbPower), powerFactor) / pow(127, powerFactor - 1) * sgn(fbPower));
 		turnPower = (pow(abs(turnPower), powerFactor) / pow(127, powerFactor - 1) * sgn(turnPower));
 
-		if (abs(fbPower) > 10 || abs(turnPower) > 10) {
-			moveDrive = false;
-		}
+		// if (abs(fbPower) > 10 || abs(turnPower) > 10) {
+		// 	moveDrive = false;
+		// }
 
 		if (revDrive) {
 			fbPower = -fbPower;
 		}
+
+		if (precMode) turnPower *= 0.28;
 
 		if (!moveDrive) {
 			l1_motor.move(fbPower + turnPower);

@@ -6,25 +6,32 @@ void redLeft() {
     //targetPos = redLStart;
     //location = redLStart;
     odomRotation.applyOffset(greatapi::SRAD(PI));
-    setFlywheelRPM(500);
-    intake.move(127);
+
+
+    setFlywheelRPM(492);
+    //intake.move(127);
     rtranslate(0, -30, false, true, false);
-    pros::delay(650);
+    pros::delay(200);
+    intake.move_relative(1200, 600);
+    pros::delay(503);
     intake.move(0);
-    rtranslate(0, 34, true, false, false, 0);
+    rtranslate(1, 34, true, false, false, 0);
     pros::delay(300);
     //rtranslate(0, -4, false, false, false, 0);
-    rotate(180 - 5, 0);
-    pros::delay(3500);
+    rotate(180 - 7, 0);
+    pros::delay(2500);
     shoot(2);
-    setFlywheelRPM(485);
+    setFlywheelRPM(473);
     //rtranslate(1, -1, false, false, false, 0);
     targetPos = location;
     //rotate(45, 0);
+    angler1Piston.set_value(true);
     intake.move(127);
-    rtranslate(35, 24, false, 4000, true, false, 0);
-    rotate(180 - 30, 0);
-    pros::delay(1000);
+    translate(40, 26, false, 12000, true, false, 20);
+    translate(40, 26, false, 4000, false, false, 0);
+    rotate(180 - 28.2, 0);
+    angler1Piston.set_value(false);
+    pros::delay(1500);
     shoot(3);
 }
 
@@ -70,44 +77,168 @@ void redRight() {
 
 void blueLeft() {
     //blue left
-    redLeft();
+    odomRotation.applyOffset(greatapi::SRAD(PI));
+    setFlywheelRPM(492);
+    //intake.move(127);
+    rtranslate(0, -30, false, true, false);
+    pros::delay(200);
+    intake.move_relative(1200, 600);
+    pros::delay(503);
+    intake.move(0);
+    rtranslate(1, 34, true, false, false, 0);
+    pros::delay(300);
+    //rtranslate(0, -4, false, false, false, 0);
+    rotate(180 - 6.5, 0);
+    pros::delay(2000);
+    shoot(2);
+    setFlywheelRPM(475);
+    setFlywheelRPM(475);
+    //rtranslate(1, -1, false, false, false, 0);
+    targetPos = location;
+    //rotate(45, 0);
+    angler1Piston.set_value(true);
+    intake.move(127);
+    translate(40, 26, false, 12000, true, false, 20);
+    translate(40, 26, false, 4000, true, false, 0);
+    rotate(180 - 32.7, 0);
+    angler1Piston.set_value(false);
+    pros::delay(750);
+    intake.move(-127);
+    pros::delay(900);
+    
+    intake.move(127);
+    translate(120, 70, false, true, false, 0);
+    rtranslate(3, 0, false, true, false);
+    pros::delay(500);
+    intake.move_relative(1200, 600);
+    pros::delay(500);
+    intake.move(0);
+    rtranslate(-5, 0, true, false, false, 0);
 }
 
 void blueRight() {
     //blue right
     red_team = false;
     redRight();
+
 }
 
 void skills() {
+    /*
+    roller 2
+    -22, 15
+    shooter
+    -20, 75
+    rotate 90
+    22, 75
+    rotate 135
+    shoot x3
+    rotate 0
+    25, 118
+    rotate -95
+    shoot x3
+    x + 29 y -27
+    
+    */
+
     //skills RED TEAM
     red_team = true;
     // //red left
     // //31.75, 9
 
-    odomRotation.applyOffset(greatapi::SRAD(PI));
-    setFlywheelRPM(385);
-    intake.move(127);
-    rtranslate(0, -2, false, true, false);
-    pros::delay(300);
+        odomRotation.applyOffset(greatapi::SRAD(PI));
+    setFlywheelRPM(490);
+    //intake.move(127);
+    rtranslate(0, -30, false, true, false);
+    pros::delay(200);
+    intake.move_relative(1200, 600);
+    pros::delay(503);
     intake.move(0);
-    translate(5, 10, true, false, false, 0);
-    intake.move(127);
-    rtranslate(-25, 7, false, false, false, 0);
+    rtranslate(1, 34, true, false, false, 0);
     pros::delay(300);
+    //rtranslate(0, -4, false, false, false, 0);
+    rotate(180 - 6.5, 0);
+    pros::delay(2500);
+    shoot(2);
+    setFlywheelRPM(475);
+    //rtranslate(1, -1, false, false, false, 0);
+    targetPos = location;
+    //rotate(45, 0);
     angler1Piston.set_value(true);
-    intake.move(0);
-    rtranslate(5, 40, true, false, false, 0);
-    fastShoot(3);
-    //intake disks for second volley near blue low goal
     intake.move(127);
-    rtranslate(20, 0, false, false, false, 0);
-    rotate(180 - 55, 0);
-    fastShoot(3);
-    intake.move(127);
-    rtranslate(-2, 25, false, false, false, 0);
-    rotate(84, 0);
-    fastShoot(3);
+    translate(40, 26, false, 12000, true, false, 20);
+    translate(40, 26, false, 4000, false, false, 0);
+    rotate(180 - 27, 0);
+    angler1Piston.set_value(false);
+    pros::delay(1000);
+    shoot(3);
+    rtranslate(-20, -20, true, true, true, 0);
+    expansionPiston.set_value(true);
+
+
+    // angler1Piston.set_value(true);
+
+    // odomRotation.applyOffset(greatapi::SRAD(PI));
+    // setFlywheelRPM(390);
+    // //intake.move(127);
+    // rtranslate(0, -30, false, true, false);
+    // pros::delay(200);
+    // intake.move_relative(1200, 600);
+    // pros::delay(503);
+    // intake.move(0);
+
+    // translate(5, 10, true, false, false, 0);
+    // intake.move(127);
+    // translate(-22, 17, false, false, false, 0);
+
+    // //second roller
+    // rtranslate(-30, 0, false, false, false);
+    // pros::delay(200);
+    // intake.move_relative(1200, 600);
+    // pros::delay(503);
+    // intake.move(0);
+    // rtranslate(34, 0, true, false, false, 0);
+    // //move to first volley shoot spot
+    // translate(-20, 75, true, false, false, 0);
+    // fastShoot(3);
+    // intake.move(127);
+    // setFlywheelRPM(400);
+    // translate(22, 75, false, true, false, 0);
+    // rotate(135, 0);
+    // intake.move(0);
+    // fastShoot(3);
+    // intake.move(127);
+    // setFlywheelRPM(390);
+    // translate(25, 118, false, true, false, 0);
+    // rotate(-95, 0);
+    // intake.move(0);
+    // fastShoot(3);
+    // intake.move(127);
+    // translate(54, 91, false, true, false, 20);
+    // translate(54, 91, false, true, false, 0);
+
+
+
+    // rotate(-60, 0);
+    
+
+    // pros::delay(300);
+
+
+
+    // angler1Piston.set_value(true);
+    // intake.move(0);
+    // rtranslate(5, 40, true, false, false, 0);
+    // fastShoot(3);
+    // //intake disks for second volley near blue low goal
+    // intake.move(127);
+    // rtranslate(20, 0, false, false, false, 0);
+    // rotate(180 - 55, 0);
+    // fastShoot(3);
+    // intake.move(127);
+    // rtranslate(-2, 25, false, false, false, 0);
+    // rotate(84, 0);
+    // fastShoot(3);
 
 
 

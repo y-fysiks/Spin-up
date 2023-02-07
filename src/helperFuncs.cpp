@@ -11,7 +11,7 @@ void fastShoot(int num) {
 void shoot(int num) {
     for (int i = 0; i < num; i++) {
         intake.move(-127);
-        pros::delay(150);
+        pros::delay(100);
         if (i == num - 1) pros::delay(200);
         intake.move(0);
         pros::delay(800);
@@ -80,17 +80,6 @@ long double get_angle(long double targetx, long double targety){
     }
 }
 
-void rotation_control() {
-    while (true) {
-        if (alignGoal == 1) {
-            //rotate(get_angle(redGoal.x, redGoal.y));
-        } else if (alignGoal == 2) {
-            //rotate(get_angle(blueGoal.x, blueGoal.y));
-        }
-        pros::delay(100);
-    }
-}
-
 void initSpinUp() {
     //erase screen, deletes all auton selector stuff
 
@@ -110,7 +99,6 @@ void initSpinUp() {
 	pros::Task odometry(odometryLooper, "odometryTask");
 	pros::Task motion(position_control, "motionTask");
     pros::Task flywheel(flywheelControl, "flywheelTask");
-    pros::Task rotation(rotation_control, "rotationTask");
 
     
     if (selector::auton == 1) {
