@@ -87,12 +87,12 @@ void initSpinUp() {
     pros::screen::erase();
 
     //set ground motor brakemode to coasting, meaning that it will inertially continue
-	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	//intake stuff
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     

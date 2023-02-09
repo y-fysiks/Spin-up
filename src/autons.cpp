@@ -5,20 +5,25 @@ void redLeft() {
     //red left
     //targetPos = redLStart;
     //location = redLStart;
+    location.angle = greatapi::SRAD(PI);
+    targetPos.angle = greatapi::SRAD(PI);
     odomRotation.applyOffset(greatapi::SRAD(PI));
     initAuton();
 
+    pros::delay(5000);
+
     setFlywheelRPM(492);
     //intake.move(127);
-    rtranslate(0, -4, false, false, false);
+    pros::delay(100);
+    translate(0, -10, false, false, false);
     pros::delay(200);
     intake.move_relative(1200, 600);
     pros::delay(503);
     intake.move(0);
-    rtranslate(0, 8, true, false, false, 0);
+    translate(0, 5, true, false, false, 0);
     pros::delay(300);
     //rtranslate(0, -4, false, false, false, 0);
-    rotate(180 - 7, 0);
+    rotate(180 - 9, 0);
     pros::delay(2500);
     shoot(2);
     setFlywheelRPM(473);
@@ -27,9 +32,9 @@ void redLeft() {
     //rotate(45, 0);
     angler1Piston.set_value(true);
     intake.move(127);
-    translate(40, 26, false, 12000, true, false, 20);
-    translate(40, 26, false, 4000, false, false, 0);
-    rotate(180 - 28.2, 0);
+    translate(40, 28, false, 12000, true, false, 18);
+    translate(40, 28, false, 5000, false, false, 0);
+    rotate(180 - 25, 0);
     angler1Piston.set_value(false);
     pros::delay(1500);
     shoot(3);
@@ -146,76 +151,51 @@ void skills() {
     // //red left
     // //31.75, 9
 
-        odomRotation.applyOffset(greatapi::SRAD(PI));
-    setFlywheelRPM(490);
+    location.angle = greatapi::SRAD(PI);
+    targetPos.angle = greatapi::SRAD(PI);
+    odomRotation.applyOffset(greatapi::SRAD(PI));
+    initAuton();
+
+    angler1Piston.set_value(true);
+
+    setFlywheelRPM(390);
+    pros::delay(100);
     //intake.move(127);
-    rtranslate(0, -30, false, true, false);
+    translate(0, -10, false, true, false);
+    pros::delay(200);
+    intake.move_relative(2400, 600);
+    pros::delay(600);
+    intake.move(0);
+
+    translate(5, 14, true, false, false, 0);
+    intake.move(127);
+    translate(-22, 15, false, false, false, 0);
+
+    //second roller
+    rtranslate(-10, 0, false, false, false);
     pros::delay(200);
     intake.move_relative(1200, 600);
     pros::delay(503);
     intake.move(0);
-    rtranslate(1, 34, true, false, false, 0);
-    pros::delay(300);
-    //rtranslate(0, -4, false, false, false, 0);
-    rotate(180 - 6.5, 0);
-    pros::delay(2500);
-    shoot(2);
-    setFlywheelRPM(475);
-    //rtranslate(1, -1, false, false, false, 0);
-    targetPos = location;
-    //rotate(45, 0);
-    angler1Piston.set_value(true);
+    rtranslate(17, 0, true, false, false, 0);
+    //move to first volley shoot spot
+    translate(-20, 75, true, false, false, 0);
+    fastShoot(3);
     intake.move(127);
-    translate(40, 26, false, 12000, true, false, 20);
-    translate(40, 26, false, 4000, false, false, 0);
-    rotate(180 - 27, 0);
-    angler1Piston.set_value(false);
-    pros::delay(1000);
-    shoot(3);
-    rtranslate(-20, -20, true, true, true, 0);
-    expansionPiston.set_value(true);
-
-
-    // angler1Piston.set_value(true);
-
-    // odomRotation.applyOffset(greatapi::SRAD(PI));
-    // setFlywheelRPM(390);
-    // //intake.move(127);
-    // rtranslate(0, -30, false, true, false);
-    // pros::delay(200);
-    // intake.move_relative(1200, 600);
-    // pros::delay(503);
-    // intake.move(0);
-
-    // translate(5, 10, true, false, false, 0);
-    // intake.move(127);
-    // translate(-22, 17, false, false, false, 0);
-
-    // //second roller
-    // rtranslate(-30, 0, false, false, false);
-    // pros::delay(200);
-    // intake.move_relative(1200, 600);
-    // pros::delay(503);
-    // intake.move(0);
-    // rtranslate(34, 0, true, false, false, 0);
-    // //move to first volley shoot spot
-    // translate(-20, 75, true, false, false, 0);
-    // fastShoot(3);
-    // intake.move(127);
-    // setFlywheelRPM(400);
-    // translate(22, 75, false, true, false, 0);
-    // rotate(135, 0);
-    // intake.move(0);
-    // fastShoot(3);
-    // intake.move(127);
-    // setFlywheelRPM(390);
-    // translate(25, 118, false, true, false, 0);
-    // rotate(-95, 0);
-    // intake.move(0);
-    // fastShoot(3);
-    // intake.move(127);
-    // translate(54, 91, false, true, false, 20);
-    // translate(54, 91, false, true, false, 0);
+    setFlywheelRPM(400);
+    translate(22, 75, false, true, false, 0);
+    rotate(135, 0);
+    intake.move(0);
+    fastShoot(3);
+    intake.move(127);
+    setFlywheelRPM(390);
+    translate(25, 118, false, true, false, 0);
+    rotate(95, 0);
+    intake.move(0);
+    fastShoot(3);
+    intake.move(127);
+    translate(54, 91, false, true, false, 20);
+    translate(54, 91, false, true, false, 0);
 
 
 

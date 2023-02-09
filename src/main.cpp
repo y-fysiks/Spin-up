@@ -103,14 +103,14 @@ void opcontrol() {
 
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 370;
+	int flywheelSpeed = 367;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
 	if (revDrive) {
-		master.set_text(0, 0, "Speed: " + speed + "  R");
+		master.set_text(0, 0, "Speed: " + speed);
 	} else {
-		master.set_text(0, 0, "Speed: " + speed + "  F");
+		master.set_text(0, 0, "Speed: " + speed);
 	}
 	while (true) {
 		//rotate to the correct goal when the button DIGITAL_A is pressed
@@ -144,14 +144,14 @@ void opcontrol() {
 		//TODO: automatic flywheel speed modulation
 		if (master.get_digital_new_press(DIGITAL_UP)) {
 			if (flywheelSpeed == 425) flywheelSpeed = 500;
-			else if (flywheelSpeed == 360) flywheelSpeed = 425;
+			else if (flywheelSpeed == 367) flywheelSpeed = 425;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
 			if (flywheelSpeed == 500) flywheelSpeed = 425;
-			else if (flywheelSpeed == 425) flywheelSpeed = 360;
+			else if (flywheelSpeed == 425) flywheelSpeed = 367;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
@@ -211,14 +211,14 @@ void opcontrol() {
 		}
 
 		//drive rotation
-		if (master.get_digital_new_press(DIGITAL_X)) {
-			revDrive = !revDrive;
-			if (revDrive) {
-			master.set_text(0, 12, "R");
-			} else {
-				master.set_text(0, 12, "F");
-			}
-		}
+		// if (master.get_digital_new_press(DIGITAL_X)) {
+		// 	revDrive = !revDrive;
+		// 	if (revDrive) {
+		// 	master.set_text(0, 12, "R");
+		// 	} else {
+		// 		master.set_text(0, 12, "F");
+		// 	}
+		// }
 		
 
 		//expansion control
