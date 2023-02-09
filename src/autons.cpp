@@ -6,16 +6,16 @@ void redLeft() {
     //targetPos = redLStart;
     //location = redLStart;
     odomRotation.applyOffset(greatapi::SRAD(PI));
-
+    initAuton();
 
     setFlywheelRPM(492);
     //intake.move(127);
-    rtranslate(0, -30, false, true, false);
+    rtranslate(0, -4, false, false, false);
     pros::delay(200);
     intake.move_relative(1200, 600);
     pros::delay(503);
     intake.move(0);
-    rtranslate(1, 34, true, false, false, 0);
+    rtranslate(0, 8, true, false, false, 0);
     pros::delay(300);
     //rtranslate(0, -4, false, false, false, 0);
     rotate(180 - 7, 0);

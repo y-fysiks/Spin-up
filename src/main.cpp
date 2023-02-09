@@ -41,14 +41,6 @@ void competition_initialize() {
 
 
 void autonomous() {
-	initSpinUp();
-
-	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
 	/*
 	selector::auton == 1 : Red left
@@ -111,7 +103,7 @@ void opcontrol() {
 
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 360;
+	int flywheelSpeed = 370;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);

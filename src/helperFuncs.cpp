@@ -120,3 +120,26 @@ void initSpinUp() {
 
     targetPos = location;
 }
+
+void initAuton() {
+    
+    pros::screen::set_eraser(COLOR_BLACK);
+    pros::screen::erase();
+
+	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+
+	//intake stuff
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    
+	pros::Task odometry(odometryLooper, "odometryTask");
+	pros::Task motion(position_control, "motionTask");
+    pros::Task flywheel(flywheelControl, "flywheelTask");
+
+    
+
+}

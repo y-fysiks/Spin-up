@@ -58,3 +58,5 @@ long double get_angle(long double targetx, long double targety);
 
 
 void initSpinUp();
+
+void initAuton();

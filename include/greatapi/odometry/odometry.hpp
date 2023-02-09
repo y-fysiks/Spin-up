@@ -73,7 +73,7 @@ namespace greatapi{
 
           //if no angle change, just add coords
           if(relAngleChange == angle(0)){
-            localcoordinate.x += Xtravel;
+            //localcoordinate.x += Xtravel;
             localcoordinate.y += Ytravel;
           }
 
