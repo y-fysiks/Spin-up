@@ -10,8 +10,6 @@ void redLeft() {
     odomRotation.applyOffset(greatapi::SRAD(PI));
     initAuton();
 
-    pros::delay(5000);
-
     setFlywheelRPM(492);
     //intake.move(127);
     pros::delay(100);
