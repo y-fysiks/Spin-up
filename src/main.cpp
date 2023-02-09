@@ -133,7 +133,8 @@ void opcontrol() {
 		angler1Piston.set_value(true);
 
 		//flywheel speed
-		flywheelState = true;
+		if (master.get_digital(DIGITAL_LEFT)) flywheelState = false;
+		else flywheelState = true;
 		if (flywheelState) {
 			setFlywheelRPM(flywheelSpeed);
 		} else {
@@ -154,10 +155,6 @@ void opcontrol() {
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
-		}
-
-		if (master.get_digital_new_press(DIGITAL_LEFT)) {
-			flywheelState = !flywheelState;
 		}
 		
 
