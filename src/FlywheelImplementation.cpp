@@ -1,4 +1,5 @@
 #include "FlywheelImplementation.hpp"
+#include <atomic>
 
 double flywheelRatio = 1;
 velPID pid(240, 20, 20.7, 0.9);// kP, kD, kF, emaAlpha
@@ -6,14 +7,14 @@ velPID pid(240, 20, 20.7, 0.9);// kP, kD, kF, emaAlpha
 emaFilter rpmFilter(0.15);
 double motorSlew = 300;
 
-double targetRPM = 0;
+std::atomic<double> targetRPM = 0;
 double currentRPM = 0;
 double lastPower = 0;
 double motorPower = 0;
 bool disableFlywheel = false;
 
 void setFlywheelRPM(int rpm) {
-    targetRPM = rpm;
+    targetRPM = 1.0 * rpm;
     if (rpm == 0) disableFlywheel = true;
     else disableFlywheel = false;
 }
@@ -23,7 +24,7 @@ void flywheelControl() {
     
     currentRPM = rpmFilter.filter(flywheel.get_actual_velocity() * flywheelRatio);
     
-    motorPower = pid.calculate(targetRPM, currentRPM);
+    motorPower = pid.calculate(targetRPM.load(), currentRPM);
     
     if(motorPower <= 0) motorPower = 0; //Prevent motor from spinning backward
     

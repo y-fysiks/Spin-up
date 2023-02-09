@@ -133,6 +133,7 @@ void opcontrol() {
 		angler1Piston.set_value(true);
 
 		//flywheel speed
+		flywheelState = true;
 		if (flywheelState) {
 			setFlywheelRPM(flywheelSpeed);
 		} else {
