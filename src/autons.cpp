@@ -32,7 +32,7 @@ void redLeft() {
     intake.move(127);
     translate(40, 28, false, 12000, true, false, 18);
     translate(40, 28, false, 5000, false, false, 0);
-    rotate(180 - 21, 0);
+    rotate(180 - 25, 0);
     angler1Piston.set_value(false);
     pros::delay(1500);
     shoot(3);
