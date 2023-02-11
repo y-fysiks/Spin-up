@@ -1,14 +1,10 @@
 #include "autons.hpp"
-#include "pros/rtos.hpp"
 
 void redLeft() {
     //red left
     //targetPos = redLStart;
     //location = redLStart;
-    location.angle = greatapi::SRAD(PI);
-    targetPos.angle = greatapi::SRAD(PI);
-    odomRotation.applyOffset(greatapi::SRAD(PI));
-    initAuton();
+    initAuton(greatapi::SRAD(PI));
 
     setFlywheelRPM(494);
     //intake.move(127);
@@ -22,7 +18,7 @@ void redLeft() {
     pros::delay(300);
     //rtranslate(0, -4, false, false, false, 0);
     rotate(180 - 9, 0);
-    pros::delay(2500);
+    pros::delay(1500);
     shoot(2);
     setFlywheelRPM(473);
     //rtranslate(1, -1, false, false, false, 0);
@@ -32,6 +28,7 @@ void redLeft() {
     intake.move(127);
     translate(40, 28, false, 12000, true, false, 18);
     translate(40, 28, false, 5000, false, false, 0);
+
     rotate(180 - 25, 0);
     angler1Piston.set_value(false);
     pros::delay(1500);
@@ -40,7 +37,7 @@ void redLeft() {
 
 void redRight() {
     //red right
-    odomRotation.applyOffset(greatapi::SRAD(PI));
+    initAuton(greatapi::SRAD(0));
 
     setFlywheelRPM(490);
 
@@ -59,71 +56,28 @@ void redRight() {
     pros::delay(2000);
     moveDrive = false;
 
-
-
-    // rtranslate(-2, 0, false, false, false, 0);
-    // rtranslate(0, 23.4, false, false, false, 0);
-    // rtranslate(2, 0, false, false, false);
-    // pros::delay(500);
-    // intake.move_relative(-90, 100);
-    // setFlywheelRPM(362);
-    // pros::delay(2000);
-    // rtranslate(-12, -4, false, false, 0);
-    // rotate(270 + 18, 0);
-    // pros::delay(500);
-    // shoot(1);
-    // pros::delay(500);
-    // shoot(1);
-    // setFlywheelRPM(200);
-
 }
 
-void blueLeft() {
+void blueLeft() {//
     //blue left
-    odomRotation.applyOffset(greatapi::SRAD(PI));
-    setFlywheelRPM(492);
-    //intake.move(127);
-    rtranslate(0, -30, false, true, false);
-    pros::delay(200);
-    intake.move_relative(1200, 600);
-    pros::delay(503);
-    intake.move(0);
-    rtranslate(1, 34, true, false, false, 0);
-    pros::delay(300);
-    //rtranslate(0, -4, false, false, false, 0);
-    rotate(180 - 6.5, 0);
-    pros::delay(2000);
-    shoot(2);
-    setFlywheelRPM(475);
-    setFlywheelRPM(475);
-    //rtranslate(1, -1, false, false, false, 0);
-    targetPos = location;
-    //rotate(45, 0);
-    angler1Piston.set_value(true);
-    intake.move(127);
-    translate(40, 26, false, 12000, true, false, 20);
-    translate(40, 26, false, 4000, true, false, 0);
-    rotate(180 - 32.7, 0);
-    angler1Piston.set_value(false);
-    pros::delay(750);
-    intake.move(-127);
-    pros::delay(900);
-    
-    intake.move(127);
-    translate(120, 70, false, true, false, 0);
-    rtranslate(3, 0, false, true, false);
-    pros::delay(500);
-    intake.move_relative(1200, 600);
-    pros::delay(500);
-    intake.move(0);
-    rtranslate(-5, 0, true, false, false, 0);
 }
 
 void blueRight() {
     //blue right
     red_team = false;
-    redRight();
+}
 
+void soloAWP() {
+    redLeft();
+    
+    intake.move(127);
+    translate(70, 70, false, 8000, true, false, 10);
+    translate(70, 70, false, true, false);
+    //rtranslate(3, 0, false, true, false);
+    pros::delay(600);
+    intake.move_relative(1200, 600);
+    pros::delay(500);
+    intake.move(0);
 }
 
 void skills() {
@@ -148,11 +102,7 @@ void skills() {
     red_team = true;
     // //red left
     // //31.75, 9
-
-    location.angle = greatapi::SRAD(PI);
-    targetPos.angle = greatapi::SRAD(PI);
-    odomRotation.applyOffset(greatapi::SRAD(PI));
-    initAuton();
+    initAuton(greatapi::SRAD(PI));
 
     angler1Piston.set_value(true);
 

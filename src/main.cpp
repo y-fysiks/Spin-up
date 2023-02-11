@@ -15,6 +15,7 @@
  */
 void initialize() {
 	expansionPiston.set_value(false);
+	angler1Piston.set_value(false);
 	selector::init();
 }
 
@@ -41,14 +42,13 @@ void competition_initialize() {
 
 
 void autonomous() {
-
 	/*
 	selector::auton == 1 : Red left
 	selector::auton == 2 : Red right
-	selector::auton == 3 : Do Nothing
+	selector::auton == 3 : Solo AWP
 	selector::auton == -1 : Blue left
 	selector::auton == -2 : Blue right
-	selector::auton == -3 : Do Nothing
+	selector::auton == -3 : Solo AWP
 	selector::auton == 0 : Skills
 	DEFAULT IS 1
 	*/
@@ -70,19 +70,20 @@ void autonomous() {
 
 	if (selector::auton == 1) {
 		redLeft();
-	}
-	else if (selector::auton == 2) {
+	} else if (selector::auton == 2) {
 		redRight();
-	}
-	else if (selector::auton == -1) {
-		blueLeft();
-	}
-	else if (selector::auton == -2) {
-		blueRight();
-	}
-	else if (selector::auton == 0) {
+	} else if (selector::auton == -1) {
+		redLeft();
+	} else if (selector::auton == -2) {
+		redRight();
+	} else if (selector::auton == 3) {
+		soloAWP();
+	} else if (selector::auton == -3) {
+		soloAWP();
+	} else if (selector::auton == 0) {
 		skills();
 	}
+
 }
 
 

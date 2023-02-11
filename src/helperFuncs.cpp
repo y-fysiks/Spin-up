@@ -96,9 +96,9 @@ void initSpinUp() {
 	//intake stuff
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     
-	pros::Task odometry(odometryLooper, "odometryTask");
-	pros::Task motion(position_control, "motionTask");
-    pros::Task flywheel(flywheelControl, "flywheelTask");
+    pros::Task odometryTask(odometryLooper, "odomTask");
+    pros::Task motionTask(position_control, "motionTask");
+    pros::Task flywheelTask(flywheelControl, "flywheelTask");
 
     
     if (selector::auton == 1) {
@@ -121,7 +121,11 @@ void initSpinUp() {
     targetPos = location;
 }
 
-void initAuton() {
+void initAuton(greatapi::SRAD startOrientation) {
+
+    location.angle = greatapi::SRAD(PI);
+    targetPos.angle = greatapi::SRAD(PI);
+    odomRotation.applyOffset(greatapi::SRAD(PI));
     
     pros::screen::set_eraser(COLOR_BLACK);
     pros::screen::erase();
@@ -136,10 +140,7 @@ void initAuton() {
 	//intake stuff
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     
-	pros::Task odometry(odometryLooper, "odometryTask");
-	pros::Task motion(position_control, "motionTask");
-    pros::Task flywheel(flywheelControl, "flywheelTask");
-
-    
-
+    pros::Task odometryTask(odometryLooper, "odomTask");
+    pros::Task motionTask(position_control, "motionTask");
+    pros::Task flywheelTask(flywheelControl, "flywheelTask");
 }
