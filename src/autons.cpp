@@ -9,7 +9,7 @@ void redLeft() {
     setFlywheelRPM(494);
     //intake.move(127);
     pros::delay(100);
-    translate(0, -10, false, false, false);
+    translate(0, -12.5, false, false, false);
     pros::delay(200);
     intake.move_relative(1200, 600);
     pros::delay(503);
@@ -18,7 +18,7 @@ void redLeft() {
     pros::delay(300);
     //rtranslate(0, -4, false, false, false, 0);
     rotate(180 - 9, 0);
-    pros::delay(1500);
+    pros::delay(500);
     shoot(2);
     setFlywheelRPM(473);
     //rtranslate(1, -1, false, false, false, 0);
@@ -26,12 +26,12 @@ void redLeft() {
     //rotate(45, 0);
     angler1Piston.set_value(true);
     intake.move(127);
-    translate(40, 28, false, 12000, true, false, 18);
-    translate(40, 28, false, 5000, false, false, 0);
+    translate(40, 30, false, 12000, true, false, 18);
+    translate(40, 30, false, 5000, false, false, 0);
 
-    rotate(180 - 25, 0);
+    rotate(180 - 27, 0);
     angler1Piston.set_value(false);
-    pros::delay(1500);
+    pros::delay(1000);
     shoot(3);
 }
 
@@ -71,10 +71,13 @@ void soloAWP() {
     redLeft();
     
     intake.move(127);
-    translate(70, 70, false, 8000, true, false, 10);
-    translate(70, 70, false, true, false);
+    translate(107, 76, false, 8000, true, false, 20);
+    intake.move(0);
+    translate(107, 76, false, false, false, 0);
+    translate(115, 68, false, 0, false);
+
     //rtranslate(3, 0, false, true, false);
-    pros::delay(600);
+    pros::delay(500);
     intake.move_relative(1200, 600);
     pros::delay(500);
     intake.move(0);
@@ -108,42 +111,93 @@ void skills() {
 
     setFlywheelRPM(390);
     pros::delay(100);
-    //intake.move(127);
-    translate(0, -10, false, true, false);
+
+    //first roller
+    translate(0, -10, false, 10000, true, false);
     pros::delay(200);
-    intake.move_relative(2400, 600);
-    pros::delay(600);
+    intake.move_relative(800, 600);
+    pros::delay(300);
     intake.move(0);
 
-    translate(5, 14, true, false, false, 0);
+    //move forward from roller
+    translate(5, 18, true, 8000, false, false, 0);
     intake.move(127);
-    translate(-22, 15, false, false, false, 0);
+    //move to second roller
+    translate(-23, 15, false, 6000, false, false, 0);
+    intake.move(0);
 
     //second roller
-    rtranslate(-10, 0, false, false, false);
+    rtranslate(-10, 0, false, 8000, false, false);
     pros::delay(200);
-    intake.move_relative(1200, 600);
-    pros::delay(503);
+    intake.move_relative(800, 600);
+    pros::delay(300);
     intake.move(0);
-    rtranslate(17, 0, true, false, false, 0);
+    rtranslate(18, 0, true, 10000, false, false, 0);
+
     //move to first volley shoot spot
-    translate(-20, 75, true, false, false, 0);
-    fastShoot(3);
+    intake.move(127);
+    translate(-24, 74.5, true, 7000, false, false, 0);
+    intake.move(0);
+    rotate(180 + 3, 0);
+    fastShoot();
+
+    //intake discs for second volley
     intake.move(127);
     setFlywheelRPM(400);
-    translate(22, 75, false, true, false, 0);
-    rotate(135, 0);
-    intake.move(0);
-    fastShoot(3);
+    rotate(90, 0);
+    translate(17, 75, false, 6000, false, false, 0);
+    //second volley
+    rotate(180 - 46, 0);
+    fastShoot();
+    
+    //intake discs for third volley
     intake.move(127);
     setFlywheelRPM(390);
-    translate(25, 118, false, true, false, 0);
-    rotate(95, 0);
+    translate(16, 117, false, 10000, true, false, 0);
     intake.move(0);
-    fastShoot(3);
+
+    //third volley
+    rotate(87, 0);
+    fastShoot();
+
+    //intake discs for fourth volley
     intake.move(127);
-    translate(54, 91, false, true, false, 20);
-    translate(54, 91, false, true, false, 0);
+    translate(60, 87, false, 10000, true, false, 20);
+    translate(54, 87, false, 10000, false, false, 0);
+    translate(80, 87, false, 10000, true, false, 0);
+
+    //third roller
+    rtranslate(2, 0, false, 8000, false, false);
+    pros::delay(200);
+    intake.move_relative(800, 600);
+    pros::delay(300);
+    intake.move(0);
+    //move out from roller
+    rtranslate(-8, 0, true, 10000, false, false, 0);
+
+    //fourth volley
+    rotate(3, 0);
+    shoot(3);
+
+    //go to fourth roller
+    intake.move(127);
+    rtranslate(0, 30, false, 8000, false, false, 0);
+
+    //fourth roller
+    rtranslate(0, 5, false, 10000, false, false, 0);
+    pros::delay(200);
+    intake.move_relative(800, 600);
+    pros::delay(300);
+    intake.move(0);
+
+    //move out from roller
+    rtranslate(0, -8, true, 10000, false, false, 0);
+
+    //rotate to expand
+    rotate(45, 0);
+    pros::delay(500);
+    //expand
+    expansionPiston.set_value(true);
 
 
 

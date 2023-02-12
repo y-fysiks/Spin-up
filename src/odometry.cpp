@@ -39,7 +39,7 @@ void position_control() {
 
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
-    greatapi::controlelement *PAngle = new greatapi::Proportional(18000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
+    greatapi::controlelement *PAngle = new greatapi::Proportional(18500, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
     greatapi::controlelement *IAngle = new greatapi::Integral(3000, std::pair(4000, -4000));                        PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(14000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
@@ -114,7 +114,7 @@ void rotate(double angleDeg, double errorStop) {
     voltageCap = 12000;
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
     targetPos.angle = angle;
-    errorStop = errorStop == 0 ? 3 : errorStop;
+    errorStop = errorStop == 0 ? 2 : errorStop;
     while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop)) {
         pros::delay(50);
     }
@@ -177,8 +177,8 @@ void translate(double x, double y, bool revDrive, double maxVoltage, bool goHead
  */
 void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(x, y, revDrive, goHeading, reverseHeading);
-    distToStopBlock = distToStopBlock == 0 ? 0.8 : distToStopBlock;
-    while (fabs((double) targetPos.y - (double) location.y) > distToStopBlock) {
+    distToStopBlock = distToStopBlock == 0 ? 1 : distToStopBlock;
+    while (total_error > distToStopBlock) {
         pros::delay(20);
     }
     return;
@@ -197,8 +197,8 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
 void translate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(x, y, revDrive, goHeading, reverseHeading);
     voltageCap = maxVoltage;
-    distToStopBlock = distToStopBlock == 0 ? 0.8 : distToStopBlock;
-    while (fabs((double) targetPos.y - (double) location.y) > distToStopBlock) {
+    distToStopBlock = distToStopBlock == 0 ? 1 : distToStopBlock;
+    while (total_error > distToStopBlock) {
         pros::delay(20);
     }
     return;
@@ -206,6 +206,9 @@ void translate(double x, double y, bool revDrive, double maxVoltage, bool goHead
 
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading) {
     translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading);
+}
+void rtranslate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
+    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, maxVoltage, goHeading, reverseHeading);
 }
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading, distToStopBlock);

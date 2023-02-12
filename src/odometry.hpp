@@ -67,5 +67,6 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
 void translate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
 
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading);
+void rtranslate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading);
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock);
 void rtranslate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);

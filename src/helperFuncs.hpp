@@ -9,7 +9,7 @@ void flywheelVoltage(int voltage);
 
 void shoot(int num);
 
-void fastShoot(int num);
+void fastShoot();
 
 
 // functions to get angle given current position and target position

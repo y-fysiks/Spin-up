@@ -2,19 +2,19 @@
 #include "FlywheelImplementation.hpp"
 
 
-void fastShoot(int num) {
+void fastShoot() {
     intake.move(-127);
-    pros::delay(600);
+    pros::delay(1100);
     intake.move(0);
 }
 
 void shoot(int num) {
     for (int i = 0; i < num; i++) {
         intake.move(-127);
-        pros::delay(100);
-        if (i == num - 1) pros::delay(200);
+        pros::delay(110);
+        if (i == num - 1) pros::delay(100);
         intake.move(0);
-        pros::delay(800);
+        pros::delay(600);
     }
 }
 
