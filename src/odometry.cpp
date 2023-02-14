@@ -251,3 +251,9 @@ void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goH
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading, distToStopBlock);
 }
+
+void rtranslatefw(double dist, bool revDrive) {
+    double x = ((double) targetPos.x) + (dist * cos(targetPos.angle));
+    double y = ((double) targetPos.y) + (dist * sin(targetPos.angle));
+    
+}
