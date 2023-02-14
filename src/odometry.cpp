@@ -13,10 +13,10 @@ void odometryLooper() {
     // odom.globaloffset = PI;
     while (true) {
         location = odom.calculateposition(location);
-        pros::screen::print(TEXT_SMALL, 1, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute
+        pros::screen::print(TEXT_SMALL, 3, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute
         pros::screen::print(TEXT_SMALL, 2, "Angle: %.2f", location.angle / PI * 180);
         //printf("X %.2f   Y %.2f   Angle %.2f\n", (double) location.x, (double) location.y, (double) (location.angle / PI * 180));
-        pros::screen::print(TEXT_SMALL, 7, "leftTW: %.2f  rightTW: %.2f  backTW: %.2f", left_encoder->get_distance(), right_encoder->get_distance(), rear_encoder->get_distance());
+        pros::screen::print(TEXT_SMALL, 1, "leftTW: %.2f  rightTW: %.2f  backTW: %.2f", left_encoder->get_distance(), right_encoder->get_distance(), rear_encoder->get_distance());
 
         pros::delay(5);
     }
@@ -55,7 +55,6 @@ void position_control() {
         total_error = sqrt(pow(targetPos.x - location.x, 2) + pow(targetPos.y - location.y, 2));
 
         greatapi::coord error(location, targetPos);
-        pros::screen::print(TEXT_SMALL, 3, "X error: %.2f  Y error: %.2f", error.x, error.y);
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
 
         if (translating && fabs((double) error.x) > 0.8) {
