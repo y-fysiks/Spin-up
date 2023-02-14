@@ -121,17 +121,19 @@ void rotate(double angleDeg, double errorStop) {
     return;
 }
 
+#define defaultMaxVolts 10000
+
 /**
  * translates the robot to absolute coordinates. DOES NOT BLOCK EXECUTION
  * 
  * \param x the x coordinate to translate to
  * \param y the y coordinate to translate to
+ * \param revDrive whether or not to reverse the drive direction
+ * \param maxVoltage the maximum voltage to send to the motors
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
-void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading) {
-    reverseDrive = false;
-    voltageCap = 12000;
+void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
     if (goHeading) {
         if (reverseHeading) {
             rotate(90 - (atan2(y - location.y, x - location.x) + PI) / PI * 180.0, 0);
@@ -139,9 +141,10 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
             rotate(90 - (atan2(y - location.y, x - location.x)) / PI * 180.0, 0);
         }
     }
-    reverseDrive = revDrive;
     targetPos.x = x;
     targetPos.y = y;
+    reverseDrive = revDrive;
+    voltageCap = maxVoltage;
     total_error = sqrt(pow(targetPos.x - location.x, 2) + pow(targetPos.y - location.y, 2));
     translating = true;
     if (reverseDrive) targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) + PI / 2);
@@ -155,13 +158,12 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
  * 
  * \param x the x coordinate to translate to
  * \param y the y coordinate to translate to
- * \param maxVoltage the maximum voltage to send to the motors
+ * \param revDrive whether or not to reverse the drive direction
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
-void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
-    translate(x, y, revDrive, goHeading, reverseHeading);
-    voltageCap = maxVoltage;
+void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading) {
+    translatevl(x, y, revDrive, defaultMaxVolts, goHeading, reverseHeading);
     return;
 }
 
@@ -170,48 +172,85 @@ void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHe
  * 
  * \param x the x coordinate to translate to
  * \param y the y coordinate to translate to
- * \param goHeading whether or not to point towards the target
- * \param reverseHeading whether or not to invert the heading when pointing towards the target
- * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
- */
-void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
-    translate(x, y, revDrive, goHeading, reverseHeading);
-    distToStopBlock = distToStopBlock == 0 ? 1 : distToStopBlock;
-    while (total_error > distToStopBlock) {
-        pros::delay(20);
-    }
-    return;
-}
-
-/**
- * translates the robot to absolute coordinates. Blocks execution. 
- * 
- * \param x the x coordinate to translate to
- * \param y the y coordinate to translate to
+ * \param revDrive whether or not to reverse the drive direction
  * \param maxVoltage the maximum voltage to send to the motors
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target
  * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
  */
 void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
-    translate(x, y, revDrive, goHeading, reverseHeading);
-    voltageCap = maxVoltage;
+    translatevl(x, y, revDrive, maxVoltage, goHeading, reverseHeading);
     distToStopBlock = distToStopBlock == 0 ? 1 : distToStopBlock;
-    while (total_error > distToStopBlock) {
+    while (fabs(total_error) > distToStopBlock) {
         pros::delay(20);
     }
     return;
 }
 
-void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading) {
-    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading);
+/**
+ * translates the robot to absolute coordinates. Blocks execution. 
+ * 
+ * \param x the x coordinate to translate to
+ * \param y the y coordinate to translate to
+ * \param revDrive whether or not to reverse the drive direction
+ * \param goHeading whether or not to point towards the target
+ * \param reverseHeading whether or not to invert the heading when pointing towards the target
+ * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
+ */
+void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
+    translatevl(x, y, revDrive, defaultMaxVolts, goHeading, reverseHeading, distToStopBlock);
+    return;
 }
+
+/**
+ * translates the robot to relative coordinates. DOES NOT BLOCK EXECUTION
+ * 
+ * \param x the x coordinate to translate to
+ * \param y the y coordinate to translate to
+ * \param revDrive whether or not to reverse the drive direction
+ * \param maxVoltage the maximum voltage to send to the motors
+ * \param goHeading whether or not to point towards the target
+ * \param reverseHeading whether or not to invert the heading when pointing towards the target.
+ */
 void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
     translatevl(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, maxVoltage, goHeading, reverseHeading);
 }
-void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
-    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading, distToStopBlock);
+/**
+ * translates the robot to relative coordinates. DOES NOT BLOCK EXECUTION
+ * 
+ * \param x the x coordinate to translate to
+ * \param y the y coordinate to translate to
+ * \param revDrive whether or not to reverse the drive direction
+ * \param goHeading whether or not to point towards the target
+ * \param reverseHeading whether or not to invert the heading when pointing towards the target.
+ */
+void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading) {
+    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading);
 }
+/**
+ * translates the robot to relative coordinates. Blocks execution. 
+ * 
+ * \param x the x coordinate to translate to
+ * \param y the y coordinate to translate to
+ * \param revDrive whether or not to reverse the drive direction
+ * \param maxVoltage the maximum voltage to send to the motors
+ * \param goHeading whether or not to point towards the target
+ * \param reverseHeading whether or not to invert the heading when pointing towards the target
+ * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
+ */
 void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translatevl(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, maxVoltage, goHeading, reverseHeading, distToStopBlock);
+}
+/**
+ * translates the robot to relative coordinates. Blocks execution. 
+ * 
+ * \param x the x coordinate to translate to
+ * \param y the y coordinate to translate to
+ * \param revDrive whether or not to reverse the drive direction
+ * \param goHeading whether or not to point towards the target
+ * \param reverseHeading whether or not to invert the heading when pointing towards the target
+ * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
+ */
+void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
+    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading, distToStopBlock);
 }
