@@ -41,7 +41,7 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
-void translate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading);
+void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading);
 
 /**
  * translates the robot to absolute coordinates. Blocks execution. 
@@ -64,9 +64,9 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
  * \param reverseHeading whether or not to invert the heading when pointing towards the target
  * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
  */
-void translate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
+void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
 
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading);
-void rtranslate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading);
+void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading);
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock);
-void rtranslate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
+void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);

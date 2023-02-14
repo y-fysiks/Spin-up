@@ -39,7 +39,7 @@ void position_control() {
 
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
-    greatapi::controlelement *PAngle = new greatapi::Proportional(18500, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
+    greatapi::controlelement *PAngle = new greatapi::Proportional(19500, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
     greatapi::controlelement *IAngle = new greatapi::Integral(3000, std::pair(4000, -4000));                        PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(14000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
@@ -159,8 +159,7 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
-void translate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
-    voltageCap = maxVoltage;
+void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
     translate(x, y, revDrive, goHeading, reverseHeading);
     voltageCap = maxVoltage;
     return;
@@ -194,7 +193,7 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
  * \param reverseHeading whether or not to invert the heading when pointing towards the target
  * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.8
  */
-void translate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
+void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(x, y, revDrive, goHeading, reverseHeading);
     voltageCap = maxVoltage;
     distToStopBlock = distToStopBlock == 0 ? 1 : distToStopBlock;
@@ -207,12 +206,12 @@ void translate(double x, double y, bool revDrive, double maxVoltage, bool goHead
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading) {
     translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading);
 }
-void rtranslate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
-    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, maxVoltage, goHeading, reverseHeading);
+void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading) {
+    translatevl(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, maxVoltage, goHeading, reverseHeading);
 }
 void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, goHeading, reverseHeading, distToStopBlock);
 }
-void rtranslate(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
-    translate(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, maxVoltage, goHeading, reverseHeading, distToStopBlock);
+void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
+    translatevl(((double) targetPos.x) + x, ((double) targetPos.y) + y, revDrive, maxVoltage, goHeading, reverseHeading, distToStopBlock);
 }

@@ -11,10 +11,10 @@ void fastShoot() {
 void shoot(int num) {
     for (int i = 0; i < num; i++) {
         intake.move(-127);
-        pros::delay(110);
-        if (i == num - 1) pros::delay(100);
+        pros::delay(120);
+        if (i == num - 1) pros::delay(150);
         intake.move(0);
-        pros::delay(600);
+        pros::delay(800);
     }
 }
 
