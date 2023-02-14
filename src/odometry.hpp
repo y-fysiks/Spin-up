@@ -15,17 +15,10 @@ void odometryLooper();
 void position_control();
 
 /**
- * rotates the bot to the specified absolute heading. DOES NOT BLOCK EXECUTION
- * 
- * \param angle the absolute heading to rotate to
- */
-void rotate(double angleDeg);
-
-/**
  * rotates the bot to the specified absolute heading. Blocks execution until the bot is at the specified heading.
  * 
  * \param angle the absolute heading to rotate to
- * \param errorStop DEGREES the function will stop the bot if the error is greater than the error threshold. IF 0, default is 2 degrees
+ * \param errorStop DEGREES the function will stop the bot if the error is greater than the error threshold. IF 0, default is 3 degrees
  */
 void rotate(double angleDeg, double errorStop);
 
@@ -37,7 +30,7 @@ void rotate(double angleDeg, double errorStop);
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
-void translate(double x, double y, bool goHeading, bool reverseHeading);
+void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading);
 
 /**
  * translates the robot to absolute coordinates. DOES NOT BLOCK EXECUTION
@@ -48,7 +41,7 @@ void translate(double x, double y, bool goHeading, bool reverseHeading);
  * \param goHeading whether or not to point towards the target
  * \param reverseHeading whether or not to invert the heading when pointing towards the target.
  */
-void translate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading);
+void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading);
 
 /**
  * translates the robot to absolute coordinates. Blocks execution. 
@@ -59,7 +52,7 @@ void translate(double x, double y, double maxVoltage, bool goHeading, bool rever
  * \param reverseHeading whether or not to invert the heading when pointing towards the target
  * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
  */
-void translate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock);
+void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock);
 
 /**
  * translates the robot to absolute coordinates. Blocks execution. 
@@ -71,8 +64,9 @@ void translate(double x, double y, bool goHeading, bool reverseHeading, double d
  * \param reverseHeading whether or not to invert the heading when pointing towards the target
  * \param distToStopBlock the distance from target to stop blocking the function. IF 0, it will default to 0.3
  */
-void translate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
+void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
 
-void rtranslate(double x, double y, bool goHeading, bool reverseHeading);
-void rtranslate(double x, double y, bool goHeading, bool reverseHeading, double distToStopBlock);
-void rtranslate(double x, double y, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);
+void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading);
+void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading);
+void rtranslate(double x, double y, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock);
+void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock);

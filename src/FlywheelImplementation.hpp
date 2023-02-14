@@ -2,12 +2,8 @@
 #include "globals.hpp"
 #include "pidVelSystem.hpp"
 
-#ifndef HELPERFUNCS_HPP
-#define HELPERFUNCS_HPP
-
-template <typename T> int sgn(T val) {
-  return (T(0) < val) - (val < T(0));
-}
+#ifndef FLYWHLIMPL_HPP
+#define FLYWHLIMPL_HPP
 
 void setFlywheelRPM(int rpm);
 

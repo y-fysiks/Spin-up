@@ -1,29 +1,20 @@
 #include "helperFuncs.hpp"
 #include "FlywheelImplementation.hpp"
 
-void flywheelVoltage(int voltage) {
-    flywheel_1.move_voltage(voltage);
-    flywheel_2.move_voltage(voltage);
-}
 
-
-void fastShoot(int num) {
-    puncherPiston.set_value(0);
-    for (int i = 0; i < num; i++) {
-        puncherPiston.set_value(1);
-        pros::delay(150);
-        puncherPiston.set_value(0);
-        pros::delay(500);
-    }
+void fastShoot() {
+    intake.move(-127);
+    pros::delay(1100);
+    intake.move(0);
 }
 
 void shoot(int num) {
-    puncherPiston.set_value(0);
     for (int i = 0; i < num; i++) {
-        puncherPiston.set_value(1);
-        pros::delay(400);
-        puncherPiston.set_value(0);
-        pros::delay(1000);
+        intake.move(-127);
+        pros::delay(120);
+        if (i == num - 1) pros::delay(150);
+        intake.move(0);
+        pros::delay(800);
     }
 }
 
@@ -89,17 +80,6 @@ long double get_angle(long double targetx, long double targety){
     }
 }
 
-void rotation_control() {
-    while (true) {
-        if (alignGoal == 1) {
-            rotate(get_angle(redGoal.x, redGoal.y));
-        } else if (alignGoal == 2) {
-            rotate(get_angle(blueGoal.x, blueGoal.y));
-        }
-        pros::delay(100);
-    }
-}
-
 void initSpinUp() {
     //erase screen, deletes all auton selector stuff
 
@@ -107,36 +87,60 @@ void initSpinUp() {
     pros::screen::erase();
 
     //set ground motor brakemode to coasting, meaning that it will inertially continue
-	lf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	rf_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	rb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	lb_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	//intake stuff
-	intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     
-	pros::Task odometry(odometryLooper, "odometryTask");
-	pros::Task motion(position_control, "motionTask");
-    pros::Task flywheel(flywheelControl, "flywheelTask");
-    pros::Task rotation(rotation_control, "rotationTask");
+    pros::Task odometryTask(odometryLooper, "odomTask");
+    pros::Task motionTask(position_control, "motionTask");
+    pros::Task flywheelTask(flywheelControl, "flywheelTask");
 
     
     if (selector::auton == 1) {
 		red_team = true;
-        location = redLStart;
+        // location = redLStart;
 	} else if (selector::auton == 2) {
 		red_team = true;
-        location = redRStart;
+        // location = redRStart;
 	} else if (selector::auton == -1) {
 		red_team = false;
-        location = blueLStart;
+        // location = blueLStart;
 	} else if (selector::auton == -2) {
 		red_team = false;
-        location = blueRStart;
+        // location = blueRStart;
 	} else if (selector::auton == 0) {
 		red_team = true; // SKILLS USES RED TEAM LEFT
-        location = redLStart;
+        // location = redLStart;
 	}
 
     targetPos = location;
+}
+
+void initAuton(greatapi::SRAD startOrientation) {
+
+    location.angle = greatapi::SRAD(PI);
+    targetPos.angle = greatapi::SRAD(PI);
+    odomRotation.applyOffset(greatapi::SRAD(PI));
+    
+    pros::screen::set_eraser(COLOR_BLACK);
+    pros::screen::erase();
+
+	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    r2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	r3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+
+	//intake stuff
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    
+    pros::Task odometryTask(odometryLooper, "odomTask");
+    pros::Task motionTask(position_control, "motionTask");
+    pros::Task flywheelTask(flywheelControl, "flywheelTask");
 }

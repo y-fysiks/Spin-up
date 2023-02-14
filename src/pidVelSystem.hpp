@@ -1,7 +1,10 @@
 #pragma once
 #include "main.h"
 #include "emaFilter.hpp"
-#include "helperFuncs.hpp"
+
+template <typename T> int sgn(T val) {
+  return (T(0) < val) - (val < T(0));
+}
 
 class velPID {
 private:
