@@ -8,14 +8,18 @@ void fastShoot() {
     intake.move(0);
 }
 
-void shoot(int num) {
+void shoot(int num, int delayMS) {
     for (int i = 0; i < num; i++) {
         intake.move(-127);
-        pros::delay(120);
+        pros::delay(125);
         if (i == num - 1) pros::delay(150);
         intake.move(0);
-        pros::delay(800);
+        pros::delay(delayMS);
     }
+}
+
+void shoot(int num) {
+    shoot(num, 800);
 }
 
 // functions to get angle given current position and target position
@@ -86,7 +90,7 @@ void initSpinUp() {
     pros::screen::set_eraser(COLOR_BLACK);
     pros::screen::erase();
 
-    //set ground motor brakemode to coasting, meaning that it will inertially continue
+    //set drive motor brakemode to coasting, meaning that it will inertially continue
 	l1_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
     l2_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	l3_motor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
