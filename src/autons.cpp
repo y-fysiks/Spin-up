@@ -127,9 +127,6 @@ void skills() {
     */
 
     //skills RED TEAM
-    red_team = true;
-    // //red left
-    // //31.75, 9
     initAuton(greatapi::SRAD(PI));
 
     angler1Piston.set_value(true);
@@ -219,11 +216,11 @@ void skills() {
     //move out from roller
     rtranslatevl(0, -8, true, 10000, false, false, 0);
 
-    //rotate to expand
-    rotate(45, 0);
-    pros::delay(500);
-    //expand
-    expansionPiston.set_value(true);
+    // //rotate to expand
+    // rotate(45, 0);
+    // pros::delay(500);
+    // //expand
+    // expansionPiston.set_value(true);
 
 
 
