@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/adi.hpp"
 #include "pros/motors.h"
 
 #ifndef CONFIG_HPP
@@ -20,6 +21,9 @@
 #define optical_port 19
 #define angler1_port 'A'
 #define expansion_port 'B'
+#define discFullSensor_port 'C'
+#define shootSensor_port 'D'
+#define fourthDiskSensor_port 'E'
 // Tracking wheel ports
 #define left_tracking_port 11
 #define right_tracking_port 12
@@ -27,6 +31,7 @@
 // Odometry constants
 #define WHEEL_DIST_LR 5.6875
 #define XWHEEL_DIST_CENTER -4.0
+#define wheelDiam 3.17644
 
 #define powerFactor 1.5
 
@@ -52,6 +57,9 @@ inline pros::Motor flywheel(flywheel_port_1, MOTOR_GEARSET_06, false,
 
 // Sensors
 inline pros::Optical color_sense(optical_port);
+inline pros::ADIAnalogIn discFullSensor(discFullSensor_port);
+inline pros::ADIAnalogIn fourthDiskSensor(fourthDiskSensor_port);
+inline pros::ADIAnalogIn shootSensor(shootSensor_port);
 // controller
 inline pros::Controller master(CONTROLLER_MASTER);
 // pneumatics
@@ -62,11 +70,11 @@ inline pros::ADIDigitalOut expansionPiston(expansion_port, 0);
 // GREATAPI objects and variables
 // sensors
 inline greatapi::TWheel *right_encoder =
-    new greatapi::TWheel_RotationSensor(right_tracking_port, false, 3.17644);
+    new greatapi::TWheel_RotationSensor(right_tracking_port, false, wheelDiam);
 inline greatapi::TWheel *left_encoder =
-    new greatapi::TWheel_RotationSensor(left_tracking_port, true, 3.17644);
+    new greatapi::TWheel_RotationSensor(left_tracking_port, true, wheelDiam);
 inline greatapi::TWheel *rear_encoder =
-    new greatapi::TWheel_RotationSensor(rear_tracking_port, false, 3.17644);
+    new greatapi::TWheel_RotationSensor(rear_tracking_port, false, wheelDiam);
 // odometry object
 inline greatapi::odometry::TWheel_odom_rotation odomRotation =
     *new greatapi::odometry::TWheel_odom_rotation(left_encoder, right_encoder,
