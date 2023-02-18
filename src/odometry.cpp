@@ -178,8 +178,17 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
 void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translatevl(x, y, revDrive, maxVoltage, goHeading, reverseHeading);
     distToStopBlock = distToStopBlock == 0 ? 1 : distToStopBlock;
-    while (fabs(total_error) > distToStopBlock) {
+    int stuckTimer = 0;
+    double prevError = total_error;
+    pros::delay(20);
+    while (fabs(total_error) > distToStopBlock && stuckTimer <= 75) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
+        if (fabs(total_error - prevError) < 0.02) {
+            stuckTimer++;
+        } else {
+            stuckTimer = 0;
+        }
         pros::delay(20);
+
     }
     return;
 }
