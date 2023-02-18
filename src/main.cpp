@@ -99,6 +99,12 @@ void opcontrol() {
 	bool revDrive = true; // DEFAULT IS FORWARD, intake pointing forward
 	bool precMode = false;
 	bool rollerSlow = false;
+	int rumbleCounter = 0;
+
+	bool intakeOverride = false;
+
+	int discFullTimer = 0;
+	int fourthDiskTimer = 0;
 
 	int fbPower, turnPower;
 
@@ -156,25 +162,37 @@ void opcontrol() {
 			master.set_text(0, 0, "Speed: " + speed);
 		}
 		
+		if (discFullSensor.get_value() < 2500) {
+			if (discFullTimer < 100000000) discFullTimer++;
+		} else {
+			discFullTimer = 0;
+			intakeOverride = false;
+		}
+		if (discFullTimer > 700 / 20) {
+			//if the disc reservoir is full, stop the intake
+			if (!intakeOverride) intakeState = false;
+		}
 
 		//intake control
 		if (master.get_digital_new_press(DIGITAL_R1)) {
 			if (!intakeState) intakeState = true;
 			else if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
+			if (discFullTimer > 700 / 20) {
+				intakeOverride = true;
+			}
 		}
 		// else if (master.get_digital_new_press(DIGITAL_R1)) {
 		// 	if (!intakeState) intakeState = true;
 		// 	else if (intakeState && intakeReverse) intakeState = false;
 		// 	intakeReverse = true;
 		// }
-		
 
 		//puncher control for shooting
 		if (master.get_digital(DIGITAL_R2)) {
 			intake.move(-127);
 		} else if (rollerSlow) {
-			intake.move_velocity(350);
+			intake.move_velocity(300);
 		} else if (intakeState) {
 			if (intakeReverse) {
 				intake.move(-127);
@@ -184,6 +202,25 @@ void opcontrol() {
 		} else {
 			intake.move(0);
 		}
+
+
+		// if (fourthDiskSensor.get_value() < 2500) {
+		// 	if (fourthDiskTimer < 100000000) fourthDiskTimer++;
+		// } else {
+		// 	fourthDiskTimer = 0;
+		// }
+
+		if (rumbleCounter > 5) rumbleCounter = 0;
+
+		if (shootSensor.get_value() < 1500) {
+			if (rumbleCounter == 0) master.rumble(".        ");
+		} else if (fourthDiskTimer > 800 / 20) {
+			if (rumbleCounter == 0) master.rumble("-.-");
+			rumbleCounter++;
+		} else {
+			if (rumbleCounter == 0) master.rumble(" ");
+		}
+		rumbleCounter++;
 
 		if (master.get_digital(DIGITAL_L1)) {
 			rollerSlow = true;
