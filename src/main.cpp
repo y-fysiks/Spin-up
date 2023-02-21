@@ -129,12 +129,6 @@ void opcontrol() {
 		// 	moveDrive = true;
 		// }
 
-		// //flywheel warmup speed
-		// if (master.get_digital_new_press(DIGITAL_B)) {
-		// 	//toggle flywheel
-		// 	flywheelState = !flywheelState;
-		// }
-
 		angler1Piston.set_value(true);
 
 		//flywheel speed
@@ -260,6 +254,7 @@ void opcontrol() {
 		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital(DIGITAL_RIGHT))) {
 			expansionPiston.set_value(true);
+			intake.move(-127);
 		} else {
 			expansionPiston.set_value(false);
 		}
