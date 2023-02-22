@@ -137,8 +137,8 @@ void skills() {
     //first roller
     translatevl(0, -10, false, 10000, true, false);
     pros::delay(200);
-    intake.move_relative(800, 600);
-    pros::delay(300);
+    intake.move_relative(850, 600);
+    pros::delay(350);
     intake.move(0);
 
     //move forward from roller
@@ -150,9 +150,9 @@ void skills() {
 
     //second roller
     rtranslatevl(-10, 0, false, 8000, false, false);
-    pros::delay(200);
+    pros::delay(250);
     intake.move_relative(800, 600);
-    pros::delay(300);
+    pros::delay(350);
     intake.move(0);
     rtranslatevl(18, 0, true, 10000, false, false, 0);
 
@@ -160,66 +160,72 @@ void skills() {
     intake.move(127);
     translatevl(-24, 75, true, 7000, false, false, 0);
     intake.move(0);
-    rotate(180 + 5, 0);
+    rotate(180 + 7, 0);
     fastShoot();
-    setFlywheelRPM(385);
 
     //intake discs for second volley
     intake.move(127);
-    setFlywheelRPM(400);
+    setFlywheelRPM(380);
     rotate(90, 0);
-    translatevl(17, 75, false, 6000, false, false, 0);
+    translatevl(17.1, 76, false, 6000, false, false, 0);
+    
     //second volley
-    rotate(180 - 46, 0);
+    rotate(180 - 45, 0);
+    pros::delay(500);
     fastShoot();
-    setFlywheelRPM(365);
     
     //intake discs for third volley
+    setFlywheelRPM(365);
     intake.move(127);
-    translatevl(16, 117, false, 10000, true, false, 0);
+    rotate(0, 0);
+    pros::delay(250);
+    translatevl(17.6, 118, false, 10000, false, false, 0);
     intake.move(0);
+    //translatevl(19, 118, false, 10000, false, false, 0);
+
 
     //third volley
     rotate(87, 0);
+    pros::delay(250);
     fastShoot();
 
     //intake discs for fourth volley
-    setFlywheelRPM(450);
+    setFlywheelRPM(400);
     intake.move(127);
-    translate(52, 81, false, true, false, 25);
+    translate(52, 81, false, false, false, 25);
     translatevl(52, 81, false, 5000, true, false, 0);
 
     //fourth volley
-    rotate(90 + 20, 0);
+    rotate(90 + 32, 0);
     shoot(3, 650);
 
     //move to third roller
-    translate(65, 102, false, true, false, 0);
-    translate(67, 108, false, false, false, 0);
+    translate(65, 105, false, true, false, 2);
+    translate(67, 116, false, false, false, 0);
 
     //third roller
-    rtranslatevl(0, 4, false, 8000, false, false);
-    pros::delay(200);
+    rtranslatevl(0, 5, false, 8000, false, false);
+    pros::delay(250);
     intake.move_relative(800, 600);
     pros::delay(300);
     intake.move(0);
     //move out from roller
-    rtranslatevl(0, -8, true, 10000, false, false, 0);
+    rtranslatevl(0, -10, true, 10000, false, false, 0);
 
-    //go to fourth roller
-    intake.move(127);
-    translate(58, 81, true, false, false, 0);
-    translate(100, 82, false, false, false, 0);
+    // //go to fourth roller
+    // intake.move(127);
+    // translate(58, 75, true, false, false, 0);
+    // translate(100, 82, false, false, false, 0);
 
-    //fourth roller
-    rtranslatevl(0, 5, false, 10000, false, false, 0);
-    pros::delay(200);
-    intake.move_relative(800, 600);
-    pros::delay(300);
-    intake.move(0);
+    // //fourth roller
+    // rtranslatevl(0, 5, false, 10000, false, false, 0);
+    // pros::delay(200);
+    // intake.move_relative(800, 600);
+    // pros::delay(300);
+    // intake.move(0);
 
-    //move out from roller
-    rtranslatevl(0, -8, true, 10000, false, false, 0);
+    // //move out from roller
+    // rtranslatevl(0, -8, true, 10000, false, false, 0);
 
     // //rotate to expand
     // rotate(45, 0);
