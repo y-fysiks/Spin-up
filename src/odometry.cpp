@@ -41,7 +41,7 @@ void position_control() {
     //TODO TUNE PID FOR ANGLE
     greatapi::controlelement *PAngle = new greatapi::Proportional(20000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
     greatapi::controlelement *IAngle = new greatapi::Integral(3000, std::pair(4500, -4500));                        PIDAngleElements.push_back(IAngle);
-    greatapi::controlelement *DAngle = new greatapi::Derivative(15000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
+    greatapi::controlelement *DAngle = new greatapi::Derivative(16000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
     greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(11000, -11000));
 
