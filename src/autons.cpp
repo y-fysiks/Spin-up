@@ -207,25 +207,25 @@ void skills() {
     rtranslatevl(0, 5, false, 8000, false, false);
     pros::delay(250);
     intake.move_relative(800, 600);
-    pros::delay(300);
+    pros::delay(350);
     intake.move(0);
     //move out from roller
     rtranslatevl(0, -10, true, 10000, false, false, 0);
 
-    // //go to fourth roller
-    // intake.move(127);
-    // translate(58, 75, true, false, false, 0);
-    // translate(100, 82, false, false, false, 0);
+    //go to fourth roller
+    intake.move(127);
+    translate(58, 75, true, false, false, 0);
+    translate(100, 80, false, false, false, 0);
 
-    // //fourth roller
-    // rtranslatevl(0, 5, false, 10000, false, false, 0);
-    // pros::delay(200);
-    // intake.move_relative(800, 600);
-    // pros::delay(300);
-    // intake.move(0);
+    //fourth roller
+    rtranslatevl(5, 0, false, 10000, false, false, 0);
+    pros::delay(200);
+    intake.move_relative(800, 600);
+    pros::delay(350);
+    intake.move(0);
 
-    // //move out from roller
-    // rtranslatevl(0, -8, true, 10000, false, false, 0);
+    //move out from roller
+    rtranslatevl(-10, 0, true, 10000, false, false, 0);
 
     // //rotate to expand
     // rotate(45, 0);
