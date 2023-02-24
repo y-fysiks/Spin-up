@@ -2,6 +2,7 @@
 #include "globals.hpp"
 #include "helperFuncs.hpp"
 #include "autons.hpp"
+#include "progSkills.hpp"
 #include "odometry.hpp"
 #include "pros/misc.h"
 #include "FlywheelImplementation.hpp"

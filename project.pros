@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Spin-up Left",
+    "project_name": "Spin-up Skills",
     "target": "v5",
     "templates": {
       "autoSelect": {
@@ -354,8 +354,8 @@
     },
     "upload_options": {
       "description": "82855T Spin Up",
-      "icon": "pros",
-      "slot": 1
+      "icon": "X",
+      "slot": 4
     }
   }
 }

@@ -4,8 +4,4 @@
 #include "odometry.hpp"
 #include "FlywheelImplementation.hpp"
 
-void redLeft();
-void redRight();
-void blueLeft();
-void blueRight();
-void soloAWP();
+void skills();
