@@ -12,7 +12,7 @@ void shoot(int num, int delayMS) {
     for (int i = 0; i < num; i++) {
         intake.move(-127);
         pros::delay(125);
-        if (i == num - 1) pros::delay(150);
+        if (i == num - 1) pros::delay(130);
         intake.move(0);
         pros::delay(delayMS);
     }

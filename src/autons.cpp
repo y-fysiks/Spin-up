@@ -131,21 +131,23 @@ void skills() {
 
     angler1Piston.set_value(true);
 
+    //set flywheel rpm for first volley
     setFlywheelRPM(365);
+
     pros::delay(100);
 
     //first roller
-    translatevl(0, -10, false, 10000, true, false);
+    translate(0, -10, false, true, false);
     pros::delay(200);
     intake.move_relative(850, 600);
     pros::delay(350);
     intake.move(0);
 
     //move forward from roller
-    translatevl(5, 18, true, 8000, false, false, 0);
+    translate(5, 18, true, false, false, 0);
     intake.move(127);
     //move to second roller
-    translatevl(-23, 15, false, 6000, false, false, 0);
+    translatevl(-23, 15, false, 8000, false, false, 0);
     intake.move(0);
 
     //second roller
@@ -154,50 +156,56 @@ void skills() {
     intake.move_relative(800, 600);
     pros::delay(350);
     intake.move(0);
-    rtranslatevl(18, 0, true, 10000, false, false, 0);
+    rtranslate(17, 0, true, false, false, 0);
 
     //move to first volley shoot spot
     intake.move(127);
-    translatevl(-24, 75, true, 7000, false, false, 0);
+    translatevl(-23, 75, true, 7000, false, false, 0);
     intake.move(0);
-    rotate(180 + 7, 0);
+    rotate(180 + 5, 0);
     fastShoot();
+
+    //set rpm for second volley
+    setFlywheelRPM(380);
 
     //intake discs for second volley
     intake.move(127);
-    setFlywheelRPM(380);
     rotate(90, 0);
-    translatevl(17.1, 76, false, 6000, false, false, 0);
+    translatevl(17.2, 76, false, 6000, false, false, 0);
     
     //second volley
     rotate(180 - 45, 0);
-    pros::delay(500);
+    pros::delay(300);
     fastShoot();
+
+    //set rpm for third volley
+    setFlywheelRPM(365);
     
     //intake discs for third volley
-    setFlywheelRPM(365);
     intake.move(127);
     rotate(0, 0);
     pros::delay(250);
-    translatevl(17.6, 118, false, 10000, false, false, 0);
+    translatevl(17.4, 118, false, 10000, false, false, 6);
     intake.move(0);
-    //translatevl(19, 118, false, 10000, false, false, 0);
+    translatevl(11, 118, false, 6000, false, false, 0);
 
 
     //third volley
-    rotate(87, 0);
+    rotate(84, 0);
     pros::delay(250);
     fastShoot();
 
-    //intake discs for fourth volley
+    //set rpm for fourth volley
     setFlywheelRPM(400);
+
+    //intake discs for fourth volley
     intake.move(127);
     translate(52, 81, false, false, false, 25);
     translatevl(52, 81, false, 5000, true, false, 0);
 
     //fourth volley
     rotate(90 + 32, 0);
-    shoot(3, 650);
+    shoot(3, 300);
 
     //move to third roller
     translate(65, 105, false, true, false, 2);
@@ -212,20 +220,94 @@ void skills() {
     //move out from roller
     rtranslatevl(0, -10, true, 10000, false, false, 0);
 
-    //go to fourth roller
+    //set rpm for fifth volley
+    setFlywheelRPM(365);
+
+    //go to fourth roller and intake discs for fifth volley
     intake.move(127);
     translate(58, 75, true, false, false, 0);
-    translate(100, 80, false, false, false, 0);
+    translatevl(100, 80, false, 8000, false, false, 0);
+    intake.move(0);
 
     //fourth roller
-    rtranslatevl(5, 0, false, 10000, false, false, 0);
+    rtranslatevl(10, 0, false, 10000, false, false, 0);
     pros::delay(200);
     intake.move_relative(800, 600);
     pros::delay(350);
     intake.move(0);
 
     //move out from roller
-    rtranslatevl(-10, 0, true, 10000, false, false, 0);
+    rtranslatevl(-17, 0, true, 10000, false, false, 0);
+    intake.move(127);
+
+    //move to fifth volley shoot spot
+    translate(100, 40, true, false, false, 0);
+
+    //fifth volley
+    rotate(4, 0);
+    fastShoot();
+
+    //set rpm for sixth volley
+    setFlywheelRPM(380);
+
+    //intake discs for sixth volley
+    intake.move(127);
+    rotate(270, 0);
+    rtranslatevl(-40, 0, false, 8000, false, false, 0);
+    
+    //sixth volley
+    rotate(360 - 45, 0);
+    pros::delay(300);
+    fastShoot();
+    
+    //set rpm for seventh volley
+    setFlywheelRPM(365);
+
+    //intake discs for seventh volley
+    intake.move(127);
+    rotate(180, 0);
+    rtranslatevl(0,-40, false, 8000, false, false, 6);
+    rtranslatevl(7, 0, false, 6000, false, false, 0);
+
+    //seventh volley
+    rotate(180 + 84, 0);
+    pros::delay(250);
+    fastShoot();
+
+    //set rpm for eighth volley
+    setFlywheelRPM(400);
+
+    //intake discs for eighth volley
+    intake.move(127);
+    rtranslate(-40, 35, false, false, false, 25);
+    rtranslatevl(0, 0, false, 6000, false, false, 0);
+
+    //eighth volley
+    rotate(180 + 90 + 32, 0);
+    pros::delay(300);
+    shoot(3, 300);
+
+    //set rpm for ninth volley
+    setFlywheelRPM(430);
+
+    //intake discs for ninth volley
+    intake.move(127);
+    rtranslatevl(-18, -25, false, 7000, false, false, 0);
+
+    //ninth volley
+    rotate(280, 0);
+    pros::delay(300);
+    shoot(3, 300);
+
+    // //expand
+    // intake.move(-127);
+    // angler1Piston.set_value(false);
+    // rotate(180 + 45, 0);
+    // expansionPiston.set_value(true);
+
+
+    pros::delay(500);
+    moveDrive = false;
 
     // //rotate to expand
     // rotate(45, 0);
