@@ -2,7 +2,7 @@
 #include <atomic>
 
 double flywheelRatio = 1;
-velPID pid(260, 30, 20.6, 0.9);// kP, kD, kF, emaAlpha
+velPID pid(400, 150, 20.4, 0.9);// kP, kD, kF, emaAlpha
 //original values 30, 0, 20, 0.9
 emaFilter rpmFilter(0.15);
 double motorSlew = 300;

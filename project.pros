@@ -354,8 +354,8 @@
     },
     "upload_options": {
       "description": "82855T Spin Up",
-      "icon": "X",
-      "slot": 4
+      "icon": "pros",
+      "slot": 1
     }
   }
 }

@@ -108,7 +108,7 @@ void position_control() {
  */
 void rotate(double angleDeg, double errorStop) {
     translating = false;
-    voltageCap = 12000;
+    voltageCap = 10000;
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
     targetPos.angle = angle;
     errorStop = errorStop == 0 ? 2 : errorStop;
@@ -118,7 +118,7 @@ void rotate(double angleDeg, double errorStop) {
     return;
 }
 
-#define defaultMaxVolts 10000
+#define defaultMaxVolts 9000
 
 /**
  * translates the robot to absolute coordinates. DOES NOT BLOCK EXECUTION
