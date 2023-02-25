@@ -251,11 +251,15 @@ void opcontrol() {
 		// 	}
 		// }
 		
+		if ((master.get_digital(DIGITAL_Y) || master.get_digital(DIGITAL_RIGHT))) {
+			intake.move(-127);
+			angler1Piston.set_value(false);
+
+		}
 
 		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital(DIGITAL_RIGHT))) {
 			expansionPiston.set_value(true);
-			intake.move(-127);
 		} else {
 			expansionPiston.set_value(false);
 		}
