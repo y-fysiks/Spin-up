@@ -10,6 +10,7 @@ void flywheelVoltage(int voltage);
 void shoot(int num);
 void shoot(int num, int delayMS);
 
+void fastShoot(int power, int time);
 void fastShoot();
 
 

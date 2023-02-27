@@ -1,11 +1,14 @@
 #include "helperFuncs.hpp"
 #include "FlywheelImplementation.hpp"
 
+void fastShoot(int power, int time) {
+    intake.move(-power);
+    pros::delay(time);
+    intake.move(0);
+}
 
 void fastShoot() {
-    intake.move(-127);
-    pros::delay(1100);
-    intake.move(0);
+    fastShoot(127, 1100);
 }
 
 void shoot(int num, int delayMS) {

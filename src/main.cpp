@@ -205,13 +205,14 @@ void opcontrol() {
 		// 	fourthDiskTimer = 0;
 		// }
 
-		if (rumbleCounter > 5) rumbleCounter = 0;
+		if (rumbleCounter > 6) rumbleCounter = 0;
 
 		if (shootSensor.get_value() < 1500) {
-			if (rumbleCounter == 0) master.rumble(".        ");
+			master.rumble(".        ");
+			rumbleCounter = 1;
 		} else if (fourthDiskTimer > 800 / 20) {
-			if (rumbleCounter == 0) master.rumble("-.-");
-			rumbleCounter++;
+			master.rumble("-.-");
+			rumbleCounter = 1;
 		} else {
 			if (rumbleCounter == 0) master.rumble(" ");
 		}
