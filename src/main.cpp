@@ -208,7 +208,7 @@ void opcontrol() {
 		if (rumbleCounter > 6) rumbleCounter = 0;
 
 		if (shootSensor.get_value() < 1500) {
-			master.rumble(".        ");
+			master.rumble(".");
 			rumbleCounter = 1;
 		} else if (fourthDiskTimer > 800 / 20) {
 			master.rumble("-.-");

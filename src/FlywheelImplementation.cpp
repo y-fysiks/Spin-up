@@ -2,10 +2,10 @@
 #include <atomic>
 
 double flywheelRatio = 1;
-velPID pid(700, 5000, 20.4, 0.9);// kP, kD, kF, emaAlpha
+velPID pid(290, 0.15, 20, 0.5);// kP, kD, kF, emaAlpha
 //original values 30, 0, 20, 0.9
-emaFilter rpmFilter(0.15);
-double motorSlew = 300;
+emaFilter rpmFilter(0.1);
+double motorSlew = 200;
 
 std::atomic<double> targetRPM = 0;
 double currentRPM = 0;
@@ -29,11 +29,12 @@ void flywheelControl() {
     if(motorPower <= 0) motorPower = 0; //Prevent motor from spinning backward
     
     //Give the motor a bit of a starting boost
-    //if(motorPower > lastPower && lastPower < 1000 && motorPower > 1000) lastPower = 1000;
+    if(motorPower > lastPower && lastPower < 1000 && motorPower > 1000) lastPower = 1000;
     
     //This slews the motor by limiting the rate of change of the motor speed
-    //double increment = motorPower - lastPower;
-    //if(std::abs(increment) > motorSlew) motorPower = lastPower + (motorSlew * sgn(increment));
+    // double increment = motorPower - lastPower;
+    // if(fabs(increment) > motorSlew) motorPower = lastPower + (motorSlew * sgn(increment));
+
     lastPower = motorPower;
     
     if (disableFlywheel) motorPower = 0;
@@ -41,7 +42,7 @@ void flywheelControl() {
     //flywheelVoltage((int) motorPower);
     
     pros::screen::print(TEXT_SMALL, 6, "RPM: %.2f   Power: %.2f   Error: %.2f", currentRPM, motorPower, pid.getError()); //print X, Y and angle after each compute
-    printf("%.2f\n", currentRPM);
+    printf("%.2f,%.2f\n", currentRPM, motorPower);
     pros::delay(20);
   }
 }
