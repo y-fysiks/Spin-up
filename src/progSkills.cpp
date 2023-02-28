@@ -18,7 +18,7 @@ void skills() {
     intake.move_relative(850, 600);
     pros::delay(350);
     intake.move(0);
-//67.5 112.75
+
     //move forward from roller
     translate(5, 19, true, false, false, 0);
     intake.move(127);
@@ -78,7 +78,7 @@ void skills() {
 
     //intake discs for fourth volley
     intake.move(127);
-    translatevl(55, 100, false, 7000, false, false, 25);
+    translatevl(56, 100, false, 7000, false, false, 25);
     rtranslatevl(0, 0, false, 5000, false, false, 0);
 
     //fourth volley
@@ -126,11 +126,12 @@ void skills() {
     //move to fifth volley shoot spot
     translate(83, 44, true, false, false, 0);
 
-
-
     //fifth volley
     rotate(10, 0);
     fastShoot();
+
+    location.angle = greatapi::SRAD(5.0 / 180.0 * PI);
+    odomRotation.applyOffset(location.angle);
 
     //set rpm for sixth volley
     setFlywheelRPM(385);
@@ -138,8 +139,11 @@ void skills() {
     //intake discs for sixth volley
     intake.move(127);
     rotate(290, 0);
-    rtranslatevl(-41, 1, false, 5000, false, false, 0);
-    
+    rtranslatevl(-38, 0, false, 5000, false, false, 0);
+    pros::delay(700);
+    intake.move(0);
+    rtranslatevl(-3, 0, false, 5000, false, false, 0);
+
     //sixth volley
     rotate(360 - 45, 0);
     pros::delay(300);
@@ -151,13 +155,13 @@ void skills() {
     //intake discs for seventh volley
     intake.move(127);
     rotate(180, 0);
-    rtranslatevl(-1, -45, false, 7000, false, false, 0);
+    rtranslatevl(0, -45, false, 7000, false, false, 0);
     rtranslate(0, 45, true, false, false, 0);
 
-    // //seventh volley
-    // rotate(360 - 43, 0);
-    // pros::delay(250);
-    // fastShoot(100, 1300);
+    //seventh volley
+    rotate(360 - 45, 0);
+    pros::delay(250);
+    fastShoot(100, 1300);
 
     // //set rpm for eighth volley
     // setFlywheelRPM(400);
