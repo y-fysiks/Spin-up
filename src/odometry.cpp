@@ -39,7 +39,7 @@ void position_control() {
 
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
-    greatapi::controlelement *PAngle = new greatapi::Proportional(18500, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
+    greatapi::controlelement *PAngle = new greatapi::Proportional(19000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
     greatapi::controlelement *IAngle = new greatapi::Integral(4000, std::pair(4500, -4500));                        PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(17000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
@@ -60,7 +60,7 @@ void position_control() {
             if (reverseDrive) targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) + PI / 2);
             else targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) - PI / 2);
         }
-        if (total_error < 1) {
+        if (total_error < 2) {
             translating = false;
         }
         
@@ -119,7 +119,7 @@ void rotate(double angleDeg, double errorStop) {
     return;
 }
 
-#define defaultMaxVolts 8000
+#define defaultMaxVolts 9000
 
 /**
  * translates the robot to absolute coordinates. DOES NOT BLOCK EXECUTION
@@ -182,7 +182,7 @@ void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHe
     int stuckTimer = 0;
     double prevError = total_error;
     pros::delay(20);
-    while (fabs(total_error) > distToStopBlock && stuckTimer <= 75) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
+    while (total_error > distToStopBlock) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
         if (fabs(total_error - prevError) < 0.05) {
             stuckTimer++;
         } else {

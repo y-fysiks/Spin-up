@@ -130,8 +130,6 @@ void opcontrol() {
 		// 	moveDrive = true;
 		// }
 
-		angler1Piston.set_value(true);
-
 		//flywheel speed
 		if (master.get_digital(DIGITAL_LEFT)) flywheelState = false;
 		else flywheelState = true;
@@ -255,7 +253,8 @@ void opcontrol() {
 		if ((master.get_digital(DIGITAL_Y) || master.get_digital(DIGITAL_RIGHT))) {
 			intake.move(-127);
 			angler1Piston.set_value(false);
-
+		} else {
+			angler1Piston.set_value(true);
 		}
 
 		//expansion control

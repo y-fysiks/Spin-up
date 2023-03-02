@@ -9,29 +9,54 @@ void redLeft() {
     setFlywheelRPM(487);
     //intake.move(127);
     pros::delay(100);
-    translate(0, -8.5, false, false, false);
-    pros::delay(200);
+
+    //roller
+    translate(0, -10, false, false, false);
+    pros::delay(300);
     intake.move_relative(1150, 600);
-    pros::delay(503);
+    pros::delay(550);
     intake.move(0);
     translate(0, 5, true, false, false, 0);
-    pros::delay(300);
-    //rtranslate(0, -4, false, false, false, 0);
+
+    //shoot 2 discs
     rotate(180 - 10.5, 0);
-    pros::delay(800);
-    shoot(2);
-    pros::delay(250);
+    pros::delay(200);
+    shoot(2, 600);
+    pros::delay(200);
+
+    //set rpm for second volley
     setFlywheelRPM(473);
-    //rtranslate(1, -1, false, false, false, 0);
-    //rotate(45, 0);
+    
+    //intake discs for second volley
     angler1Piston.set_value(true);
     intake.move(127);
+    translatevl(40, 33, false, 10000, true, false, 25);
     translatevl(40, 33, false, 5000, true, false, 0);
 
-    rotate(180 - 30.5, 0);
+    //move back a bit
+    translate(30, 26, true, false, false, 0);
+
+    //second volley
+    rotate(180 - 26, 0);
     angler1Piston.set_value(false);
-    pros::delay(1000);
-    shoot(3);
+    pros::delay(200);
+    shoot(3, 550);
+    angler1Piston.set_value(true);
+
+    //intake discs for third volley
+    intake.move(127);
+    rtranslatevl(4, -10, false, 6000, true, false, 3);
+    rtranslatevl(-2, -10, false, 5000, true, false, 0);
+    rtranslate(-1, 30, true, false, false, 0);
+
+    intake.move(0);
+    //third volley
+    angler1Piston.set_value(false);
+    rotate(180 - 24, 0);
+    pros::delay(200);
+    shoot(3, 550);
+    angler1Piston.set_value(true);
+
 }
 
 void redRight() {
