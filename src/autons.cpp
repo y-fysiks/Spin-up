@@ -118,7 +118,11 @@ void soloAWP() {
 
     rotate(180 - 29.5, 0);
     angler1Piston.set_value(false);
-    pros::delay(1000);
+    pros::delay(300);
+
+
+    //-------------SIMILARITY WITH RED LEFT ENDS HERE----------------
+
     fastShoot();
     
     intake.move(127);
