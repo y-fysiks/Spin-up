@@ -65,7 +65,7 @@ void autonomous() {
 	
 	// pros mu to upload
 	
-	selector::auton = 0;
+	selector::auton = 1;
 
 	if (selector::auton == 1) {
 		redLeft();
@@ -87,6 +87,7 @@ void autonomous() {
 
 
 void opcontrol() {
+	//autonomous();
 	initSpinUp();
 	
     pros::screen::set_eraser(COLOR_BLACK);
@@ -141,15 +142,15 @@ void opcontrol() {
 		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
 		if (master.get_digital_new_press(DIGITAL_UP)) {
-			if (flywheelSpeed == 425) flywheelSpeed = 500;
-			else if (flywheelSpeed == 367) flywheelSpeed = 425;
+			if (flywheelSpeed == 380) flywheelSpeed = 420;
+			else if (flywheelSpeed == 367) flywheelSpeed = 380;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
-			if (flywheelSpeed == 500) flywheelSpeed = 425;
-			else if (flywheelSpeed == 425) flywheelSpeed = 367;
+			if (flywheelSpeed == 420) flywheelSpeed = 380;
+			else if (flywheelSpeed == 380) flywheelSpeed = 367;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
@@ -161,7 +162,7 @@ void opcontrol() {
 			discFullTimer = 0;
 			intakeOverride = false;
 		}
-		if (discFullTimer > 700 / 20) {
+		if (discFullTimer > 200 / 20) {
 			//if the disc reservoir is full, stop the intake
 			if (!intakeOverride) intakeState = false;
 		}

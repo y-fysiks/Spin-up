@@ -87,6 +87,8 @@ inline greatapi::odometry::odometry
 inline greatapi::position location(greatapi::coord(0, 0), greatapi::SRAD(0));
 // this is the target position for the robot to try to reach
 inline greatapi::position targetPos(greatapi::coord(0, 0), greatapi::SRAD(0));
+inline greatapi::coord error;
+
 // total position error
 inline double total_error = 0;
 //voltage cap to reduce speed

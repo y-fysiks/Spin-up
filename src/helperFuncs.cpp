@@ -14,8 +14,8 @@ void fastShoot() {
 void shoot(int num, int delayMS) {
     for (int i = 0; i < num; i++) {
         intake.move(-127);
-        pros::delay(100);
-        if (i == num - 1) pros::delay(130);
+        pros::delay(120);
+        if (i == num - 1) pros::delay(160);
         intake.move(0);
         pros::delay(delayMS);
     }
