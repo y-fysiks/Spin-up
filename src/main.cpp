@@ -110,7 +110,7 @@ void opcontrol() {
 
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 367;
+	int flywheelSpeed = 380;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
@@ -132,28 +132,29 @@ void opcontrol() {
 		// }
 
 		//flywheel speed
-		if (master.get_digital(DIGITAL_LEFT)) flywheelState = false;
-		else flywheelState = true;
-		if (flywheelState) {
-			setFlywheelRPM(flywheelSpeed);
-		} else {
-			setFlywheelRPM(0);
-		}
-		//flywheel speed modulation
 		//TODO: automatic flywheel speed modulation
 		if (master.get_digital_new_press(DIGITAL_UP)) {
-			if (flywheelSpeed == 380) flywheelSpeed = 420;
-			else if (flywheelSpeed == 367) flywheelSpeed = 380;
+			if (flywheelSpeed == 380) flywheelSpeed = 410;
+			else if (flywheelSpeed == 410) flywheelSpeed = 500;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
-			if (flywheelSpeed == 420) flywheelSpeed = 380;
-			else if (flywheelSpeed == 380) flywheelSpeed = 367;
+			if (flywheelSpeed == 500) flywheelSpeed = 410;
+			else if (flywheelSpeed == 410) flywheelSpeed = 380;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
+		}
+
+		if (master.get_digital(DIGITAL_LEFT)) flywheelState = false;
+		else flywheelState = true;
+		
+		if (flywheelState) {
+			setFlywheelRPM(flywheelSpeed);
+		} else {
+			setFlywheelRPM(0);
 		}
 		
 		if (discFullSensor.get_value() < 2500) {
@@ -164,7 +165,7 @@ void opcontrol() {
 		}
 		if (discFullTimer > 200 / 20) {
 			//if the disc reservoir is full, stop the intake
-			if (!intakeOverride) intakeState = false;
+			if (!intakeOverride) intakeReverse = true;
 		}
 
 		//intake control
@@ -172,7 +173,7 @@ void opcontrol() {
 			if (!intakeState) intakeState = true;
 			else if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
-			if (discFullTimer > 700 / 20) {
+			if (discFullTimer > 200 / 20) {
 				intakeOverride = true;
 			}
 		}
@@ -184,7 +185,15 @@ void opcontrol() {
 
 		//puncher control for shooting
 		if (master.get_digital(DIGITAL_R2)) {
-			
+			tripleIndexerPiston.set_value(true);
+		} else {
+			tripleIndexerPiston.set_value(false);
+		}
+
+		if (master.get_digital(DIGITAL_L2)) {
+			singleIndexerPiston.set_value(true);
+		} else {
+			singleIndexerPiston.set_value(false);
 		}
 		
 		if (intakeState) {

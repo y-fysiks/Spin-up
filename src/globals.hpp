@@ -23,7 +23,8 @@
 #define expansion_port 'B'
 #define discFullSensor_port 'C'
 #define shootSensor_port 'D'
-#define fourthDiskSensor_port 'E'
+#define tripleIndexerPort 'E'
+#define singleIndexerPort 'F'
 // Tracking wheel ports
 #define left_tracking_port 11
 #define right_tracking_port 12
@@ -58,13 +59,15 @@ inline pros::Motor flywheel(flywheel_port_1, MOTOR_GEARSET_06, false,
 // Sensors
 inline pros::Optical color_sense(optical_port);
 inline pros::ADIAnalogIn discFullSensor(discFullSensor_port);
-inline pros::ADIAnalogIn fourthDiskSensor(fourthDiskSensor_port);
+// inline pros::ADIAnalogIn fourthDiskSensor(fourthDiskSensor_port);
 inline pros::ADIAnalogIn shootSensor(shootSensor_port);
 // controller
 inline pros::Controller master(CONTROLLER_MASTER);
 // pneumatics
 inline pros::ADIDigitalOut angler1Piston(angler1_port, 0);
 inline pros::ADIDigitalOut expansionPiston(expansion_port, 0);
+inline pros::ADIDigitalOut tripleIndexerPiston(tripleIndexerPort, 0);
+inline pros::ADIDigitalOut singleIndexerPiston(singleIndexerPort, 0);
 
 //------------------------------------------------------------------------------
 // GREATAPI objects and variables
