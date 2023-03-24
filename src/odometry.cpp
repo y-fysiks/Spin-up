@@ -40,7 +40,7 @@ void position_control() {
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
     greatapi::controlelement *PAngle = new greatapi::Proportional(19000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
-    greatapi::controlelement *IAngle = new greatapi::Integral(4000, std::pair(4500, -4500));                        PIDAngleElements.push_back(IAngle);
+    greatapi::controlelement *IAngle = new greatapi::Integral(6250, std::pair(4500, -4500));                        PIDAngleElements.push_back(IAngle);
     greatapi::controlelement *DAngle = new greatapi::Derivative(17000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
     greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(11000, -11000));
@@ -52,7 +52,7 @@ void position_control() {
         //target position is targetPos variable
         total_error = sqrt(pow(targetPos.x - location.x, 2) + pow(targetPos.y - location.y, 2));
 
-        greatapi::coord error(location, targetPos);
+        error = greatapi::coord(location, targetPos);
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
 
         // if (translating && fabs((double) error.x) > 0.5) {
@@ -112,8 +112,18 @@ void rotate(double angleDeg, double errorStop) {
     voltageCap = 10000;
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
     targetPos.angle = angle;
-    errorStop = errorStop == 0 ? 2 : errorStop;
+    errorStop = errorStop == 0 ? 1.5 : errorStop;
+
+    int stuckTimer = 0;
+    double prevError = fabs(greatapi::findDiff(location.angle, targetPos.angle));
+
     while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop)) {
+        if (fabs(greatapi::findDiff(location.angle, targetPos.angle)) - prevError < 1.0 / 180 * PI) {
+            stuckTimer++;
+        } else {
+            stuckTimer = 0;
+        }
+        prevError = fabs(greatapi::findDiff(location.angle, targetPos.angle));
         pros::delay(50);
     }
     return;
@@ -178,16 +188,17 @@ void translate(double x, double y, bool revDrive, bool goHeading, bool reverseHe
  */
 void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     translatevl(x, y, revDrive, maxVoltage, goHeading, reverseHeading);
-    distToStopBlock = distToStopBlock == 0 ? 1 : distToStopBlock;
+    if (distToStopBlock == 0) distToStopBlock = 1;
     int stuckTimer = 0;
     double prevError = total_error;
     pros::delay(20);
-    while (total_error > distToStopBlock) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
-        if (fabs(total_error - prevError) < 0.05) {
+    while (total_error > distToStopBlock && stuckTimer < 75) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
+        if (fabs(total_error - prevError) < 0.06) {
             stuckTimer++;
         } else {
             stuckTimer = 0;
         }
+        prevError = total_error;
         pros::delay(20);
 
     }
