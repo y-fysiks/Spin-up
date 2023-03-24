@@ -175,18 +175,18 @@ void opcontrol() {
 				intakeOverride = true;
 			}
 		}
-		// else if (master.get_digital_new_press(DIGITAL_R1)) {
-		// 	if (!intakeState) intakeState = true;
-		// 	else if (intakeState && intakeReverse) intakeState = false;
-		// 	intakeReverse = true;
-		// }
+		else if (master.get_digital_new_press(DIGITAL_L1)) {
+			if (!intakeState) intakeState = true;
+			else if (intakeState && intakeReverse) intakeState = false;
+			intakeReverse = true;
+		}
 
 		//puncher control for shooting
 		if (master.get_digital(DIGITAL_R2)) {
-			intake.move(-127);
-		} else if (rollerSlow) {
-			intake.move_velocity(300);
-		} else if (intakeState) {
+			
+		}
+		
+		if (intakeState) {
 			if (intakeReverse) {
 				intake.move(-127);
 			} else {
@@ -203,42 +203,24 @@ void opcontrol() {
 		// 	fourthDiskTimer = 0;
 		// }
 
-		if (rumbleCounter > 6) rumbleCounter = 0;
-
-		if (shootSensor.get_value() < 1500) {
-			master.rumble(".");
-			rumbleCounter = 1;
-		} else if (fourthDiskTimer > 800 / 20) {
-			master.rumble("-.-");
-			rumbleCounter = 1;
-		} else {
-			if (rumbleCounter == 0) master.rumble(" ");
-		}
-		rumbleCounter++;
-
-		if (master.get_digital(DIGITAL_L1)) {
-			rollerSlow = true;
-		} else {
-			rollerSlow = false;
-		}
-		if (master.get_digital(DIGITAL_L2)) {
-			//shooting precision mode
-			precMode = true;
-			l1_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
-			l2_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
-			l3_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
-			r1_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
-			r2_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
-			r3_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
-		} else {
-			precMode = false;
-			l1_motor.set_brake_mode(MOTOR_BRAKE_COAST);
-			l2_motor.set_brake_mode(MOTOR_BRAKE_COAST);
-			l3_motor.set_brake_mode(MOTOR_BRAKE_COAST);
-			r1_motor.set_brake_mode(MOTOR_BRAKE_COAST);
-			r2_motor.set_brake_mode(MOTOR_BRAKE_COAST);
-			r3_motor.set_brake_mode(MOTOR_BRAKE_COAST);
-		}
+		// if (master.get_digital(DIGITAL_L2)) {
+		// 	//shooting precision mode
+		// 	precMode = true;
+		// 	l1_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+		// 	l2_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+		// 	l3_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+		// 	r1_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+		// 	r2_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+		// 	r3_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+		// } else {
+		// 	precMode = false;
+		// 	l1_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+		// 	l2_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+		// 	l3_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+		// 	r1_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+		// 	r2_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+		// 	r3_motor.set_brake_mode(MOTOR_BRAKE_COAST);
+		// }
 
 		//drive rotation
 		// if (master.get_digital_new_press(DIGITAL_X)) {
