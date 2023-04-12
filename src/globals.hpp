@@ -1,3 +1,4 @@
+#include "greatapi/odometry/rotation_odom.hpp"
 #include "main.h"
 #include "pros/adi.hpp"
 #include "pros/motors.h"
@@ -18,7 +19,7 @@
 #define intake_port 10
 #define flywheel_port_1 8
 #define roller_port 13
-#define optical_port 19
+#define imu_port 11
 #define angler1_port 'A'
 #define expansion_port 'B'
 #define discFullSensor_port 'C'
@@ -31,7 +32,7 @@
 #define rear_tracking_port 13
 // Odometry constants
 #define WHEEL_DIST_LR 5.6875
-#define XWHEEL_DIST_CENTER -4.0
+#define XWHEEL_DIST_CENTER 0
 #define wheelDiam 3.17644
 
 #define powerFactor 1.5
@@ -57,7 +58,6 @@ inline pros::Motor flywheel(flywheel_port_1, MOTOR_GEARSET_06, false,
                               MOTOR_ENCODER_DEGREES);
 
 // Sensors
-inline pros::Optical color_sense(optical_port);
 inline pros::ADIAnalogIn discFullSensor(discFullSensor_port);
 // inline pros::ADIAnalogIn fourthDiskSensor(fourthDiskSensor_port);
 inline pros::ADIAnalogIn shootSensor(shootSensor_port);
@@ -79,12 +79,14 @@ inline greatapi::TWheel *left_encoder =
 inline greatapi::TWheel *rear_encoder =
     new greatapi::TWheel_RotationSensor(rear_tracking_port, false, wheelDiam);
 // odometry object
+inline greatapi::odometry::IMU_odom_rotation imuRotation =
+    *new greatapi::odometry::IMU_odom_rotation(imu_port, 1.01);
 inline greatapi::odometry::TWheel_odom_rotation odomRotation =
     *new greatapi::odometry::TWheel_odom_rotation(left_encoder, right_encoder,
                                                   WHEEL_DIST_LR);
 inline greatapi::odometry::odometry
-    odom(rear_encoder, greatapi::inches(XWHEEL_DIST_CENTER), right_encoder,
-         greatapi::inches(WHEEL_DIST_LR / 2.0), &odomRotation);
+    odom(rear_encoder, greatapi::inches(XWHEEL_DIST_CENTER), left_encoder,
+         greatapi::inches(WHEEL_DIST_LR / -2.0), &odomRotation);
 
 // global location object (VERY IMPORTANT!!!)
 inline greatapi::position location(greatapi::coord(0, 0), greatapi::SRAD(0));

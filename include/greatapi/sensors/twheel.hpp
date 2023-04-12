@@ -1,7 +1,7 @@
 //A header guard
 #pragma once
 #include "greatapi/basic_datatypes.hpp"
-#include "main.h"
+//#include "main.h"
 
 #ifndef TWHEEL_HPP
 #define TWHEEL_HPP

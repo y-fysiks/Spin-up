@@ -3,7 +3,7 @@
 #include "greatapi/basic_datatypes.hpp"
 #include "greatapi/sensors/twheel.hpp"
 #include "greatapi/odometry/rotation_odom.hpp"
-#include "main.h"
+//#include "main.h"
 
 #ifndef ODOM_FULL_HPP
 #define ODOM_FULL_HPP
