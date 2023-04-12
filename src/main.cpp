@@ -110,7 +110,7 @@ void opcontrol() {
 
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 380;
+	int flywheelSpeed = 370;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
@@ -134,15 +134,15 @@ void opcontrol() {
 		//flywheel speed
 		//TODO: automatic flywheel speed modulation
 		if (master.get_digital_new_press(DIGITAL_UP)) {
-			if (flywheelSpeed == 380) flywheelSpeed = 410;
-			else if (flywheelSpeed == 410) flywheelSpeed = 500;
+			if (flywheelSpeed == 370) flywheelSpeed = 410;
+			else if (flywheelSpeed == 410) flywheelSpeed = 550;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
-			if (flywheelSpeed == 500) flywheelSpeed = 410;
-			else if (flywheelSpeed == 410) flywheelSpeed = 380;
+			if (flywheelSpeed == 570) flywheelSpeed = 410;
+			else if (flywheelSpeed == 410) flywheelSpeed = 370;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
@@ -162,8 +162,9 @@ void opcontrol() {
 		} else {
 			discFullTimer = 0;
 			intakeOverride = false;
+			intakeReverse = false;
 		}
-		if (discFullTimer > 200 / 20) {
+		if (discFullTimer > 500 / 20) {
 			//if the disc reservoir is full, stop the intake
 			if (!intakeOverride) intakeReverse = true;
 		}
@@ -173,7 +174,7 @@ void opcontrol() {
 			if (!intakeState) intakeState = true;
 			else if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
-			if (discFullTimer > 200 / 20) {
+			if (discFullTimer > 500 / 20) {
 				intakeOverride = true;
 			}
 		}
@@ -206,6 +207,7 @@ void opcontrol() {
 			intake.move(0);
 		}
 
+		
 
 		// if (fourthDiskSensor.get_value() < 2500) {
 		// 	if (fourthDiskTimer < 100000000) fourthDiskTimer++;
@@ -244,6 +246,8 @@ void opcontrol() {
 		
 		if ((master.get_digital(DIGITAL_Y) || master.get_digital(DIGITAL_RIGHT))) {
 			intake.move(-127);
+			angler1Piston.set_value(false);
+		} else if (master.get_digital(DIGITAL_B)) {
 			angler1Piston.set_value(false);
 		} else {
 			angler1Piston.set_value(true);

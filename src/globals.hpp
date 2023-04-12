@@ -10,7 +10,7 @@
 // Port configuration
 #define PI 3.1415926535897932384626433832795
 #define l1_motor_port 1 //1 is top, 3 is bottom
-#define l2_motor_port 14
+#define l2_motor_port 2
 #define l3_motor_port 3
 #define r1_motor_port 4
 #define r2_motor_port 5
@@ -18,18 +18,16 @@
 
 #define intake_port 10
 #define flywheel_port_1 8
-#define roller_port 13
 #define imu_port 11
 #define angler1_port 'A'
 #define expansion_port 'B'
 #define discFullSensor_port 'C'
-#define shootSensor_port 'D'
-#define tripleIndexerPort 'E'
-#define singleIndexerPort 'F'
+#define shootSensor_port 'F'
+#define tripleIndexerPort 'D'
+#define singleIndexerPort 'E'
 // Tracking wheel ports
-#define left_tracking_port 11
-#define right_tracking_port 12
-#define rear_tracking_port 13
+#define left_tracking_port 13
+#define rear_tracking_port 12
 // Odometry constants
 #define WHEEL_DIST_LR 5.6875
 #define XWHEEL_DIST_CENTER 0
@@ -58,6 +56,7 @@ inline pros::Motor flywheel(flywheel_port_1, MOTOR_GEARSET_06, false,
                               MOTOR_ENCODER_DEGREES);
 
 // Sensors
+//inline pros::Optical color_sense(optical_port);
 inline pros::ADIAnalogIn discFullSensor(discFullSensor_port);
 // inline pros::ADIAnalogIn fourthDiskSensor(fourthDiskSensor_port);
 inline pros::ADIAnalogIn shootSensor(shootSensor_port);
@@ -72,8 +71,6 @@ inline pros::ADIDigitalOut singleIndexerPiston(singleIndexerPort, 0);
 //------------------------------------------------------------------------------
 // GREATAPI objects and variables
 // sensors
-inline greatapi::TWheel *right_encoder =
-    new greatapi::TWheel_RotationSensor(right_tracking_port, false, wheelDiam);
 inline greatapi::TWheel *left_encoder =
     new greatapi::TWheel_RotationSensor(left_tracking_port, true, wheelDiam);
 inline greatapi::TWheel *rear_encoder =
