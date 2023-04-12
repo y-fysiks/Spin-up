@@ -1,7 +1,4 @@
-#include "greatapi/odometry/rotation_odom.hpp"
 #include "main.h"
-#include "pros/adi.hpp"
-#include "pros/motors.h"
 
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
@@ -78,12 +75,10 @@ inline greatapi::TWheel *rear_encoder =
 // odometry object
 inline greatapi::odometry::IMU_odom_rotation imuRotation =
     *new greatapi::odometry::IMU_odom_rotation(imu_port, 1.01);
-inline greatapi::odometry::TWheel_odom_rotation odomRotation =
-    *new greatapi::odometry::TWheel_odom_rotation(left_encoder, right_encoder,
-                                                  WHEEL_DIST_LR);
+
 inline greatapi::odometry::odometry
     odom(rear_encoder, greatapi::inches(XWHEEL_DIST_CENTER), left_encoder,
-         greatapi::inches(WHEEL_DIST_LR / -2.0), &odomRotation);
+         greatapi::inches(WHEEL_DIST_LR / -2.0), &imuRotation);
 
 // global location object (VERY IMPORTANT!!!)
 inline greatapi::position location(greatapi::coord(0, 0), greatapi::SRAD(0));

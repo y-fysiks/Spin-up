@@ -141,7 +141,7 @@ void opcontrol() {
 			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
-			if (flywheelSpeed == 570) flywheelSpeed = 410;
+			if (flywheelSpeed == 550) flywheelSpeed = 410;
 			else if (flywheelSpeed == 410) flywheelSpeed = 370;
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
@@ -157,14 +157,14 @@ void opcontrol() {
 			setFlywheelRPM(0);
 		}
 		
-		if (discFullSensor.get_value() < 2500) {
+		if (discFullSensor.get_value() < 2600) {
 			if (discFullTimer < 100000000) discFullTimer++;
 		} else {
 			discFullTimer = 0;
 			intakeOverride = false;
-			intakeReverse = false;
+			if (!intakeOverride) intakeReverse = false;
 		}
-		if (discFullTimer > 500 / 20) {
+		if (discFullTimer > 400 / 20) {
 			//if the disc reservoir is full, stop the intake
 			if (!intakeOverride) intakeReverse = true;
 		}
@@ -174,17 +174,29 @@ void opcontrol() {
 			if (!intakeState) intakeState = true;
 			else if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
-			if (discFullTimer > 500 / 20) {
+			if (discFullTimer > 400 / 20) {
 				intakeOverride = true;
 			}
 		}
-		else if (master.get_digital_new_press(DIGITAL_L1)) {
-			if (!intakeState) intakeState = true;
-			else if (intakeState && intakeReverse) intakeState = false;
+		if (master.get_digital(DIGITAL_L1)) {
 			intakeReverse = true;
+		} else {
+			intakeReverse = false;
 		}
 
-		//puncher control for shooting
+		if (intakeState) {
+			if (intakeReverse) {
+				intake.move(-127);
+			} else {
+				intake.move(127);
+			}
+		} else {
+			intake.move(0);
+		}
+
+		
+
+		//indexer control for shooting
 		if (master.get_digital(DIGITAL_R2)) {
 			tripleIndexerPiston.set_value(true);
 		} else {
@@ -197,15 +209,7 @@ void opcontrol() {
 			singleIndexerPiston.set_value(false);
 		}
 		
-		if (intakeState) {
-			if (intakeReverse) {
-				intake.move(-127);
-			} else {
-				intake.move(127);
-			}
-		} else {
-			intake.move(0);
-		}
+		
 
 		
 
