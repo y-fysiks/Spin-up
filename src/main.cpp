@@ -18,6 +18,7 @@ void initialize() {
 	expansionPiston.set_value(false);
 	angler1Piston.set_value(false);
 	selector::init();
+	imuRotation.Inertial.reset(true);
 }
 
 /**
