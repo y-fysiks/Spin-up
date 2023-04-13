@@ -132,7 +132,7 @@ void initAuton(greatapi::SRAD startOrientation) {
 
     location.angle = greatapi::SRAD(PI);
     targetPos.angle = greatapi::SRAD(PI);
-    odomRotation.applyOffset(greatapi::SRAD(PI));
+    imuRotation.applyOffset(greatapi::SRAD(PI));
     
     pros::screen::set_eraser(COLOR_BLACK);
     pros::screen::erase();

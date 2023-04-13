@@ -7,7 +7,7 @@
  */
 void odometryLooper() {
     pros::screen::set_pen(COLOR_GREEN);
-    right_encoder->reset();
+    //right_encoder->reset();
     left_encoder->reset();
     rear_encoder->reset();
     // odom.globaloffset = PI;
@@ -16,7 +16,7 @@ void odometryLooper() {
         pros::screen::print(TEXT_SMALL, 3, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute
         pros::screen::print(TEXT_SMALL, 2, "Angle: %.2f", location.angle / PI * 180);
         //printf("X %.2f   Y %.2f   Angle %.2f\n", (double) location.x, (double) location.y, (double) (location.angle / PI * 180));
-        pros::screen::print(TEXT_SMALL, 1, "leftTW: %.2f  rightTW: %.2f  backTW: %.2f", left_encoder->get_distance(), right_encoder->get_distance(), rear_encoder->get_distance());
+        pros::screen::print(TEXT_SMALL, 1, "leftTW: %.2f  backTW: %.2f", left_encoder->get_distance(), rear_encoder->get_distance());
 
         pros::delay(5);
     }
