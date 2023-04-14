@@ -135,15 +135,17 @@ void opcontrol() {
 		//flywheel speed
 		//TODO: automatic flywheel speed modulation
 		if (master.get_digital_new_press(DIGITAL_UP)) {
-			if (flywheelSpeed == 370) flywheelSpeed = 410;
-			else if (flywheelSpeed == 410) flywheelSpeed = 550;
+			if (flywheelSpeed + 10 <= 600) {
+				flywheelSpeed += 10;
+			}
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);
 			
 		} else if (master.get_digital_new_press(DIGITAL_DOWN)) {
-			if (flywheelSpeed == 550) flywheelSpeed = 410;
-			else if (flywheelSpeed == 410) flywheelSpeed = 370;
+			if (flywheelSpeed - 10 >= 0) {
+				flywheelSpeed -= 10;
+			}
 			//display current set flywheel rpm on controller
 			speed = std::to_string(flywheelSpeed);
 			master.set_text(0, 0, "Speed: " + speed);

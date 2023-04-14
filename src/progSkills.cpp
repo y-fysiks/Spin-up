@@ -42,8 +42,8 @@ void skills() {
     //first volley
     pros::delay(200);
     rotate(180 + 4, 0);
-    fastShoot(40, 1000);
-    fastShoot(127, 500);
+    fastShoot();
+    fastShoot();
 
     //set rpm for second volley
     setFlywheelRPM(374);
@@ -61,8 +61,7 @@ void skills() {
     //second volley
     rotate(180 - 50, 0);
     pros::delay(200);
-    fastShoot(40, 1000);
-    fastShoot(127, 500);
+    fastShoot();
 
     //set rpm for third volley
     setFlywheelRPM(374);
@@ -78,8 +77,7 @@ void skills() {
     //third volley
     rotate(180 - 43, 0);
     pros::delay(200);
-    fastShoot(40, 1000);
-    fastShoot(127, 500);
+    fastShoot();
 
     //set rpm for fourth volley
     setFlywheelRPM(444);
@@ -140,8 +138,7 @@ void skills() {
     //fifth volley
     rotate(10.5, 0);
     pros::delay(200);
-    fastShoot(40, 1000);
-    fastShoot(127, 500);
+    fastShoot();
 
     //set rpm for sixth volley
     setFlywheelRPM(377);
@@ -158,8 +155,7 @@ void skills() {
     //sixth volley
     rotate(360 - 42, 0);
     pros::delay(300);
-    fastShoot(40, 1000);
-    fastShoot(127, 500);
+    fastShoot();
     
     //set rpm for seventh volley
     setFlywheelRPM(378);
@@ -175,8 +171,7 @@ void skills() {
     rotate(360 - 41, 0);
 
     pros::delay(250);
-    fastShoot(40, 1000);
-    fastShoot(127, 500);
+    fastShoot();
 
     //set rpm for eighth volley
     setFlywheelRPM(443);
