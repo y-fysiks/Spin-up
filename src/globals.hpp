@@ -71,7 +71,7 @@ inline pros::ADIDigitalOut singleIndexerPiston(singleIndexerPort, 0);
 inline greatapi::TWheel *left_encoder =
     new greatapi::TWheel_RotationSensor(left_tracking_port, true, wheelDiam);
 inline greatapi::TWheel *rear_encoder =
-    new greatapi::TWheel_RotationSensor(rear_tracking_port, false, wheelDiam);
+    new greatapi::TWheel_RotationSensor(rear_tracking_port, true, wheelDiam);
 // odometry object
 inline greatapi::odometry::IMU_odom_rotation imuRotation =
     *new greatapi::odometry::IMU_odom_rotation(imu_port, 1.01);

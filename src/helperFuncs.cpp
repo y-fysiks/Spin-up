@@ -1,28 +1,27 @@
 #include "helperFuncs.hpp"
 #include "FlywheelImplementation.hpp"
 
-void fastShoot(int power, int time) {
-    intake.move(-power);
+void fastShoot(int time) {
+    tripleIndexerPiston.set_value(true);
     pros::delay(time);
-    intake.move(0);
+    tripleIndexerPiston.set_value(false);
 }
 
 void fastShoot() {
-    fastShoot(127, 1100);
+    fastShoot(150);
 }
 
 void shoot(int num, int delayMS) {
     for (int i = 0; i < num; i++) {
-        intake.move(-127);
-        pros::delay(120);
-        if (i == num - 1) pros::delay(160);
-        intake.move(0);
+        singleIndexerPiston.set_value(true);
+        pros::delay(75);
+        singleIndexerPiston.set_value(false);
         pros::delay(delayMS);
     }
 }
 
 void shoot(int num) {
-    shoot(num, 800);
+    shoot(num, 700);
 }
 
 // functions to get angle given current position and target position
