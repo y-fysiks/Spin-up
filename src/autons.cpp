@@ -16,8 +16,8 @@ void leftStarter() {
     translate(0, 5, true, false, false, 0);
 
     //shoot 2 discs
-    rotate(180 - 9, 0);
-    pros::delay(950);
+    rotate(180 - 13, 0);
+    pros::delay(1200);
     shoot(2, 580);
 
     //set rpm for second volley
