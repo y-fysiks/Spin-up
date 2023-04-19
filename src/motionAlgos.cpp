@@ -3,6 +3,9 @@
 #include "pros/screen.hpp"
 #include <utility>
 
+purePursuit::Target* pptarget = new purePursuit::Target();
+
+purePursuit::Bot talos(pptarget);
 
 void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     purePursuit::Node nodes[pathLen + 1];
