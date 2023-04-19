@@ -61,10 +61,10 @@ void position_control() {
             else targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) - PI / 2);
         }
         if (total_error < 2) {
-            translating = false;
+            translating = false; 
         }
         
-        double yMove = PIDY.update(error.y, 0);
+        double yMove = -PIDY.update(error.y, 0);
         double anglePow = -PIDAngle.update(greatapi::findDiff(location.angle, targetPos.angle), 0);
 
         if (yMove > voltageCap) {

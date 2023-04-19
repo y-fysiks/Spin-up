@@ -28,7 +28,7 @@
 // Odometry constants
 #define WHEEL_DIST_LR 5.6875
 #define XWHEEL_DIST_CENTER 0
-#define wheelDiam 3.17644
+#define wheelDiam 3.2
 
 #define powerFactor 1.5
 

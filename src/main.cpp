@@ -4,9 +4,11 @@
 #include "autons.hpp"
 #include "progSkills.hpp"
 #include "odometry.hpp"
-#include "pros/misc.h"
+#include "motionAlgos.hpp"
 #include "FlywheelImplementation.hpp"
+#include "pros/rtos.hpp"
 #include <string>
+#include <utility>
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -18,7 +20,8 @@ void initialize() {
 	expansionPiston.set_value(false);
 	angler1Piston.set_value(false);
 	selector::init();
-	imuRotation.Inertial.reset(true);
+	imuRotation.Inertial.reset();
+	pros::delay(2050);
 }
 
 /**
@@ -58,37 +61,38 @@ void autonomous() {
 	autonomousState = true;
 	moveDrive = true;
 
-	// redLeft();
-	// redRight();
-	// blueLeft();
-	// blueRight();
-	// skills();
+	initAuton(greatapi::SRAD(PI));
+
+	std::pair<double, double> path1[] = {std::make_pair(0, 0), std::make_pair(0, 1), std::make_pair(1, 1)};
+
+	ptranslatevl(path1, 3, false, 3000, false, false, 0);
 	
 	// pros mu to upload
 	
-	selector::auton = 1;
+	// selector::auton = 1;
 
-	if (selector::auton == 1) {
-		redLeft();
-	} else if (selector::auton == 2) {
-		redRight();
-	} else if (selector::auton == -1) {
-		redLeft();
-	} else if (selector::auton == -2) {
-		redRight();
-	} else if (selector::auton == 3) {
-		soloAWP();
-	} else if (selector::auton == -3) {
-		soloAWP();
-	} else if (selector::auton == 0) {
-		skills();
-	}
+	// if (selector::auton == 1) {
+	// 	redLeft();
+	// } else if (selector::auton == 2) {
+	// 	redRight();
+	// } else if (selector::auton == -1) {
+	// 	redLeft();
+	// } else if (selector::auton == -2) {
+	// 	redRight();
+	// } else if (selector::auton == 3) {
+	// 	soloAWP();
+	// } else if (selector::auton == -3) {
+	// 	soloAWP();
+	// } else if (selector::auton == 0) {
+	// 	skills();
+	// }
 
 }
 
 
 void opcontrol() {
-	//autonomous();
+	autonomous();
+
 	initSpinUp();
 	
     pros::screen::set_eraser(COLOR_BLACK);
