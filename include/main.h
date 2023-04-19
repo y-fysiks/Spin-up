@@ -43,6 +43,7 @@
 //#include "pros/api_legacy.h"
 #include "greatapi/greatapi.hpp"
 #include "autoSelect/selection.h"
+#include "purePursuit/purePursuit.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

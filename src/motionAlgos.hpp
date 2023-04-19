@@ -1,10 +1,9 @@
 #include "odometry.hpp"
 #include "globals.hpp"
-#include "purePursuit.hpp"
 
-inline Target* pptarget = new Target();
+inline purePursuit::Target* pptarget = new purePursuit::Target();
 
-inline Bot talos(pptarget);
+inline purePursuit::Bot talos(pptarget);
 
 
 void ptranslate(std::pair<double, double> coords[], int nodeLen, bool revDrive, bool goHeading, bool reverseHeading, double distToStopBlock);

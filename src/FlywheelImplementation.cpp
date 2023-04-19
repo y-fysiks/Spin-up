@@ -41,7 +41,7 @@ void flywheelControl() {
     flywheel.move_voltage((int) motorPower);
     //flywheelVoltage((int) motorPower);
     
-    pros::screen::print(TEXT_SMALL, 6, "RPM: %.2f   Power: %.2f   Error: %.2f", currentRPM, motorPower, pid.getError()); //print X, Y and angle after each compute
+    // pros::screen::print(TEXT_SMALL, 6, "RPM: %.2f   Power: %.2f   Error: %.2f", currentRPM, motorPower, pid.getError()); //print X, Y and angle after each compute
     //printf("%.2f,%.2f\n", currentRPM, motorPower);
     pros::delay(20);
   }

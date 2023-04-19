@@ -61,9 +61,9 @@ void autonomous() {
 	autonomousState = true;
 	moveDrive = true;
 
-	initAuton(greatapi::SRAD(PI));
+	initAuton(greatapi::SRAD(0));
 
-	std::pair<double, double> path1[] = {std::make_pair(0, 0), std::make_pair(0, 1), std::make_pair(1, 1)};
+	std::pair<double, double> path1[] = {std::make_pair(0, 1), std::make_pair(1, 1)};
 
 	ptranslatevl(path1, 3, false, 3000, false, false, 0);
 	
@@ -91,8 +91,6 @@ void autonomous() {
 
 
 void opcontrol() {
-	autonomous();
-
 	initSpinUp();
 	
     pros::screen::set_eraser(COLOR_BLACK);
