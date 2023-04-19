@@ -65,7 +65,7 @@ void autonomous() {
 
 	std::pair<double, double> path1[] = {std::make_pair(0, 1), std::make_pair(1, 1)};
 
-	ptranslatevl(path1, 3, false, 3000, false, false, 0);
+	ptranslatevl(path1, 2, false, 3000, false, false, 0);
 	
 	// pros mu to upload
 	

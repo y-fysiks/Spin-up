@@ -5,9 +5,9 @@
 #ifndef TARGET_HPP
 #define TARGET_HPP
 
-#define visionRadius 9
+#define visionRadius 10
 #define headStartM 185
-#define velocityM 0.5
+#define velocityM 1
 
 namespace purePursuit {
 
