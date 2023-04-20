@@ -21,7 +21,7 @@ void initialize() {
 	angler1Piston.set_value(false);
 	selector::init();
 	imuRotation.Inertial.reset();
-	pros::delay(2050);
+	pros::delay(2100);
 }
 
 /**
@@ -62,10 +62,15 @@ void autonomous() {
 	moveDrive = true;
 
 	initAuton(greatapi::SRAD(0));
+	pros::delay(100);
 
-	std::pair<double, double> path1[] = {std::make_pair(0, 1), std::make_pair(1, 1)};
+	std::pair<double, double> path1[] = {std::make_pair(2, 40), std::make_pair(40, 40)};
 
-	ptranslatevl(path1, 2, false, 3000, false, false, 0);
+	// rtranslatevl(0, 30, false, 6000, false, false, 0);
+	// translatevl(0, 0, true, 6000, false, false, 0);
+	//pros::delay(10000);
+
+	ptranslatevl(path1, 2, false, 5000, false, false, 0);
 	
 	// pros mu to upload
 	
@@ -101,7 +106,7 @@ void opcontrol() {
 	bool flywheelState = true;
 	bool intakeState = false;
 	bool intakeReverse = false;
-	bool revDrive = true; // DEFAULT IS FORWARD, intake pointing forward
+	bool revDrive = false; // DEFAULT IS FORWARD, intake pointing forward
 	bool precMode = false;
 	bool rollerSlow = false;
 	int rumbleCounter = 0;

@@ -35,17 +35,17 @@
 //------------------------------------------------------------------------------
 // Global PROS objects and variables
 // Motors
-inline pros::Motor l1_motor(l1_motor_port, MOTOR_GEARSET_06, true,
+inline pros::Motor r1_motor(l1_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor l2_motor(l2_motor_port, MOTOR_GEARSET_06, false,
+inline pros::Motor r2_motor(l2_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor l3_motor(l3_motor_port, MOTOR_GEARSET_06, true,
+inline pros::Motor r3_motor(l3_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor r1_motor(r1_motor_port, MOTOR_GEARSET_06, false,
+inline pros::Motor l1_motor(r1_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor r2_motor(r2_motor_port, MOTOR_GEARSET_06, true,
+inline pros::Motor l2_motor(r2_motor_port, MOTOR_GEARSET_06, false,
                             MOTOR_ENCODER_DEGREES);
-inline pros::Motor r3_motor(r3_motor_port, MOTOR_GEARSET_06, false,
+inline pros::Motor l3_motor(r3_motor_port, MOTOR_GEARSET_06, true,
                             MOTOR_ENCODER_DEGREES);
 inline pros::Motor intake(intake_port, MOTOR_GEARSET_06, true,
                           MOTOR_ENCODER_DEGREES);
@@ -74,7 +74,7 @@ inline greatapi::TWheel *rear_encoder =
     new greatapi::TWheel_RotationSensor(rear_tracking_port, true, wheelDiam);
 // odometry object
 inline greatapi::odometry::IMU_odom_rotation imuRotation =
-    *new greatapi::odometry::IMU_odom_rotation(imu_port, 1.01);
+    *new greatapi::odometry::IMU_odom_rotation(imu_port, -1.01);
 
 inline greatapi::odometry::odometry
     odom(rear_encoder, greatapi::inches(XWHEEL_DIST_CENTER), left_encoder,

@@ -56,15 +56,12 @@ void position_control() {
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
 
         // if (translating && fabs((double) error.x) > 0.5) {
-        if (translating) {
+        if (total_error > 2) {
             if (reverseDrive) targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) + PI / 2);
             else targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) - PI / 2);
         }
-        if (total_error < 2) {
-            translating = false; 
-        }
         
-        double yMove = -PIDY.update(error.y, 0);
+        double yMove = PIDY.update(error.y, 0);
         double anglePow = -PIDAngle.update(greatapi::findDiff(location.angle, targetPos.angle), 0);
 
         if (yMove > voltageCap) {
@@ -80,8 +77,8 @@ void position_control() {
         }
         
 
-        double lPower = yMove + anglePow;
-        double rPower = yMove - anglePow;
+        double lPower = (yMove + anglePow);
+        double rPower = (yMove - anglePow);
 
         if (moveDrive) {
             l1_motor.move_voltage(lPower);
@@ -94,7 +91,7 @@ void position_control() {
             
         }
         
-        pros::screen::print(TEXT_SMALL, 4, "Angle target: %.2f\n", targetPos.angle / PI * 180);
+        pros::screen::print(TEXT_SMALL, 4, "Angle target: %.2f X: %.2d Y: %.2d\n", targetPos.angle / PI * 180, targetPos.x, targetPos.y);
         pros::screen::print(TEXT_SMALL, 5, "Total error: %.2f\n", total_error);
         pros::delay(5);
     }

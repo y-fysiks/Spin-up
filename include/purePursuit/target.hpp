@@ -6,8 +6,8 @@
 #define TARGET_HPP
 
 #define visionRadius 10
-#define headStartM 185
-#define velocityM 1
+#define headStartM 8
+#define velocityM 2
 
 namespace purePursuit {
 
@@ -89,9 +89,20 @@ namespace purePursuit {
         void findTranslation() {
             if (yd > 0) {
                 xoy = xd / yd;
+                xTrans = (xoy * velocity) / sqrt(xoy * xoy + 1);
+                yTrans = (velocity) / sqrt(xoy * xoy + 1);
             }
-            xTrans = (xoy * velocity) / sqrt(xoy * xoy + 1);
-            yTrans = (velocity) / sqrt(xoy * xoy + 1);
+            if (yd < 0.001) {
+                xoy = 0;
+                xTrans = velocity;
+                yTrans = 0;
+            }
+            if (xd < 0.001) {
+                xoy = 1e9;
+                xTrans = 0;
+                yTrans = velocity;
+            }
+            
         }
 
         void setNSEW() {
@@ -141,24 +152,24 @@ namespace purePursuit {
             yh = path[0].second.yPos;
             xd = fabs(xPos - xh);
             yd = fabs(yPos - yh);
-            xoy = xd / yd;
+            if (yd == 0) xoy = 1e9;
+            else xoy = xd / yd;
             xTrans = (xoy * headS) / (sqrt(xoy * xoy + 1));
             yTrans = (headS) / (sqrt(xoy * xoy + 1));
-            
+
             setNSEW();
-            standardTranslate();       
+            standardTranslate();
 
         }
 
         void bind(double disp) {
-            double transDist = disp - visionRadius;
-            xTrans = (xoy * transDist) / (sqrt(xoy * xoy + 1));
-            yTrans = transDist / (sqrt(xoy * xoy + 1));
+            xTrans = (xoy * visionRadius) / (sqrt(xoy * xoy + 1));
+            yTrans = visionRadius / (sqrt(xoy * xoy + 1));
 
-            if (heast) xPos -= xTrans;
-            else xPos += xTrans;
-            if (hnorth) yPos += yTrans;
-            else yPos -= yTrans;
+            if (heast) xPos += xTrans;
+            else xPos -= xTrans;
+            if (hnorth) yPos -= yTrans;
+            else yPos += yTrans;
         }
 
     } ;

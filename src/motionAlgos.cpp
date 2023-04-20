@@ -10,13 +10,15 @@ purePursuit::Bot talos(pptarget);
 void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
     purePursuit::Node nodes[pathLen + 1];
 
+    
+    nodes[0].xPos = location.x;
+    nodes[0].yPos = location.y;
+
     for (int i = 1; i <= pathLen; i++) {
         nodes[i].xPos = coords[i].first;
         nodes[i].yPos = coords[i].second;
     }
 
-    nodes[0].xPos = location.x;
-    nodes[0].yPos = location.y;
 
     std::pair<purePursuit::Node, purePursuit::Node> path[pathLen];
     for (int i = 0; i < pathLen; i++) {
@@ -24,7 +26,7 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
         path[i].second = nodes[i + 1];
     }
     
-    pptarget->newPath(location.x, location.y, path, pathLen);
+    
     
     if (goHeading) {
         if (reverseHeading) {
@@ -37,6 +39,7 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
     voltageCap = maxVoltage;
     
     translating = true;
+    pptarget->newPath(location.x, location.y, path, pathLen);
     
     if (distToStopBlock == 0) distToStopBlock = 1;
     int stuckTimer = 0;
@@ -58,11 +61,16 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
         }
         targetPair = talos.updatePosition(location.x, location.y);
 
+        targetPos.x = targetPair.first;
+        targetPos.y = targetPair.second;
+
         if (pptarget->stage == pathLen - 1) {
             if (total_error < distToStopBlock) break;
+            if (total_error < 2) translating = false;
         }
 
-        pros::screen::print(TEXT_MEDIUM, 7, "Stage: %d  targetPos X: %.2f  Y: %.2f", pptarget->stage, targetPair.first, targetPair.second);
+        pros::screen::print(TEXT_MEDIUM, 7, "Stage: %d  targetPos X: %.2f  Y: %.2f\n", pptarget->stage, targetPair.first, targetPair.second);
+        pros::screen::print(TEXT_MEDIUM, 8, "BTDist: %.2f\n", talos.btDist());
 
         pros::delay(30);
     }

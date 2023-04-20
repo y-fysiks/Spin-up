@@ -129,9 +129,9 @@ void initSpinUp() {
 
 void initAuton(greatapi::SRAD startOrientation) {
 
-    location.angle = greatapi::SRAD(PI);
-    targetPos.angle = greatapi::SRAD(PI);
-    imuRotation.applyOffset(greatapi::SRAD(PI));
+    location.angle = startOrientation;
+    targetPos.angle = startOrientation;
+    imuRotation.applyOffset(startOrientation);
     
     pros::screen::set_eraser(COLOR_BLACK);
     pros::screen::erase();
@@ -149,4 +149,6 @@ void initAuton(greatapi::SRAD startOrientation) {
     pros::Task odometryTask(odometryLooper, "odomTask");
     pros::Task motionTask(position_control, "motionTask");
     pros::Task flywheelTask(flywheelControl, "flywheelTask");
+
+    targetPos = location;
 }
