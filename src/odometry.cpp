@@ -30,20 +30,20 @@ void odometryLooper() {
 void position_control() {
     std::vector<greatapi::controlelement *> PIDYElements;
     //TODO TUNE PID FOR Y
-    greatapi::controlelement *PY = new greatapi::Proportional(1100, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
-    greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(__INT_MAX__, -__INT_MAX__));                 PIDYElements.push_back(IY);
-    greatapi::controlelement *DY = new greatapi::Derivative(1100, std::pair(__INT_MAX__, -__INT_MAX__));            PIDYElements.push_back(DY);
+    greatapi::controlelement *PY = new greatapi::Proportional(1000, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
+    greatapi::controlelement *IY = new greatapi::Integral(30, std::pair(3000, -3000));                              PIDYElements.push_back(IY);
+    greatapi::controlelement *DY = new greatapi::Derivative(1300, std::pair(__INT_MAX__, -__INT_MAX__));            PIDYElements.push_back(DY);
 
     greatapi::control_loop PIDY(PIDYElements, std::pair(12000, -12000));
 
 
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
-    greatapi::controlelement *PAngle = new greatapi::Proportional(19000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
-    greatapi::controlelement *IAngle = new greatapi::Integral(6250, std::pair(4500, -4500));                        PIDAngleElements.push_back(IAngle);
-    greatapi::controlelement *DAngle = new greatapi::Derivative(17000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
+    greatapi::controlelement *PAngle = new greatapi::Proportional(17000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
+    greatapi::controlelement *IAngle = new greatapi::Integral(6500, std::pair(4500, -4500));                        PIDAngleElements.push_back(IAngle);
+    greatapi::controlelement *DAngle = new greatapi::Derivative(19000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
 
-    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(11000, -11000));
+    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(12000, -12000));
 
     targetPos = location;
     
@@ -56,7 +56,7 @@ void position_control() {
         error.self_transform_matrix(greatapi::SRAD(-1.0 * location.angle));
 
         // if (translating && fabs((double) error.x) > 0.5) {
-        if (total_error > 2) {
+        if (translating && total_error > 2) {
             if (reverseDrive) targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) + PI / 2);
             else targetPos.angle = greatapi::SRAD(atan2(targetPos.y - location.y, targetPos.x - location.x) - PI / 2);
         }

@@ -46,7 +46,7 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
     pptarget->newPath(location.x, location.y, path, pathLen);
     pptarget->updatePosition();
     if (talos.btDist() > visionRadius) {
-        pptarget->bind(talos.xPos, talos.yPos);
+        pptarget->bind(talos.btDist());
     }
     targetPair = talos.updatePosition(location.x, location.y);
 
@@ -64,7 +64,7 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
 
         pptarget->updatePosition();
         if (talos.btDist() > visionRadius) {
-            pptarget->bind(talos.xPos, talos.yPos);
+            pptarget->bind(talos.btDist());
         }
         targetPair = talos.updatePosition(location.x, location.y);
 
@@ -73,11 +73,10 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
 
         if (pptarget->stage == pathLen - 1) {
             if (total_error < distToStopBlock) break;
-            if (total_error < 2) translating = false;
         }
 
         pros::screen::print(TEXT_MEDIUM, 7, "Stage: %d  targetPos X: %.2f  Y: %.2f\n", pptarget->stage, targetPair.first, targetPair.second);
-        pros::screen::print(TEXT_MEDIUM, 8, "BTDist: %.2f\n", talos.btDist());
+        pros::screen::print(TEXT_MEDIUM, 8, "BTDist: %.2f  xoy: %.6f\n", talos.btDist(), pptarget->xoy);
 
         pros::delay(30);
     }

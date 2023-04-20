@@ -5,7 +5,7 @@
 #ifndef TARGET_HPP
 #define TARGET_HPP
 
-#define visionRadius 10
+#define visionRadius 15
 #define headStartM 8
 #define velocityM 2
 
@@ -162,14 +162,15 @@ namespace purePursuit {
 
         }
 
-        void bind(double x, double y) {
-            xTrans = (xoy * visionRadius) / (sqrt(xoy * xoy + 1));
-            yTrans = visionRadius / (sqrt(xoy * xoy + 1));
+        void bind(double disp) {
+            double transDist = disp - visionRadius;
+            xTrans = (xoy * transDist) / (sqrt(xoy * xoy + 1));
+            yTrans = transDist / (sqrt(xoy * xoy + 1));
 
-            if (heast) xPos = x + xTrans;
-            else xPos = x - xTrans;
-            if (hnorth) yPos = yPos - yTrans;
-            else yPos = yPos + yTrans;
+            if (heast) xPos -= xTrans;
+            else xPos += xTrans;
+            if (hnorth) yPos += yTrans;
+            else yPos -= yTrans;
         }
 
     } ;
