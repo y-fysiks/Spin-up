@@ -162,14 +162,14 @@ namespace purePursuit {
 
         }
 
-        void bind(double disp) {
+        void bind(double x, double y) {
             xTrans = (xoy * visionRadius) / (sqrt(xoy * xoy + 1));
             yTrans = visionRadius / (sqrt(xoy * xoy + 1));
 
-            if (heast) xPos += xTrans;
-            else xPos -= xTrans;
-            if (hnorth) yPos -= yTrans;
-            else yPos += yTrans;
+            if (heast) xPos = x + xTrans;
+            else xPos = x - xTrans;
+            if (hnorth) yPos = yPos - yTrans;
+            else yPos = yPos + yTrans;
         }
 
     } ;

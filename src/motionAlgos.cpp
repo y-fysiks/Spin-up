@@ -39,14 +39,21 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
     voltageCap = maxVoltage;
     
     translating = true;
-    pptarget->newPath(location.x, location.y, path, pathLen);
     
     if (distToStopBlock == 0) distToStopBlock = 1;
+
+    std::pair<double, double> targetPair;
+    pptarget->newPath(location.x, location.y, path, pathLen);
+    pptarget->updatePosition();
+    if (talos.btDist() > visionRadius) {
+        pptarget->bind(talos.xPos, talos.yPos);
+    }
+    targetPair = talos.updatePosition(location.x, location.y);
+
     int stuckTimer = 0;
     double prevError = total_error;
     pros::delay(20);
 
-    std::pair<double, double> targetPair;
     while (stuckTimer < 75) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
         if (fabs(total_error - prevError) < 0.08) {
             stuckTimer++;
@@ -57,7 +64,7 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
 
         pptarget->updatePosition();
         if (talos.btDist() > visionRadius) {
-            pptarget->bind(talos.btDist());
+            pptarget->bind(talos.xPos, talos.yPos);
         }
         targetPair = talos.updatePosition(location.x, location.y);
 
