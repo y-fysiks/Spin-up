@@ -1,24 +1,27 @@
 #include "autons.hpp"
+#include "pros/rtos.hpp"
 
 void leftStarter() {
     initAuton(greatapi::SRAD(0));
 
-    setFlywheelRPM(483);
-    //intake.move(127);
+    setFlywheelRPM(485);
+
     pros::delay(100);
+    //intake.move(127);
 
     //roller
     translate(0, -10, true, false, false);
     pros::delay(300);
-    intake.move_relative(250, 600);
-    pros::delay(200);
+    intake.move_relative(500, 600);
+    pros::delay(400);
     intake.move(0);
     translate(0, 8, false, false, false, 0);
 
     //shoot 2 discs
-    rotate(180 - 13, 0);
+    rotate(360 - 11, 0);
     pros::delay(1200);
-    shoot(2, 580);
+    //fastShoot();
+    shoot(2, 500);
 
     //set rpm for second volley
     setFlywheelRPM(473);
@@ -31,17 +34,17 @@ void leftStarter() {
     angler1Piston.set_value(true);
     intake.move(127);
     //translatevl(43, 33, false, 9000, true, false, 46);
-    translatevl(37, 32, true, 6500, true, false, 0);
+    translatevl(32, 36, true, 6500, true, true, 0);
 
     //move back a bit
     //translate(30, 26, true, false, false, 0);
     pros::delay(500);
 
     //second volley
-    rotate(180 - 31.5, 0);
-    pros::delay(250);
+    rotate(360 - 31.5, 0);
+    pros::delay(200);
     angler1Piston.set_value(false);
-    pros::delay(250);
+    pros::delay(450);
     shoot(3, 400);
     angler1Piston.set_value(true);
 }
@@ -57,17 +60,20 @@ void redLeft() {
 
     //intake discs for third volley
     intake.move(127);
-    rtranslatevl(8.3, -7, true, 6000, false, false, 4);
-    rtranslatevl(0, -25, true, 7000, false, false, 0);
-    rtranslatevl(-13, 34, false, 10000, false, false, 0);
+    std::pair<double, double> path1[] = {std::make_pair(40, 36), std::make_pair(40, 12)};
+    ptranslatevl(path1, 2, true, 6000, false, false, 0);
 
-    intake.move(0);
-    //third volley
-    angler1Piston.set_value(false);
-    rotate(180 - 27, 0);
-    pros::delay(200);
-    shoot(3, 500);
-    angler1Piston.set_value(true);
+    // rtranslatevl(7.5, -3, true, 6000, false, false, 4);
+    // rtranslatevl(0, -22, true, 7000, false, false, 0);
+    // rtranslatevl(-13, 34, false, 10000, false, false, 0);
+
+    // intake.move(0);
+    // //third volley
+    // angler1Piston.set_value(false);
+    // rotate(360 - 27, 0);
+    // pros::delay(200);
+    // shoot(3, 500);
+    // angler1Piston.set_value(true);
 
 }
 

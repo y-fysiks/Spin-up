@@ -5,9 +5,9 @@
 
 namespace purePursuit {
     struct Bot {
-        double xPos = 0, yPos = 0;
+        long double xPos = 0, yPos = 0;
         
-        Target*target;
+        Target *target;
         
         int stage = 0;
         bool hnorth = true, heast = true;

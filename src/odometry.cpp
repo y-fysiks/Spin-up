@@ -23,6 +23,17 @@ void odometryLooper() {
     return;
 }
 
+#define kPAngle 18000
+#define kIAngle 6500
+
+greatapi::controlelement *PY = new greatapi::Proportional(1000, std::pair(__INT_MAX__, -__INT_MAX__));          
+greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(3000, -3000));                              
+greatapi::controlelement *DY = new greatapi::Derivative(1500, std::pair(__INT_MAX__, -__INT_MAX__));            
+
+greatapi::controlelement *PAngle = new greatapi::Proportional(kPAngle, std::pair(__INT_MAX__, -__INT_MAX__));     
+greatapi::controlelement *IAngle = new greatapi::Integral(kIAngle, std::pair(4500, -4500));                        
+greatapi::controlelement *DAngle = new greatapi::Derivative(48000, std::pair(__INT_MAX__, -__INT_MAX__));       
+
 /**
  * function to be run in a task to move the robot the the target position
  * 
@@ -30,20 +41,24 @@ void odometryLooper() {
 void position_control() {
     std::vector<greatapi::controlelement *> PIDYElements;
     //TODO TUNE PID FOR Y
-    greatapi::controlelement *PY = new greatapi::Proportional(1000, std::pair(__INT_MAX__, -__INT_MAX__));          PIDYElements.push_back(PY);
-    greatapi::controlelement *IY = new greatapi::Integral(30, std::pair(3000, -3000));                              PIDYElements.push_back(IY);
-    greatapi::controlelement *DY = new greatapi::Derivative(1300, std::pair(__INT_MAX__, -__INT_MAX__));            PIDYElements.push_back(DY);
-
-    greatapi::control_loop PIDY(PIDYElements, std::pair(12000, -12000));
+    
+    
 
 
     std::vector<greatapi::controlelement *> PIDAngleElements;
     //TODO TUNE PID FOR ANGLE
-    greatapi::controlelement *PAngle = new greatapi::Proportional(17000, std::pair(__INT_MAX__, -__INT_MAX__));     PIDAngleElements.push_back(PAngle);
-    greatapi::controlelement *IAngle = new greatapi::Integral(6500, std::pair(4500, -4500));                        PIDAngleElements.push_back(IAngle);
-    greatapi::controlelement *DAngle = new greatapi::Derivative(19000, std::pair(__INT_MAX__, -__INT_MAX__));       PIDAngleElements.push_back(DAngle);
+    
+    PIDYElements.push_back(PY);
+    PIDYElements.push_back(IY);
+    PIDYElements.push_back(DY);
 
-    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(12000, -12000));
+    greatapi::control_loop PIDY(PIDYElements, std::pair(12000, -12000));
+
+    PIDAngleElements.push_back(PAngle);
+    PIDAngleElements.push_back(IAngle);
+    PIDAngleElements.push_back(DAngle);
+
+    greatapi::control_loop PIDAngle(PIDAngleElements, std::pair(12000, -12000));    
 
     targetPos = location;
     
@@ -105,6 +120,7 @@ void position_control() {
  * \param errorStop DEGREES the function will stop the bot if the error is greater than the error threshold. IF 0, default is 2 degrees
  */
 void rotate(double angleDeg, double errorStop) {
+    
     translating = false;
     voltageCap = 10000;
     greatapi::SRAD angle = greatapi::SRAD((-1.0 * angleDeg) * PI / 180.0);
@@ -114,7 +130,8 @@ void rotate(double angleDeg, double errorStop) {
     int stuckTimer = 0;
     double prevError = fabs(greatapi::findDiff(location.angle, targetPos.angle));
 
-    while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop)) {
+    while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop) 
+            && stuckTimer < 75) {
         if (fabs(greatapi::findDiff(location.angle, targetPos.angle)) - prevError < 1.0 / 180 * PI) {
             stuckTimer++;
         } else {

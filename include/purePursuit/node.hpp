@@ -3,8 +3,8 @@
 
 namespace purePursuit {
     struct Node {
-        double xPos = 0;
-        double yPos = 0;
+        long double xPos = 0;
+        long double yPos = 0;
 
         Node(double xPos_, double yPos_) {
             xPos = xPos_;

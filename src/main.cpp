@@ -61,36 +61,36 @@ void autonomous() {
 	autonomousState = true;
 	moveDrive = true;
 
-	initAuton(greatapi::SRAD(0));
-	pros::delay(100);
+	// initAuton(greatapi::SRAD(0));
+	// pros::delay(100);
 
-	std::pair<double, double> path1[] = {std::make_pair(2, 40), std::make_pair(40, 40)};
+	//std::pair<double, double> path1[] = {std::make_pair(0, 40), std::make_pair(40, 40)};
 
 	// rtranslatevl(0, 30, false, 6000, false, false, 0);
 	// translatevl(0, 0, true, 6000, false, false, 0);
 	//pros::delay(10000);
 
-	ptranslatevl(path1, 2, false, 5000, false, false, 0);
+	//ptranslatevl(path1, 2, false, 8000, false, false, 0);
 	
 	// pros mu to upload
 	
-	// selector::auton = 1;
+	//selector::auton = 1;
 
-	// if (selector::auton == 1) {
-	// 	redLeft();
-	// } else if (selector::auton == 2) {
-	// 	redRight();
-	// } else if (selector::auton == -1) {
-	// 	redLeft();
-	// } else if (selector::auton == -2) {
-	// 	redRight();
-	// } else if (selector::auton == 3) {
-	// 	soloAWP();
-	// } else if (selector::auton == -3) {
-	// 	soloAWP();
-	// } else if (selector::auton == 0) {
-	// 	skills();
-	// }
+	if (selector::auton == 1) {
+		redLeft();
+	} else if (selector::auton == 2) {
+		redRight();
+	} else if (selector::auton == -1) {
+		redLeft();
+	} else if (selector::auton == -2) {
+		redRight();
+	} else if (selector::auton == 3) {
+		soloAWP();
+	} else if (selector::auton == -3) {
+		soloAWP();
+	} else if (selector::auton == 0) {
+		skills();
+	}
 
 }
 

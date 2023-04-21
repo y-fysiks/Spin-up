@@ -150,5 +150,7 @@ void initAuton(greatapi::SRAD startOrientation) {
     pros::Task motionTask(position_control, "motionTask");
     pros::Task flywheelTask(flywheelControl, "flywheelTask");
 
-    targetPos = location;
+    //targetPos = location;
+
+    //pros::delay(100);
 }

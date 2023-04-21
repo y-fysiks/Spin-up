@@ -5,27 +5,27 @@
 #ifndef TARGET_HPP
 #define TARGET_HPP
 
-#define visionRadius 15
-#define headStartM 8
-#define velocityM 2
+#define visionRadius 25
+#define headStartM 20
+#define velocityM 10
 
 namespace purePursuit {
 
     struct Target {
-        double velocity = velocityM;
-        double headStart = headStartM;
+        long double velocity = velocityM;
+        long double headStart = headStartM;
 
-        double xPos = 0;
-        double yPos = 0;
-        double xh = 0, yh = 0, xd = 0, yd = 0, xoy = 0, d = 0;
-        double xTrans = 0, yTrans = 0;
-        Node heading;
+        long double xPos = 0;
+        long double yPos = 0;
+        long double xh = 0, yh = 0, xd = 0, yd = 0, xoy = 0, ds = 0;
+        long double xTrans = 0, yTrans = 0;
+        Node heading = Node(0, 0);
         
-        std::pair<Node, Node> path[128] = { };
+        std::pair<Node, Node> path[128];
         int pathLength = 0;
 
         int stage = 0, start = 0;
-        bool hnorth = true, heast = true, unlocked = true;
+        bool hnorth = true, heast = true, unlocked = false;
 
         bool atPathEnd = false;
 
@@ -33,24 +33,24 @@ namespace purePursuit {
 
         Target() {}
 
-        void newPath(double xPos_, double yPos_, std::pair<Node, Node> path_[], int pathSize_) {
+        void newPath(double xPos_, double yPos_, std::pair<Node, Node> path_[], int pathLength_) {
             firstLoop = true;
             unlocked = true;
 
             heading = Node(xh, yh);
-            pathLength = pathSize_;
+            pathLength = pathLength_;
 
             xPos = xPos_;
             yPos = yPos_;
-
-            for (int i = 0; i < 256; i++) {
+            
+            for (int i = 0; i < 128; i++) {
                 if (i < pathLength) {
                     path[i] = path_[i];
                 }
             }
 
-            this -> setHeading();
-            this -> setHeadStart(visionRadius);
+            setHeading();
+            setHeadStart(visionRadius);
 
         }
 
@@ -61,10 +61,10 @@ namespace purePursuit {
                 findRelativePos();
                 findTranslation();
                 setNSEW();
-                if (this -> d > this -> velocity) {
+                if (ds > velocity * velocity) {
                     standardTranslate();
                 }
-                if (this -> d < this -> velocity) {
+                if (ds < velocity * velocity) {
                     xPos = xh;
                     yPos = yh;
                 }
@@ -83,7 +83,7 @@ namespace purePursuit {
         void findRelativePos() {
             xd = fabs(xPos - xh);
             yd = fabs(yPos - yh);
-            d = sqrt(xd * xd + yd * yd);
+            ds = xd * xd + yd * yd;
         }
 
         void findTranslation() {
@@ -113,9 +113,9 @@ namespace purePursuit {
             }
 
             if (yPos < yh) {
-                hnorth = false;
-            } else {
                 hnorth = true;
+            } else {
+                hnorth = false;
             }
         }
 
@@ -127,9 +127,9 @@ namespace purePursuit {
             }
 
             if (hnorth) {
-                yPos -= yTrans;
-            } else {
                 yPos += yTrans;
+            } else {
+                yPos -= yTrans;
             }
 
         }
@@ -147,12 +147,12 @@ namespace purePursuit {
             }
         }
 
-        void setHeadStart(double headS) {
+        void setHeadStart(long double headS) {
             xh = path[0].second.xPos;
             yh = path[0].second.yPos;
             xd = fabs(xPos - xh);
             yd = fabs(yPos - yh);
-            if (yd == 0) xoy = 1e9;
+            if (yd == 0) xoy = 1e8;
             else xoy = xd / yd;
             xTrans = (xoy * headS) / (sqrt(xoy * xoy + 1));
             yTrans = (headS) / (sqrt(xoy * xoy + 1));
@@ -162,15 +162,15 @@ namespace purePursuit {
 
         }
 
-        void bind(double disp) {
+        void bind(long double disp) {
             double transDist = disp - visionRadius;
             xTrans = (xoy * transDist) / (sqrt(xoy * xoy + 1));
             yTrans = transDist / (sqrt(xoy * xoy + 1));
 
             if (heast) xPos -= xTrans;
             else xPos += xTrans;
-            if (hnorth) yPos += yTrans;
-            else yPos -= yTrans;
+            if (hnorth) yPos -= yTrans;
+            else yPos += yTrans;
         }
 
     } ;

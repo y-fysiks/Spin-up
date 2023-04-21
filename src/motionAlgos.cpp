@@ -2,7 +2,7 @@
 #include "pros/screen.h"
 #include "pros/screen.hpp"
 #include <utility>
-
+// hello yoobu - charl
 purePursuit::Target* pptarget = new purePursuit::Target();
 
 purePursuit::Bot talos(pptarget);
@@ -15,8 +15,8 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
     nodes[0].yPos = location.y;
 
     for (int i = 1; i <= pathLen; i++) {
-        nodes[i].xPos = coords[i].first;
-        nodes[i].yPos = coords[i].second;
+        nodes[i].xPos = coords[i - 1].first;
+        nodes[i].yPos = coords[i - 1].second;
     }
 
 
@@ -44,6 +44,7 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
 
     std::pair<double, double> targetPair;
     pptarget->newPath(location.x, location.y, path, pathLen);
+
     pptarget->updatePosition();
     if (talos.btDist() > visionRadius) {
         pptarget->bind(talos.btDist());
@@ -76,7 +77,7 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
         }
 
         pros::screen::print(TEXT_MEDIUM, 7, "Stage: %d  targetPos X: %.2f  Y: %.2f\n", pptarget->stage, targetPair.first, targetPair.second);
-        pros::screen::print(TEXT_MEDIUM, 8, "BTDist: %.2f  xoy: %.6f\n", talos.btDist(), pptarget->xoy);
+        pros::screen::print(TEXT_MEDIUM, 8, "BTDist: %.2f  xh: %.2f yh: %.2f\n", talos.btDist(), pptarget->xh, pptarget->yh);
 
         pros::delay(30);
     }
