@@ -60,7 +60,7 @@ void redLeft() {
 
     //intake discs for third volley
     intake.move(127);
-    std::pair<double, double> path1[] = {std::make_pair(40, 36), std::make_pair(40, 12)};
+    std::pair<double, double> path1[] = {std::make_pair(40, 34), std::make_pair(40, 12)};
     ptranslatevl(path1, 2, true, 6000, false, false, 0);
 
     // rtranslatevl(7.5, -3, true, 6000, false, false, 4);

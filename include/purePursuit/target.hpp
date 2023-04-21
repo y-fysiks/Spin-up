@@ -17,9 +17,9 @@ namespace purePursuit {
 
         long double xPos = 0;
         long double yPos = 0;
-        long double xh = 0, yh = 0, xd = 0, yd = 0, xoy = 0, ds = 0;
+        long double xd = 0, yd = 0, xoy = 0, ds = 0;
         long double xTrans = 0, yTrans = 0;
-        Node heading = Node(0, 0);
+        Node endpoint = Node(0, 0);
         
         std::pair<Node, Node> path[128];
         int pathLength = 0;
@@ -37,7 +37,7 @@ namespace purePursuit {
             firstLoop = true;
             unlocked = true;
 
-            heading = Node(xh, yh);
+            //endpoint = Node(xh, yh);
             pathLength = pathLength_;
 
             xPos = xPos_;
@@ -65,24 +65,22 @@ namespace purePursuit {
                     standardTranslate();
                 }
                 if (ds < velocity * velocity) {
-                    xPos = xh;
-                    yPos = yh;
+                    xPos = endpoint.xPos;
+                    yPos = endpoint.yPos;
                 }
             }
         }
         void setHeading() {
             if (stage < pathLength) {
-                heading = path[stage].second;
-                xh = path[stage].second.xPos;
-                yh = path[stage].second.yPos;
+                endpoint = path[stage].second;
             } else {
                 atPathEnd = true;
             }
         }
 
         void findRelativePos() {
-            xd = fabs(xPos - xh);
-            yd = fabs(yPos - yh);
+            xd = fabs(xPos - endpoint.xPos);
+            yd = fabs(yPos - endpoint.yPos);
             ds = xd * xd + yd * yd;
         }
 
@@ -106,13 +104,13 @@ namespace purePursuit {
         }
 
         void setNSEW() {
-            if (xPos < xh) {
+            if (xPos < endpoint.xPos) {
                 heast = true;
             } else {
                 heast = false;
             }
 
-            if (yPos < yh) {
+            if (yPos < endpoint.yPos) {
                 hnorth = true;
             } else {
                 hnorth = false;
@@ -148,10 +146,8 @@ namespace purePursuit {
         }
 
         void setHeadStart(long double headS) {
-            xh = path[0].second.xPos;
-            yh = path[0].second.yPos;
-            xd = fabs(xPos - xh);
-            yd = fabs(yPos - yh);
+            xd = fabs(xPos - endpoint.xPos);
+            yd = fabs(yPos - endpoint.yPos);
             if (yd == 0) xoy = 1e8;
             else xoy = xd / yd;
             xTrans = (xoy * headS) / (sqrt(xoy * xoy + 1));
