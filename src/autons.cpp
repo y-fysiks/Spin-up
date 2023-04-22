@@ -1,12 +1,15 @@
 #include "autons.hpp"
 #include "pros/rtos.hpp"
+#include <utility>
 
 void leftStarter() {
     initAuton(greatapi::SRAD(0));
 
-    setFlywheelRPM(485);
-
     pros::delay(100);
+
+    setFlywheelRPM(495);
+
+    pros::delay(50);
     //intake.move(127);
 
     //roller
@@ -18,8 +21,8 @@ void leftStarter() {
     translate(0, 8, false, false, false, 0);
 
     //shoot 2 discs
-    rotate(360 - 11, 0);
-    pros::delay(1200);
+    rotate(360 - 13, 0);
+    pros::delay(1400);
     //fastShoot();
     shoot(2, 500);
 
@@ -38,13 +41,13 @@ void leftStarter() {
 
     //move back a bit
     //translate(30, 26, true, false, false, 0);
-    pros::delay(500);
+    pros::delay(250);
 
     //second volley
-    rotate(360 - 31.5, 0);
+    rotate(360 - 32.5, 0);
     pros::delay(200);
     angler1Piston.set_value(false);
-    pros::delay(450);
+    pros::delay(400);
     shoot(3, 400);
     angler1Piston.set_value(true);
 }
