@@ -74,7 +74,7 @@ void autonomous() {
 	
 	// pros mu to upload
 	
-	//selector::auton = 1;
+	selector::auton = 2;
 
 	if (selector::auton == 1) {
 		redLeft();

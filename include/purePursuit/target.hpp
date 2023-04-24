@@ -5,20 +5,20 @@
 #ifndef TARGET_HPP
 #define TARGET_HPP
 
-#define visionRadius 25
-#define headStartM 20
-#define velocityM 10
+#define visionRadius 6
+#define headStartM 5
+#define velocityM 1
 
 namespace purePursuit {
 
     struct Target {
-        long double velocity = velocityM;
-        long double headStart = headStartM;
+        double velocity = velocityM;
+        double headStart = headStartM;
 
-        long double xPos = 0;
-        long double yPos = 0;
-        long double xd = 0, yd = 0, xoy = 0, ds = 0;
-        long double xTrans = 0, yTrans = 0;
+        double xPos = 0;
+        double yPos = 0;
+        double xd = 0, yd = 0, xoy = 0, ds = 0;
+        double xTrans = 0, yTrans = 0;
         Node endpoint = Node(0, 0);
         
         std::pair<Node, Node> path[128];
@@ -119,15 +119,15 @@ namespace purePursuit {
 
         void standardTranslate() {
             if (heast) {
-                xPos += xTrans;
+                xPos = fmin(xPos + xTrans, endpoint.xPos);
             } else {
-                xPos -= xTrans;
+                xPos = fmax(xPos - xTrans, endpoint.xPos);
             }
 
             if (hnorth) {
-                yPos += yTrans;
+                yPos = fmin(yPos + yTrans, endpoint.yPos);
             } else {
-                yPos -= yTrans;
+                yPos = fmax(yPos - yTrans, endpoint.yPos);
             }
 
         }
@@ -145,7 +145,7 @@ namespace purePursuit {
             }
         }
 
-        void setHeadStart(long double headS) {
+        void setHeadStart(double headS) {
             xd = fabs(xPos - endpoint.xPos);
             yd = fabs(yPos - endpoint.yPos);
             if (yd == 0) xoy = 1e8;
@@ -158,15 +158,22 @@ namespace purePursuit {
 
         }
 
-        void bind(long double disp) {
+        void bind(double disp) {
             double transDist = disp - visionRadius;
             xTrans = (xoy * transDist) / (sqrt(xoy * xoy + 1));
             yTrans = transDist / (sqrt(xoy * xoy + 1));
 
-            if (heast) xPos -= xTrans;
-            else xPos += xTrans;
-            if (hnorth) yPos -= yTrans;
-            else yPos += yTrans;
+            if (heast) {
+                xPos = fmax(xPos - xTrans, endpoint.xPos);
+            } else {
+                xPos = fmin(xPos + xTrans, endpoint.xPos);
+            }
+
+            if (hnorth) {
+                yPos = fmax(yPos - yTrans, endpoint.yPos);
+            } else {
+                yPos = fmin(yPos + yTrans, endpoint.yPos);
+            }
         }
 
     } ;

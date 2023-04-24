@@ -5,11 +5,11 @@
 void leftStarter() {
     initAuton(greatapi::SRAD(0));
 
+    //pros::delay(100);
+
+    setFlywheelRPM(490);
+
     pros::delay(100);
-
-    setFlywheelRPM(495);
-
-    pros::delay(50);
     //intake.move(127);
 
     //roller
@@ -19,15 +19,16 @@ void leftStarter() {
     pros::delay(400);
     intake.move(0);
     translate(0, 8, false, false, false, 0);
+    pros::delay(500);
 
     //shoot 2 discs
-    rotate(360 - 13, 0);
-    pros::delay(1400);
+    rotate(360 - 9, 0);
+    pros::delay(1300);
     //fastShoot();
-    shoot(2, 500);
+    shoot(2, 400);
 
     //set rpm for second volley
-    setFlywheelRPM(473);
+    setFlywheelRPM(462);
 
 
     pros::delay(200);
@@ -37,7 +38,7 @@ void leftStarter() {
     angler1Piston.set_value(true);
     intake.move(127);
     //translatevl(43, 33, false, 9000, true, false, 46);
-    translatevl(32, 36, true, 6500, true, true, 0);
+    translatevl(34, 37, true, 4700, true, true, 0);
 
     //move back a bit
     //translate(30, 26, true, false, false, 0);
@@ -47,8 +48,8 @@ void leftStarter() {
     rotate(360 - 32.5, 0);
     pros::delay(200);
     angler1Piston.set_value(false);
-    pros::delay(400);
-    shoot(3, 400);
+    pros::delay(300);
+    shoot(3, 350);
     angler1Piston.set_value(true);
 }
 
@@ -59,24 +60,24 @@ void redLeft() {
     leftStarter();
 
     //set rpm for third volley
-    setFlywheelRPM(469);
+    setFlywheelRPM(460);
 
     //intake discs for third volley
     intake.move(127);
-    std::pair<double, double> path1[] = {std::make_pair(40, 34), std::make_pair(40, 12)};
-    ptranslatevl(path1, 2, true, 6000, false, false, 0);
 
-    // rtranslatevl(7.5, -3, true, 6000, false, false, 4);
-    // rtranslatevl(0, -22, true, 7000, false, false, 0);
-    // rtranslatevl(-13, 34, false, 10000, false, false, 0);
+    std::pair<double, double> path1[] = {std::make_pair(50, 44), std::make_pair(45, 10)};
+
+    ptranslatevl(path1, 2, true, 7000, false, false, 0);
+
+    translatevl(38, 38, false, 9000, false, false, 0);
 
     // intake.move(0);
-    // //third volley
-    // angler1Piston.set_value(false);
-    // rotate(360 - 27, 0);
-    // pros::delay(200);
-    // shoot(3, 500);
-    // angler1Piston.set_value(true);
+    //third volley
+    angler1Piston.set_value(false);
+    rotate(360 - 27, 0);
+    pros::delay(200);
+    shoot(3, 400);
+    angler1Piston.set_value(true);
 
 }
 
@@ -85,43 +86,58 @@ void redRight() {
     initAuton(greatapi::SRAD(PI));
     angler1Piston.set_value(true);
 
-
     setFlywheelRPM(480);
+    pros::delay(50);
 
-    translatevl(0, 25, true, 8000, false, false, 0);
-    pros::delay(300);
-    rotate(360 - 17, 0);
+    intake.move(127);
+
+    translatevl(18, 17.5, true, 6000, false, false, 0);
+    pros::delay(500);
+
+    //pull back
+    translatevl(9, 12, false, 8000, false, false, 0);
+
+    rotate(15, 0);
+
     angler1Piston.set_value(false);
-    pros::delay(200);
-    shoot(3, 550);
-
-    translate(6, 20, true, false, false, 2);
-    translate(6, 3, true, false, false, 1.5);
-
-    rtranslate(0, -10, true, false, false);
     pros::delay(300);
-    intake.move_relative(250, 600);
-    pros::delay(200);
-    intake.move(0);
-    rtranslate(0, 13, false, false, false, 0);
+    shoot(3, 500);
 
     angler1Piston.set_value(true);
 
-    translate(5, 30, true, true, true, 0);
+    // translate(5, 30, true, true, true, 0);
 
 
     //intake discs for second volley
     intake.move(127);
-    rtranslatevl(-30, 30, true, 8000, false, false, 0);
+    rtranslatevl(-33, 33, true, 8000, false, false, 0);
+    rtranslatevl(4, 4, false, 6000, false, false, 0);
 
 
-    rotate(180 + 44, 0);
+    rotate(43, 0);
 
     //second volley
     angler1Piston.set_value(false);
     pros::delay(300);
-    shoot(3, 400);
+    shoot(3, 350);
     angler1Piston.set_value(true);
+
+    //move to roller
+    intake.move(0);
+
+    //std::pair<double, double> pathR[] = {std::make_pair(23,18), std::make_pair(14, 3)};
+
+    //ptranslatevl(pathR, 2, true, 6000, true, true, 0);
+
+    translatevl(16, 13, true, 6000, true, true, 2);
+    translatevl(14, 2, true, 6000, false, false, 0);
+
+    rtranslate(0, -10, true, false, false);
+    pros::delay(400);
+    intake.move_relative(250, 600);
+    pros::delay(200);
+    intake.move(0);
+    rtranslate(0, 10, false, false, false, 0);
 
 }
 
@@ -136,6 +152,7 @@ void blueRight() {
 
 void soloAWP() {
     leftStarter();
+
     setFlywheelRPM(480);
     
     intake.move(127);

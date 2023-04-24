@@ -50,6 +50,9 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
         pptarget->bind(talos.btDist());
     }
     targetPair = talos.updatePosition(location.x, location.y);
+    
+    targetPos.x = targetPair.first;
+    targetPos.y = targetPair.second;
 
     int stuckTimer = 0;
     double prevError = total_error;
@@ -76,8 +79,10 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
             if (total_error < distToStopBlock) break;
         }
 
+        //printf("const char *, ...")
+
         pros::screen::print(TEXT_MEDIUM, 7, "Stage: %d  targetPos X: %.2f  Y: %.2f\n", pptarget->stage, targetPair.first, targetPair.second);
-        pros::screen::print(TEXT_MEDIUM, 8, "BTDist: %.2f  xh: %.2f yh: %.2f\n", talos.btDist(), pptarget->xh, pptarget->yh);
+        pros::screen::print(TEXT_MEDIUM, 8, "xh: %.2f yh: %.2f\n", pptarget->endpoint.xPos, pptarget->endpoint.yPos);
 
         pros::delay(30);
     }

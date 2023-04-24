@@ -23,16 +23,16 @@ void odometryLooper() {
     return;
 }
 
-#define kPAngle 18000
-#define kIAngle 6500
+#define kPAngle 31000
+#define kIAngle 7000
 
-greatapi::controlelement *PY = new greatapi::Proportional(1000, std::pair(__INT_MAX__, -__INT_MAX__));          
+greatapi::controlelement *PY = new greatapi::Proportional(1200, std::pair(__INT_MAX__, -__INT_MAX__));          
 greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(3000, -3000));                              
-greatapi::controlelement *DY = new greatapi::Derivative(1500, std::pair(__INT_MAX__, -__INT_MAX__));            
+greatapi::controlelement *DY = new greatapi::Derivative(1800, std::pair(__INT_MAX__, -__INT_MAX__));            
 
 greatapi::controlelement *PAngle = new greatapi::Proportional(kPAngle, std::pair(__INT_MAX__, -__INT_MAX__));     
 greatapi::controlelement *IAngle = new greatapi::Integral(kIAngle, std::pair(4500, -4500));                        
-greatapi::controlelement *DAngle = new greatapi::Derivative(48000, std::pair(__INT_MAX__, -__INT_MAX__));       
+greatapi::controlelement *DAngle = new greatapi::Derivative(150000, std::pair(__INT_MAX__, -__INT_MAX__));       
 
 /**
  * function to be run in a task to move the robot the the target position
@@ -131,7 +131,7 @@ void rotate(double angleDeg, double errorStop) {
     double prevError = fabs(greatapi::findDiff(location.angle, targetPos.angle));
 
     while (fabs(greatapi::findDiff(location.angle, targetPos.angle)) > greatapi::degrees(errorStop) 
-            && stuckTimer < 75) {
+            && stuckTimer < 50) {
         if (fabs(greatapi::findDiff(location.angle, targetPos.angle)) - prevError < 1.0 / 180 * PI) {
             stuckTimer++;
         } else {
@@ -206,7 +206,7 @@ void translatevl(double x, double y, bool revDrive, double maxVoltage, bool goHe
     int stuckTimer = 0;
     double prevError = total_error;
     pros::delay(20);
-    while (total_error > distToStopBlock && stuckTimer < 75) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
+    while (total_error > distToStopBlock && stuckTimer < 50) { // Keep looping until at target, abort to next movement if stuck for 1.5 seconds
         if (fabs(total_error - prevError) < 0.06) {
             stuckTimer++;
         } else {
