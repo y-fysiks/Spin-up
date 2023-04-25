@@ -46,7 +46,7 @@ namespace greatapi{
       IMU_odom_rotation(int port, double driftcompensationfac):Inertial(port),DFC(driftcompensationfac),odom_rotation(){};
 
       SRAD get_heading_raw() {
-        return SRAD(degrees(((double)Inertial.get_heading())*DFC)); //turn raw angle into radians, then constrain to 0-2PI interval via SRAD constructor
+        return SRAD(degrees(((double)Inertial.get_rotation())*DFC)); //turn raw angle into radians, then constrain to 0-2PI interval via SRAD constructor
       }
 
     };

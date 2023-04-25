@@ -13,18 +13,18 @@ void odometryLooper() {
     // odom.globaloffset = PI;
     while (true) {
         location = odom.calculateposition(location);
-        pros::screen::print(TEXT_SMALL, 3, "X: %.2f   Y: %.2f", location.x, location.y); //print X, Y and angle after each compute
-        pros::screen::print(TEXT_SMALL, 2, "Angle: %.2f", location.angle / PI * 180);
+        pros::screen::print(TEXT_SMALL, 2, "Angle: %.2f\n", location.angle / PI * 180);
+        pros::screen::print(TEXT_SMALL, 3, "X: %.2f   Y: %.2f\n", location.x, location.y); //print X, Y and angle after each compute
         //printf("X %.2f   Y %.2f   Angle %.2f\n", (double) location.x, (double) location.y, (double) (location.angle / PI * 180));
-        pros::screen::print(TEXT_SMALL, 1, "leftTW: %.2f  backTW: %.2f", left_encoder->get_distance(), rear_encoder->get_distance());
+        pros::screen::print(TEXT_SMALL, 1, "leftTW: %.2f  backTW: %.2f\n", left_encoder->get_distance(), rear_encoder->get_distance());
 
         pros::delay(5);
     }
     return;
 }
 
-#define kPAngle 31000
-#define kIAngle 7000
+#define kPAngle 16000
+#define kIAngle 17000
 
 greatapi::controlelement *PY = new greatapi::Proportional(1200, std::pair(__INT_MAX__, -__INT_MAX__));          
 greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(3000, -3000));                              
@@ -32,7 +32,7 @@ greatapi::controlelement *DY = new greatapi::Derivative(1800, std::pair(__INT_MA
 
 greatapi::controlelement *PAngle = new greatapi::Proportional(kPAngle, std::pair(__INT_MAX__, -__INT_MAX__));     
 greatapi::controlelement *IAngle = new greatapi::Integral(kIAngle, std::pair(4500, -4500));                        
-greatapi::controlelement *DAngle = new greatapi::Derivative(150000, std::pair(__INT_MAX__, -__INT_MAX__));       
+greatapi::controlelement *DAngle = new greatapi::Derivative(200000, std::pair(__INT_MAX__, -__INT_MAX__));       
 
 /**
  * function to be run in a task to move the robot the the target position
@@ -120,6 +120,8 @@ void position_control() {
  * \param errorStop DEGREES the function will stop the bot if the error is greater than the error threshold. IF 0, default is 2 degrees
  */
 void rotate(double angleDeg, double errorStop) {
+    PAngle->factor = 35000;
+    IAngle->factor = 0;
     
     translating = false;
     voltageCap = 10000;
@@ -140,6 +142,10 @@ void rotate(double angleDeg, double errorStop) {
         prevError = fabs(greatapi::findDiff(location.angle, targetPos.angle));
         pros::delay(50);
     }
+
+    PAngle->factor = kPAngle;
+    IAngle->factor = kIAngle;
+
     return;
 }
 

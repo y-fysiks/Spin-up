@@ -152,5 +152,5 @@ void initAuton(greatapi::SRAD startOrientation) {
 
     //targetPos = location;
 
-    //pros::delay(100);
+    pros::delay(10);
 }

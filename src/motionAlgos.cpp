@@ -7,26 +7,7 @@ purePursuit::Target* pptarget = new purePursuit::Target();
 
 purePursuit::Bot talos(pptarget);
 
-void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {
-    purePursuit::Node nodes[pathLen + 1];
-
-    
-    nodes[0].xPos = location.x;
-    nodes[0].yPos = location.y;
-
-    for (int i = 1; i <= pathLen; i++) {
-        nodes[i].xPos = coords[i - 1].first;
-        nodes[i].yPos = coords[i - 1].second;
-    }
-
-
-    std::pair<purePursuit::Node, purePursuit::Node> path[pathLen];
-    for (int i = 0; i < pathLen; i++) {
-        path[i].first = nodes[i];
-        path[i].second = nodes[i + 1];
-    }
-    
-    
+void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive, double maxVoltage, bool goHeading, bool reverseHeading, double distToStopBlock) {    
     
     if (goHeading) {
         if (reverseHeading) {
@@ -35,6 +16,22 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
             rotate(90 - (atan2(coords[0].second - location.y, coords[0].first - location.x)) / PI * 180.0, 0);
         }
     }
+    purePursuit::Node nodes[pathLen + 1];
+
+    nodes[0].xPos = (double) targetPos.x;
+    nodes[0].yPos = (double) targetPos.y;
+
+    for (int i = 1; i <= pathLen; i++) {
+        nodes[i].xPos = coords[i - 1].first;
+        nodes[i].yPos = coords[i - 1].second;
+    }
+
+    std::pair<purePursuit::Node, purePursuit::Node> path[pathLen];
+    for (int i = 0; i < pathLen; i++) {
+        path[i].first = nodes[i];
+        path[i].second = nodes[i + 1];
+    }
+
     reverseDrive = revDrive;
     voltageCap = maxVoltage;
     
@@ -43,9 +40,10 @@ void ptranslatevl(std::pair<double, double> coords[], int pathLen, bool revDrive
     if (distToStopBlock == 0) distToStopBlock = 1;
 
     std::pair<double, double> targetPair;
-    pptarget->newPath(location.x, location.y, path, pathLen);
+    talos.target->newPath(path, pathLen);
 
     pptarget->updatePosition();
+
     if (talos.btDist() > visionRadius) {
         pptarget->bind(talos.btDist());
     }

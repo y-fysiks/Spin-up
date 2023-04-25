@@ -5,27 +5,29 @@
 void leftStarter() {
     initAuton(greatapi::SRAD(0));
 
-    //pros::delay(100);
+    translatevl(0, 30, false, 6000, false, false, 0);
+
+    std::pair<double, double> path2[] = {std::make_pair(13, -1), std::make_pair(10, -27)};
+    ptranslatevl(path2, 2, true, 6000, true, true, 0);
+
+    pros::delay(100000);
 
     setFlywheelRPM(490);
 
-    pros::delay(100);
-    //intake.move(127);
-
     //roller
-    translate(0, -10, true, false, false);
+    //translate(0, -10, true, false, false);
     pros::delay(300);
     intake.move_relative(500, 600);
     pros::delay(400);
     intake.move(0);
     translate(0, 8, false, false, false, 0);
-    pros::delay(500);
+    //pros::delay(500);
 
     //shoot 2 discs
     rotate(360 - 9, 0);
     pros::delay(1300);
     //fastShoot();
-    shoot(2, 400);
+    shoot(2, 350);
 
     //set rpm for second volley
     setFlywheelRPM(462);
@@ -49,7 +51,7 @@ void leftStarter() {
     pros::delay(200);
     angler1Piston.set_value(false);
     pros::delay(300);
-    shoot(3, 350);
+    shoot(3, 300);
     angler1Piston.set_value(true);
 }
 
@@ -65,9 +67,9 @@ void redLeft() {
     //intake discs for third volley
     intake.move(127);
 
-    std::pair<double, double> path1[] = {std::make_pair(50, 44), std::make_pair(45, 10)};
+    std::pair<double, double> path1[] = {std::make_pair(47, 36), std::make_pair(44, 10)};
 
-    ptranslatevl(path1, 2, true, 7000, false, false, 0);
+    ptranslatevl(path1, 2, true, 6000, true, true, 0);
 
     translatevl(38, 38, false, 9000, false, false, 0);
 
@@ -84,6 +86,9 @@ void redLeft() {
 void redRight() {
     //red right
     initAuton(greatapi::SRAD(PI));
+
+    pros::delay(50);
+
     angler1Piston.set_value(true);
 
     setFlywheelRPM(480);

@@ -74,7 +74,7 @@ void autonomous() {
 	
 	// pros mu to upload
 	
-	selector::auton = 2;
+	selector::auton = 1;
 
 	if (selector::auton == 1) {
 		redLeft();
@@ -118,7 +118,7 @@ void opcontrol() {
 
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 370;
+	int flywheelSpeed = 360;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
@@ -167,14 +167,14 @@ void opcontrol() {
 			setFlywheelRPM(0);
 		}
 		
-		if (discFullSensor.get_value() < 2600) {
+		if (discFullSensor.get_value() < 2300) {
 			if (discFullTimer < 100000000) discFullTimer++;
 		} else {
 			discFullTimer = 0;
+			intakeReverse = false;
 			intakeOverride = false;
-			if (!intakeOverride) intakeReverse = false;
 		}
-		if (discFullTimer > 400 / 20) {
+		if (discFullTimer > 500 / 20) {
 			//if the disc reservoir is full, stop the intake
 			if (!intakeOverride) intakeReverse = true;
 		}
@@ -184,27 +184,23 @@ void opcontrol() {
 			if (!intakeState) intakeState = true;
 			else if (intakeState && !intakeReverse) intakeState = false;
 			intakeReverse = false;
-			if (discFullTimer > 400 / 20) {
+			if (discFullTimer > 500 / 20) {
 				intakeOverride = true;
 			}
 		}
 		if (master.get_digital(DIGITAL_L1)) {
-			intakeReverse = true;
+			intake.move(-127);
 		} else {
-			intakeReverse = false;
-		}
-
-		if (intakeState) {
-			if (intakeReverse) {
-				intake.move(-127);
+			if (intakeState) {
+				if (intakeReverse) {
+					intake.move(-127);
+				} else {
+					intake.move(127);
+				}
 			} else {
-				intake.move(127);
+				intake.move(0);
 			}
-		} else {
-			intake.move(0);
 		}
-
-		
 
 		//indexer control for shooting
 		if (master.get_digital(DIGITAL_R2)) {
