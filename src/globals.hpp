@@ -27,7 +27,7 @@
 #define rear_tracking_port 12
 // Odometry constants
 #define WHEEL_DIST_LR 5.6875
-#define XWHEEL_DIST_CENTER 0
+#define XWHEEL_DIST_CENTER 1.25
 #define wheelDiam 3.2
 
 #define powerFactor 1.5

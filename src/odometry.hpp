@@ -2,6 +2,21 @@
 #include "globals.hpp"
 #include "pros/colors.h"
 
+#ifndef ODOMETRY_HPP
+
+#define ODOMETRY_HPP
+
+#define kPAngle 18000
+#define kIAngle 7000
+
+inline greatapi::controlelement *PY = new greatapi::Proportional(1200, std::pair(__INT_MAX__, -__INT_MAX__));          
+inline greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(3000, -3000));                              
+inline greatapi::controlelement *DY = new greatapi::Derivative(1800, std::pair(__INT_MAX__, -__INT_MAX__));            
+
+inline greatapi::controlelement *PAngle = new greatapi::Proportional(kPAngle, std::pair(__INT_MAX__, -__INT_MAX__));     
+inline greatapi::controlelement *IAngle = new greatapi::Integral(kIAngle, std::pair(1000, -1000));                        
+inline greatapi::controlelement *DAngle = new greatapi::Derivative(320000, std::pair(__INT_MAX__, -__INT_MAX__));       
+
 /**
  * odometry function
  * 
@@ -52,3 +67,5 @@ void rtranslatevl(double x, double y, bool revDrive, double maxVoltage, bool goH
 
 void rtranslateDist(double dist, bool revDrive, double maxVoltage);
 void rtranslateDist(double dist, bool revDrive);
+
+#endif

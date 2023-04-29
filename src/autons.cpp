@@ -2,56 +2,102 @@
 #include "pros/rtos.hpp"
 #include <utility>
 
-void leftStarter() {
+void leftStarter8Disk() {
     initAuton(greatapi::SRAD(0));
 
-    translatevl(0, 30, false, 6000, false, false, 0);
-
-    std::pair<double, double> path2[] = {std::make_pair(13, -1), std::make_pair(10, -27)};
-    ptranslatevl(path2, 2, true, 6000, true, true, 0);
-
-    pros::delay(100000);
-
-    setFlywheelRPM(490);
+    setFlywheelRPM(550);
 
     //roller
-    //translate(0, -10, true, false, false);
+    translate(0, -10, true, false, false);
     pros::delay(300);
     intake.move_relative(500, 600);
     pros::delay(400);
     intake.move(0);
-    translate(0, 8, false, false, false, 0);
+    translate(0, 9, false, false, false, 0);
     //pros::delay(500);
 
     //shoot 2 discs
-    rotate(360 - 9, 0);
-    pros::delay(1300);
+    rotate(360 - 11.3, 0);
+    pros::delay(2500);
     //fastShoot();
-    shoot(2, 350);
+    shoot(2, 475);
 
     //set rpm for second volley
-    setFlywheelRPM(462);
+    setFlywheelRPM(522);
 
 
-    pros::delay(200);
+    //pros::delay(100);
 
     
     //intake discs for second volley
     angler1Piston.set_value(true);
     intake.move(127);
     //translatevl(43, 33, false, 9000, true, false, 46);
-    translatevl(34, 37, true, 4700, true, true, 0);
+    translatevl(34, 37, true, 7000, true, true, 0);
 
     //move back a bit
     //translate(30, 26, true, false, false, 0);
-    pros::delay(250);
+    //pros::delay(250);
 
     //second volley
-    rotate(360 - 32.5, 0);
+    rotate(360 - 37.2, 0);
+    //pros::delay(200);
+    angler1Piston.set_value(false);
+    pros::delay(350);
+    shoot(3, 428);
+    angler1Piston.set_value(true);
+}
+
+void leftStarter9Disk() {
+    initAuton(greatapi::SRAD(0));
+
+    setFlywheelRPM(508);
+    angler1Piston.set_value(true);
+
+    //roller
+    translate(0, -10, true, false, false);
+    pros::delay(300);
+    intake.move_relative(500, 600);
+    pros::delay(400);
+    intake.move(0);
+    translate(0, 5, false, false, false, 0);
+    intake.move(127);
+    translatevl(-8, 11, true, 8000, true, true, 0);
+    translate(2, 8, false, false, false, 0);
+
+
+    //pros::delay(500);
+
+    //shoot 2 discs
+    rotate(360 - 14, 0);
+    angler1Piston.set_value(false);
+    pros::delay(350);
+    //fastShoot();
+    shoot(3, 400);
+
+    //set rpm for second volley
+    setFlywheelRPM(469);
+
+
+    //pros::delay(100);
+
+    
+    //intake discs for second volley
+    angler1Piston.set_value(true);
+    intake.move(127);
+    //translatevl(43, 33, false, 9000, true, false, 46);
+    translatevl(34, 38, true, 8000, true, true, 0);
+
+    //move back a bit
+    //translate(30, 26, true, false, false, 0);
+    pros::delay(150);
+
+    //second volley
+    rotate(360 - 39.5, 0);
     pros::delay(200);
     angler1Piston.set_value(false);
-    pros::delay(300);
-    shoot(3, 300);
+    pros::delay(350);
+    shoot(3, 275);
     angler1Piston.set_value(true);
 }
 
@@ -59,26 +105,26 @@ void redLeft() {
     //red left
     //targetPos = redLStart;
     //location = redLStart;
-    leftStarter();
+    leftStarter8Disk();
 
     //set rpm for third volley
-    setFlywheelRPM(460);
+    //setFlywheelRPM(484);
 
     //intake discs for third volley
     intake.move(127);
 
-    std::pair<double, double> path1[] = {std::make_pair(47, 36), std::make_pair(44, 10)};
+    std::pair<double, double> path1[] = {std::make_pair(44.25, 35), std::make_pair(44.5, 5)};
 
-    ptranslatevl(path1, 2, true, 6000, true, true, 0);
+    ptranslatevl(path1, 2, true, 7000, true, true, 0);
 
-    translatevl(38, 38, false, 9000, false, false, 0);
+    translatevl(38, 38, false, 12000, false, false, 2);
 
     // intake.move(0);
     //third volley
     angler1Piston.set_value(false);
-    rotate(360 - 27, 0);
-    pros::delay(200);
-    shoot(3, 400);
+    rotate(360 - 39.9, 0);
+    pros::delay(350);
+    shoot(3, 425);
     angler1Piston.set_value(true);
 
 }
@@ -156,7 +202,7 @@ void blueRight() {
 }
 
 void soloAWP() {
-    leftStarter();
+    leftStarter8Disk();
 
     setFlywheelRPM(480);
     

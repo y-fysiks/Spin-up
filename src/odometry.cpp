@@ -23,16 +23,8 @@ void odometryLooper() {
     return;
 }
 
-#define kPAngle 16000
-#define kIAngle 17000
+// #define kIAngle 0
 
-greatapi::controlelement *PY = new greatapi::Proportional(1200, std::pair(__INT_MAX__, -__INT_MAX__));          
-greatapi::controlelement *IY = new greatapi::Integral(0, std::pair(3000, -3000));                              
-greatapi::controlelement *DY = new greatapi::Derivative(1800, std::pair(__INT_MAX__, -__INT_MAX__));            
-
-greatapi::controlelement *PAngle = new greatapi::Proportional(kPAngle, std::pair(__INT_MAX__, -__INT_MAX__));     
-greatapi::controlelement *IAngle = new greatapi::Integral(kIAngle, std::pair(4500, -4500));                        
-greatapi::controlelement *DAngle = new greatapi::Derivative(200000, std::pair(__INT_MAX__, -__INT_MAX__));       
 
 /**
  * function to be run in a task to move the robot the the target position
@@ -106,8 +98,12 @@ void position_control() {
             
         }
         
-        pros::screen::print(TEXT_SMALL, 4, "Angle target: %.2f X: %.2d Y: %.2d\n", targetPos.angle / PI * 180, targetPos.x, targetPos.y);
+        pros::screen::print(TEXT_SMALL, 4, "Angle target: %.2f X: %.2f Y: %.2f\n", targetPos.angle / PI * 180, targetPos.x, targetPos.y);
         pros::screen::print(TEXT_SMALL, 5, "Total error: %.2f\n", total_error);
+
+        // printf("Angle target: %.2f X: %.2f Y: %.2f\n", targetPos.angle / PI * 180, (double) targetPos.x, (double) targetPos.y);
+        // printf("Total error: %.2f\n", total_error);
+
         pros::delay(5);
     }
     return;
@@ -120,8 +116,9 @@ void position_control() {
  * \param errorStop DEGREES the function will stop the bot if the error is greater than the error threshold. IF 0, default is 2 degrees
  */
 void rotate(double angleDeg, double errorStop) {
-    PAngle->factor = 35000;
-    IAngle->factor = 0;
+    PAngle->factor = 32000;
+    //IAngle->factor = 0;
+    
     
     translating = false;
     voltageCap = 10000;
@@ -144,8 +141,7 @@ void rotate(double angleDeg, double errorStop) {
     }
 
     PAngle->factor = kPAngle;
-    IAngle->factor = kIAngle;
-
+    IAngle = new greatapi::Integral(kIAngle, std::pair(1000, -1000));           
     return;
 }
 

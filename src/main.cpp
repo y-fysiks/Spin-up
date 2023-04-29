@@ -10,6 +10,8 @@
 #include <string>
 #include <utility>
 
+bool expandLowerFW = false;
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -21,7 +23,8 @@ void initialize() {
 	angler1Piston.set_value(false);
 	selector::init();
 	imuRotation.Inertial.reset();
-	pros::delay(2100);
+	pros::delay(2200);
+	expandLowerFW = false;
 }
 
 /**
@@ -118,7 +121,7 @@ void opcontrol() {
 
 	int fbPower, turnPower;
 
-	int flywheelSpeed = 360;
+	int flywheelSpeed = 350;
 
 	//display current set flywheel rpm on controller
 	std::string speed = std::to_string(flywheelSpeed);
@@ -174,7 +177,7 @@ void opcontrol() {
 			intakeReverse = false;
 			intakeOverride = false;
 		}
-		if (discFullTimer > 500 / 20) {
+		if (discFullTimer > 300 / 20) {
 			//if the disc reservoir is full, stop the intake
 			if (!intakeOverride) intakeReverse = true;
 		}
@@ -257,7 +260,7 @@ void opcontrol() {
 		if ((master.get_digital(DIGITAL_Y) || master.get_digital(DIGITAL_RIGHT))) {
 			intake.move(-127);
 			angler1Piston.set_value(false);
-		} else if (master.get_digital(DIGITAL_B)) {
+		} else if (master.get_digital(DIGITAL_B) || expandLowerFW) {
 			angler1Piston.set_value(false);
 		} else {
 			angler1Piston.set_value(true);
@@ -266,6 +269,8 @@ void opcontrol() {
 		//expansion control
 		if ((master.get_digital(DIGITAL_Y) && master.get_digital(DIGITAL_RIGHT))) {
 			expansionPiston.set_value(true);
+			expandLowerFW = true;
+
 		} else {
 			expansionPiston.set_value(false);
 		}
